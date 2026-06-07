@@ -117,6 +117,14 @@ a {
   transform: scale(1.05);
 }
 
+.brand-wordmark {
+  display: block;
+  height: clamp(0.85rem, 2.4vw, 1.3rem);
+  width: auto;
+  max-width: 62vw;
+  filter: invert(1) brightness(1.25); /* match logo: black paths to cream on dark header */
+}
+
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -1492,5 +1500,243 @@ h2 {
 @media (max-width: 520px) {
   .advisory-field {
     flex-direction: column;
+  }
+}
+
+/* ===================================================================
+   FLAT EDITORIAL RESTYLE
+   Content lives on the page, not inside boxes. No cards, no badges,
+   no dashboard chrome. Structure comes from type, space, and hairlines.
+   =================================================================== */
+
+/* 1. Strip all card/panel chrome (beats inline styles via !important) */
+.stats-strip article,
+.offender-card,
+.grass-selector-box,
+.grass-profile,
+.ecoregion-card,
+.paradox-explorer,
+.paradox-side,
+.dep-card,
+.native-card,
+.native-art,
+.service-card,
+.trust-item,
+.contact-details,
+.contact-form,
+.advisory-panel,
+.eco-features span {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Remove box padding so content aligns to its column edge */
+.offender-card,
+.grass-selector-box,
+.paradox-explorer,
+.ecoregion-card,
+.dep-card,
+.service-card,
+.trust-item,
+.contact-details,
+.contact-form,
+.advisory-panel,
+.stats-strip article {
+  padding: 0 !important;
+}
+
+/* Hover lifts no longer make sense without cards */
+.ecoregion-card:hover,
+.service-card:hover,
+.native-card:hover,
+.stats-strip article:hover,
+.dep-card:hover {
+  transform: none !important;
+}
+
+/* 2. Editorial rhythm: more air, hairline section dividers */
+.section {
+  padding: 7rem 0;
+  border-top: 1px solid var(--card-border);
+}
+
+.section-heading {
+  margin-bottom: 4rem;
+  max-width: 760px;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+}
+
+.eyebrow {
+  color: var(--gold);
+}
+
+/* 3. Quiet labels instead of colored badge pills */
+.eco-badge,
+.advisory-tag,
+.offender-tag {
+  display: inline-block !important;
+  padding: 0 !important;
+  margin-bottom: 1rem !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+}
+.eco-badge.prairie { color: var(--green) !important; }
+.eco-badge.piney { color: var(--gold) !important; }
+.eco-badge.bayou { color: var(--blue) !important; }
+.advisory-tag { color: var(--gold) !important; }
+
+/* 4. Grids become ruled rows, not boxes */
+.stats-strip {
+  gap: 0;
+  border-top: 1px solid var(--card-border);
+}
+.stats-strip article,
+.ecoregion-card,
+.service-card,
+.trust-item,
+.dep-card {
+  border-top: 1px solid var(--card-border) !important;
+  padding: 2rem 1.75rem 0 0 !important;
+}
+.stats-strip article:first-child { border-top: none !important; }
+
+/* keep the big numerals understated */
+.stat {
+  font-size: 2.4rem;
+  color: var(--green);
+}
+
+/* 5. Offender + ecoregion + dependency sit as plain text columns */
+.offender-header h3 {
+  font-size: 1.6rem;
+}
+.eco-features {
+  margin-top: 1.25rem;
+}
+.eco-features span {
+  padding: 0.6rem 0 !important;
+  border-top: 1px solid var(--card-border);
+  border-left: none !important;
+  color: var(--muted);
+}
+
+/* 6. Cultural-practices explorer: flat tabs, no pill fills */
+.paradox-tabs {
+  gap: 1.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+.tab-btn {
+  padding: 0 0 0.75rem !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+.tab-btn.active {
+  color: var(--text) !important;
+  background: transparent !important;
+  border-bottom-color: var(--green) !important;
+}
+.paradox-grid {
+  gap: 2.5rem;
+}
+.paradox-side {
+  padding: 0 !important;
+}
+
+/* 7. Native showcase: illustration over a hairline, text below */
+.native-showcase {
+  gap: 2.5rem;
+}
+.native-card {
+  border-top: 1px solid var(--card-border) !important;
+}
+.native-art {
+  height: 11rem;
+  border-bottom: none !important;
+}
+.native-card-content {
+  padding: 1.25rem 0 0 !important;
+}
+
+/* 8. Grass / symptom selector: clickable but flat */
+.grass-card {
+  background: transparent !important;
+  border: 1px solid var(--card-border) !important;
+  padding: 1rem !important;
+}
+.grass-card:hover,
+.grass-card.active {
+  background: transparent !important;
+  border-color: var(--green) !important;
+  transform: none !important;
+}
+.grass-profile {
+  padding: 1.5rem 0 0 !important;
+  border-top: 1px solid var(--card-border) !important;
+  border-left: none !important;
+}
+
+/* 9. Forms: underlined fields, no boxes */
+.form-group input,
+.contact-form .form-group select,
+.contact-form .form-group textarea,
+.advisory-field input {
+  border: none !important;
+  border-bottom: 1px solid var(--card-border) !important;
+  background: transparent !important;
+  padding: 0.7rem 0 !important;
+}
+.form-group input:focus,
+.contact-form .form-group select:focus,
+.contact-form .form-group textarea:focus,
+.advisory-field input:focus {
+  border-bottom-color: var(--green) !important;
+  box-shadow: none !important;
+}
+
+/* 10. Buttons: one quiet solid CTA, ghost becomes a text link */
+.button.ghost {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--green) !important;
+  padding: 0.4rem 0 !important;
+  min-height: auto !important;
+  color: var(--text) !important;
+}
+.button.ghost:hover {
+  background: transparent !important;
+  color: var(--green) !important;
+}
+
+/* 11. Footer: flatten, align to baseline grid */
+.footer-col .button {
+  padding-inline: 1.3rem !important;
+}
+
+/* 12. Danger/advisory lists read as plain prose lists */
+.danger-list li,
+.advisory-list li {
+  padding-left: 1.25rem;
+}
+
+/* Responsive: keep ruled rows readable when stacked */
+@media (max-width: 1024px) {
+  .stats-strip article,
+  .ecoregion-card,
+  .service-card,
+  .trust-item,
+  .dep-card {
+    padding-right: 0 !important;
   }
 }
