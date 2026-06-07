@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>South East Stump Jumpers - Southeast Texas Prairie Sponge & Ecological Lawn Reform Guide</title>
+    <meta
+      name="description"
+      content="An interactive guide to Southeast Texas ecosystems, how Saint Augustine lawns exhaust soil micronutrients and cause downstream algal blooms, and how normal cultural practices backfire on homeowners."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Return to top">
+        <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+        <span>South East Stump Jumpers</span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="index.html" class="active">Lawn Reform</a>
+        <a href="invasives.html">Invasive Trees</a>
+        <a href="tree-health.html">Tree Health & Termites</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Southeast Texas • Prairies, Bayous, and Subdivisions</p>
+          <h1>When a lawn becomes a monoculture, the ecosystem pays rent.</h1>
+          <p class="hero-lede">
+            Homeowners spend thousands of dollars and sweat hours to maintain Saint Augustine lawns—an artificial, shallow-rooted beach grass that starves local food chains, flushes soil micronutrients, and fuels toxic algal blooms down in the Gulf. Discover how working *with* our native ecoregions saves labor, prevents floods, and stops pests naturally.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#calculator">Launch Rebellion Calculator</a>
+            <a class="button ghost" href="#st-augustine">Analyze St. Augustine</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" id="heroVisual" aria-label="Interactive comparison of lawn roots vs native roots">
+          <button class="storm-btn" id="stormBtn" aria-label="Simulate Gulf storm downpour">
+            <span class="btn-icon">⚡</span> <span id="stormBtnText">Trigger Gulf Downpour</span>
+          </button>
+          
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud cloud-one"></div>
+            <div class="cloud cloud-two"></div>
+            <div class="rain-overlay" id="rainOverlay"></div>
+          </div>
+          
+          <div class="grass-stage">
+            <div class="grass-side turf">
+              <span class="label">Turf Monoculture</span>
+              <div class="blades turf-blades">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <div class="soil-layer turf-soil">
+                <!-- Shallow roots - highly expanded -->
+                <span class="root short"></span>
+                <span class="root tiny"></span>
+                <span class="root short"></span>
+                <span class="root tiny"></span>
+                <span class="root short"></span>
+                <span class="root tiny"></span>
+                <span class="root short"></span>
+                <span class="root tiny"></span>
+                <span class="root short"></span>
+                <span class="root tiny"></span>
+                <!-- Soil compaction visual -->
+                <div class="soil-compaction">Compacted Clay (Hardscape)</div>
+                <!-- Runoff water drops - staggered flow -->
+                <div class="water-drop runoff-drop rd1"></div>
+                <div class="water-drop runoff-drop rd2"></div>
+                <div class="water-drop runoff-drop rd3"></div>
+                <div class="water-drop runoff-drop rd4"></div>
+                <div class="water-drop runoff-drop rd5"></div>
+                <div class="water-drop runoff-drop rd6"></div>
+                <!-- Interactive flooding layer -->
+                <div class="water-pool" id="waterPool"></div>
+                <div class="runoff-stream" id="runoffStream"></div>
+                <div class="storm-alert" id="stormAlert">Bayou Flood Hazard!</div>
+              </div>
+            </div>
+            <div class="grass-side native">
+              <span class="label">Native Tallgrass</span>
+              <div class="blades native-blades">
+                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              </div>
+              <div class="soil-layer native-soil">
+                <!-- Deep roots - highly expanded network -->
+                <span class="root deep"></span>
+                <span class="root deeper"></span>
+                <span class="root deep"></span>
+                <span class="root deepest"></span>
+                <span class="root deeper"></span>
+                <span class="root web"></span>
+                <span class="root deep"></span>
+                <span class="root deepest"></span>
+                <span class="root deeper"></span>
+                <span class="root web"></span>
+                <span class="root deep"></span>
+                <!-- Microbes and porous soil visual -->
+                <div class="soil-porous">Porous Organic Sponge</div>
+                <!-- Infiltration water drops - staggered flow -->
+                <div class="water-drop absorb-drop ad1"></div>
+                <div class="water-drop absorb-drop ad2"></div>
+                <div class="water-drop absorb-drop ad3"></div>
+                <div class="water-drop absorb-drop ad4"></div>
+                <div class="water-drop absorb-drop ad5"></div>
+                <div class="water-drop absorb-drop ad6"></div>
+                <!-- Glowing soil biology elements -->
+                <div class="microbe m1"></div>
+                <div class="microbe m2"></div>
+                <div class="microbe m3"></div>
+                <div class="myco-network"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS STRIP -->
+      <section class="stats-strip reveal" aria-label="Key Ecological Metrics">
+        <article>
+          <span class="stat">9.0 in/hr</span>
+          <h3>Prairie Sponge Capacity</h3>
+          <p>Undisturbed native coastal prairie soil can absorb up to 9 inches of rainfall per hour, functioning as crucial regional flood defense.</p>
+        </article>
+        <article>
+          <span class="stat">0.5 in/hr</span>
+          <h3>Turf Compaction Shed</h3>
+          <p>Compacted Saint Augustine clay lawns shed heavy rainfall like concrete, magnifying street pooling and bayou erosion downstream.</p>
+        </article>
+        <article>
+          <span class="stat">90% Less</span>
+          <h3>Food Chain Dead Zone</h3>
+          <p>Lawn monocultures support 90% fewer caterpillar species than native plants, starving birds and disrupting the local food web.</p>
+        </article>
+      </section>
+
+      <!-- SECTION 1: THE OFFENDER SPOTLIGHT -->
+      <section class="section" id="st-augustine">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Primary Culprit</p>
+          <h2>Saint Augustine Grass & The Micro-Nutrient Flush</h2>
+          <p>
+            Introduced from tropical sandy beach ridges, Saint Augustine grass (<em>Stenotaphrum secundatum</em>) was never meant for the dense clay soils of Southeast Texas. Its maintenance creates severe, hidden environmental problems.
+          </p>
+        </div>
+
+        <div class="offender-container reveal">
+          <div class="offender-card">
+            <div class="offender-header">
+              <span class="offender-tag">High Danger</span>
+              <h3>St. Augustine Sod</h3>
+            </div>
+            <div class="offender-body">
+              <ul class="danger-list">
+                <li>
+                  <strong>Trace Mineral Depletion:</strong> St. Augustine requires massive watering (1 inch+ per week). On local loams and clays, this constant irrigation flushes essential water-soluble trace minerals (iron, zinc, magnesium, boron) deep past the shallow root zone, starving the soil biology.
+                </li>
+                <li>
+                  <strong>Downstream Algal Blooms:</strong> Because the grass has shallow roots and sits on compacted soil, excess nitrogen/phosphorus fertilizers wash directly into bayous (like Buffalo and Cypress Bayous), flowing into the Gulf of Mexico. This fuels massive algal blooms, depleting dissolved oxygen and creating marine "dead zones" and toxic red tides.
+                </li>
+                <li>
+                  <strong>Shallow Soil Anchoring:</strong> The root system is stoloniferous and rarely penetrates more than 2 to 4 inches into heavy Texas clay. It provides zero bank stabilization, leading to erosion and soil slumping.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="grass-selector-box">
+            <h3>Compare Other Invasive & High-Input Lawn Grasses:</h3>
+            <div class="grass-grid">
+              <button class="grass-card active" data-grass="bermuda">
+                <span class="card-kicker">Cynodon dactylon</span>
+                <strong>Bermudagrass</strong>
+                <small>Stoloniferous Spreader</small>
+              </button>
+              <button class="grass-card" data-grass="torpedo">
+                <span class="card-kicker">Panicum repens</span>
+                <strong>Torpedograss</strong>
+                <small>Riparian Wetland Invader</small>
+              </button>
+              <button class="grass-card" data-grass="johnson">
+                <span class="card-kicker">Sorghum halepense</span>
+                <strong>Johnsongrass</strong>
+                <small>Heavy Seed Spreader</small>
+              </button>
+              <button class="grass-card" data-grass="bahia">
+                <span class="card-kicker">Paspalum notatum</span>
+                <strong>Bahiagrass</strong>
+                <small>Pasture Runaway</small>
+              </button>
+            </div>
+            <article class="grass-profile" id="grassProfile" aria-live="polite"></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: SOUTHEAST TEXAS ECOSYSTEMS -->
+      <section class="section" id="ecoregions">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Local Ecoregions</p>
+          <h2>The Natural Architecture of Southeast Texas</h2>
+          <p>
+            Understanding our region is the first step to working with it. Southeast Texas is a rich convergence zone of three distinct ecological systems.
+          </p>
+        </div>
+
+        <div class="ecoregions-grid reveal">
+          <div class="ecoregion-card">
+            <div class="eco-badge prairie">Coastal Prairie</div>
+            <h3>Gulf Coast Saline & Clay Prairie</h3>
+            <p>
+              A fire-adapted grassland system defined by heavy vertisol clay soils. Dominated by tall grasses and deep roots that act as flood sponges, absorbing rainfall and filtering sediment before it reaches waterways.
+            </p>
+            <div class="eco-features">
+              <span>Keystone: Little Bluestem</span>
+              <span>Soil: Heavy Black Clay</span>
+              <span>Rain Capacity: High</span>
+            </div>
+          </div>
+          <div class="ecoregion-card">
+            <div class="eco-badge piney">Piney Woods</div>
+            <h3>Pine-Hardwood Forest Transition</h3>
+            <p>
+              Located in northern parts of Southeast Texas, featuring acidic, sandy loams. The vegetation consists of soaring Loblolly pines, oaks, and a shaded understory of shade-tolerant grasses and sedges.
+            </p>
+            <div class="eco-features">
+              <span>Keystone: Inland Sea Oats</span>
+              <span>Soil: Acidic Sandy Loam</span>
+              <span>Rain Capacity: Moderate</span>
+            </div>
+          </div>
+          <div class="ecoregion-card">
+            <div class="eco-badge bayou">Riparian Bayous</div>
+            <h3>Riparian Floodplain Wetlands</h3>
+            <p>
+              The sluggish bayous, creeks, and rivers that slowly drain the region. Stabilized by dense root masses of native sedges, rushes, and moisture-loving grasses that hold wet mud together during rising waters.
+            </p>
+            <div class="eco-features">
+              <span>Keystone: Eastern Gamagrass</span>
+              <span>Soil: Alluvial Silt & Mud</span>
+              <span>Rain Capacity: Extreme</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: CULTURAL PARADOX -->
+      <section class="section" id="paradox">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Domestication Paradox</p>
+          <h2>Harmful Normal Cultural Practices & Feedback Loops</h2>
+          <p>
+            Many standard yard care routines that society considers "normal" or "neat" actively sabotage the homeowner, causing the very problems they spend money trying to fix.
+          </p>
+        </div>
+
+        <div class="paradox-explorer reveal">
+          <div class="paradox-tabs" role="tablist" aria-label="Cultural Paradoxes">
+            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="predators">The Predator Vacuum</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="leaves">Leaf & Clipping Bagging</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="chemicals">The Chemical Squeeze</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="ivy">Invasive Ivy & Privet</button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="mowing">Scalping & Short Mowing</button>
+          </div>
+
+          <div class="paradox-content" id="paradoxContent" aria-live="polite">
+            <!-- Content dynamic loaded via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: THE CHEMICAL TRAP & GASLIGHTING -->
+      <section class="section" id="dependency">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Industrial Gaslighting</p>
+          <h2>The Chemical Dependency Loop</h2>
+          <p>
+            Why isn't this information common knowledge? Because a healthy, self-sustaining native ecosystem doesn't require recurring purchases. Chemical conglomerates profit from keeping your lawn "addicted."
+          </p>
+        </div>
+
+        <div class="dependency-grid reveal">
+          <div class="dep-card step-1">
+            <div class="dep-num">01</div>
+            <h3>Synthetic Nitrogen Push</h3>
+            <p>
+              Conglomerates market high-nitrogen fertilizer. This forces rapid, watery top-growth in St. Augustine, which looks bright green but has weak cell walls and virtually no root growth.
+            </p>
+          </div>
+          <div class="dep-card step-2">
+            <div class="dep-num">02</div>
+            <h3>The Insect Invitation</h3>
+            <p>
+              Sap-sucking pests (like chinch bugs and sod webworms) are magnetically drawn to this weak, nitrogen-rich tissue. They easily digest the thin cell walls and multiply.
+            </p>
+          </div>
+          <div class="dep-card step-3">
+            <div class="dep-num">03</div>
+            <h3>Broad-Spectrum Spray</h3>
+            <p>
+              The industry sells you synthetic pesticides. This kills the chinch bugs but also wipes out the spiders, ladybugs, and predatory mites that kept them in check. The soil life dies.
+            </p>
+          </div>
+          <div class="dep-card step-4">
+            <div class="dep-num">04</div>
+            <h3>Fungal Infections Bloom</h3>
+            <p>
+              Sterilized, biologically dead soil cannot resist root rot pathogens. In the hot Southeast Texas humidity, Large Patch or Take-All Patch fungus attacks the weakened roots.
+            </p>
+          </div>
+          <div class="dep-card step-5">
+            <div class="dep-num">05</div>
+            <h3>Fungicides & Soil Starvation</h3>
+            <p>
+              The industry sells you synthetic fungicides. This kills the harmful fungus but also destroys beneficial mycorrhizal fungi. Now the roots cannot absorb micronutrients or phosphorus.
+            </p>
+          </div>
+          <div class="dep-card step-6">
+            <div class="dep-num">06</div>
+            <h3>Yellowing (Chlorosis) & Repeat</h3>
+            <p>
+              Without soil biology to deliver iron and trace minerals, the grass turns yellow. The solution sold? Apply more synthetic nitrogen and iron chelates. The cycle resets, draining your wallet.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: IMPACT LAB (SLIDER SIMULATOR) -->
+      <section class="section lab" id="impact-lab">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Interactive Impact Lab</p>
+          <h2>Slide from Turf Monoculture to Native Sponge</h2>
+          <p>Watch how the ecological variables shift as you swap non-native lawns for native ecosystems in Southeast Texas.</p>
+        </div>
+
+        <div class="lab-panel reveal">
+          <div class="slider-container">
+            <label for="nativeSlider">
+              Native Grass and Wildflower Coverage
+              <span id="nativePercent">50%</span>
+            </label>
+            <input id="nativeSlider" type="range" min="0" max="100" value="50" />
+          </div>
+
+          <div class="meter-grid" aria-live="polite">
+            <div class="meter">
+              <span>Habitat Value (Insects, Birds, Pollinators)</span>
+              <div class="meter-track"><i id="habitatMeter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Stormwater Absorption (Flood Defense)</span>
+              <div class="meter-track"><i id="waterMeter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Soil Biology & Micronutrient Retention</span>
+              <div class="meter-track"><i id="erosionMeter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Labor & Chemical Input Demands</span>
+              <div class="meter-track warning"><i id="mowMeter"></i></div>
+            </div>
+          </div>
+
+          <p id="labNarrative" class="lab-narrative"></p>
+        </div>
+      </section>
+
+      <!-- SECTION 6: COST & ECOLOGICAL IMPACT CALCULATOR -->
+      <section class="section" id="calculator">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Calculate Your Impact</p>
+          <h2>The Lawn Rebellion Calculator</h2>
+          <p>
+            Input your current yard specs to calculate your personal annual contribution to local water waste, chemical runoff, expenses, and pest vulnerability.
+          </p>
+        </div>
+
+        <div class="calc-container reveal">
+          <form class="calc-inputs" id="calcForm">
+            <div class="form-group">
+              <label for="calcArea">Lawn Area (approximate square feet):</label>
+              <input type="number" id="calcArea" value="5000" min="100" max="100000" step="100" />
+              <small>Average suburban yard is 5,000 - 8,000 sq ft.</small>
+            </div>
+            <div class="form-group">
+              <label for="calcWater">Watering Frequency (minutes per week in summer):</label>
+              <input type="number" id="calcWater" value="60" min="0" max="300" step="10" />
+              <small>Usually three 20-minute sessions per week.</small>
+            </div>
+            <div class="form-group">
+              <label for="calcCost">Annual Chemical & Lawn Service Costs ($):</label>
+              <input type="number" id="calcCost" value="800" min="0" max="10000" step="50" />
+              <small>Include fertilizers, weed-killers, pest control, and fuel or services.</small>
+            </div>
+            <div class="form-group">
+              <label for="calcMowing">Mowing Time (hours per week):</label>
+              <input type="number" id="calcMowing" value="1.5" min="0" max="10" step="0.5" />
+              <small>Time spent prep, mowing, trimming, and blowing clippings.</small>
+            </div>
+          </form>
+
+          <div class="calc-outputs" aria-live="polite">
+            <h3>Your Annual Turf Footprint</h3>
+            <div class="output-grid">
+              <div class="output-card">
+                <span class="output-label">Clean Water Expended</span>
+                <strong class="output-val" id="outWater">0 gal</strong>
+                <p class="output-desc">Enough to supply one human's drinking water needs for 15+ years.</p>
+              </div>
+              <div class="output-card">
+                <span class="output-label">Direct Financial Drain</span>
+                <strong class="output-val" id="outCost">$0</strong>
+                <p class="output-desc">Money spent on fertilizers, pesticides, fungicides, and sod replacement.</p>
+              </div>
+              <div class="output-card">
+                <span class="output-label">Time Spent Fighting Nature</span>
+                <strong class="output-val" id="outLabor">0 hours</strong>
+                <p class="output-desc">Hours of weekend labor that could be spent resting or watching birds.</p>
+              </div>
+              <div class="output-card">
+                <span class="output-label">Downstream Runoff Risk</span>
+                <strong class="output-val warning" id="outToxicity">Extreme</strong>
+                <p class="output-desc">Estimated volume of nitrogen-rich water washing into local bayous.</p>
+              </div>
+              <div class="output-card full-width">
+                <span class="output-label">Pest Infestation Vulnerability</span>
+                <strong class="output-val warning" id="outPestRisk">High Risk</strong>
+                <p class="output-desc" id="outPestDetail">Because broad-spectrum pesticides wipe out natural predators, you are highly susceptible to sudden spikes in mosquitoes, roaches, and rodents.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 7: NATIVE SHOWCASE -->
+      <section class="section" id="natives">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Native Alternatives</p>
+          <h2>Architecture, Beauty, and Flood-Sponge Infrastructure</h2>
+          <p>
+            A native grass planting isn't messy; it is high-design landscaping. These species hold clay, survive droughts, slow down stormwater, and host the foundation of our food chain.
+          </p>
+        </div>
+
+        <div class="native-showcase reveal">
+          <article class="native-card">
+            <div class="native-art little-bluestem">
+              <svg class="plant-svg bluestem-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <g class="sway-group-1">
+                  <path d="M 20 115 Q 18 60 10 20" stroke="#b86237" stroke-width="1.2" fill="none" />
+                  <path d="M 35 115 Q 38 70 30 30" stroke="#a77a42" stroke-width="1.2" fill="none" />
+                  <path d="M 50 115 Q 46 50 40 10" stroke="#b86237" stroke-width="1.5" fill="none" />
+                  <path d="M 65 115 Q 62 65 52 25" stroke="#a77a42" stroke-width="1.2" fill="none" />
+                  <path d="M 80 115 Q 85 75 75 35" stroke="#b86237" stroke-width="1.2" fill="none" />
+                </g>
+                <g class="sway-group-2">
+                  <path d="M 28 115 Q 25 50 18 15" stroke="#ecc062" stroke-width="1" fill="none" />
+                  <path d="M 42 115 Q 45 60 38 22" stroke="#ecd4ab" stroke-width="1.2" fill="none" />
+                  <path d="M 58 115 Q 60 55 55 18" stroke="#ecc062" stroke-width="1.2" fill="none" />
+                  <path d="M 72 115 Q 70 60 62 20" stroke="#ecd4ab" stroke-width="1" fill="none" />
+                </g>
+                <g class="sway-group-1">
+                  <circle cx="12" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="10" cy="20" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="14" cy="40" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="32" cy="40" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="30" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="41" cy="20" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="40" cy="10" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="43" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="53" cy="35" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="52" cy="25" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="76" cy="45" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                  <circle cx="75" cy="35" r="1.5" fill="#f4f6f3" opacity="0.9" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <h3>Little Bluestem</h3>
+              <p class="botanical">Schizachyrium scoparium</p>
+              <p>Clump-forming prairie grass with blue-green summer blades and coppery-orange winter coloration. Root depth: 6–9 feet. Provides structure and food for specialist butterflies and nesting cover for birds.</p>
+            </div>
+          </article>
+          <article class="native-card">
+            <div class="native-art gulf-muhly">
+              <svg class="plant-svg muhly-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <g class="sway-group-1">
+                  <path d="M 30 115 Q 20 85 10 60" stroke="#1b3d22" stroke-width="1" fill="none" />
+                  <path d="M 40 115 Q 35 90 22 65" stroke="#1b3d22" stroke-width="1" fill="none" />
+                  <path d="M 50 115 Q 50 80 50 55" stroke="#2e593a" stroke-width="1" fill="none" />
+                  <path d="M 60 115 Q 65 90 78 65" stroke="#1b3d22" stroke-width="1" fill="none" />
+                  <path d="M 70 115 Q 80 85 90 60" stroke="#1b3d22" stroke-width="1" fill="none" />
+                </g>
+                <g class="muhly-mist-group">
+                  <ellipse cx="50" cy="40" rx="35" ry="22" fill="rgba(240, 139, 135, 0.15)" filter="blur(6px)" />
+                  <ellipse cx="45" cy="35" rx="20" ry="12" fill="rgba(193, 84, 219, 0.12)" filter="blur(5px)" />
+                  <path d="M 30 115 Q 35 60 25 25" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
+                  <path d="M 42 115 Q 45 50 40 18" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="2 1" fill="none" />
+                  <path d="M 50 115 Q 50 45 60 20" stroke="#c154db" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
+                  <path d="M 58 115 Q 55 55 75 22" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="2 1" fill="none" />
+                  <path d="M 70 115 Q 65 65 85 28" stroke="#c154db" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <h3>Gulf Muhly</h3>
+              <p class="botanical">Muhlenbergia capillaris</p>
+              <p>Stunning pink-purple airy seed plumes in the fall. Highly prized for high-end curb appeal, drought-hardiness, and structural nesting support for predatory insects.</p>
+            </div>
+          </article>
+          <article class="native-card">
+            <div class="native-art switchgrass">
+              <svg class="plant-svg switchgrass-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <g class="sway-group-1">
+                  <path d="M 35 115 L 42 45" stroke="#2e593a" stroke-width="1.8" fill="none" />
+                  <path d="M 50 115 L 50 35" stroke="#22442b" stroke-width="2.2" fill="none" />
+                  <path d="M 65 115 L 58 45" stroke="#2e593a" stroke-width="1.8" fill="none" />
+                  <path d="M 39 80 Q 20 75 10 82" stroke="#2e593a" stroke-width="1.2" fill="none" />
+                  <path d="M 46 65 Q 25 60 15 70" stroke="#2e593a" stroke-width="1.2" fill="none" />
+                  <path d="M 61 80 Q 80 75 90 82" stroke="#2e593a" stroke-width="1.2" fill="none" />
+                  <path d="M 54 65 Q 75 60 85 70" stroke="#2e593a" stroke-width="1.2" fill="none" />
+                </g>
+                <g class="sway-group-2">
+                  <path d="M 42 45 Q 35 30 25 22" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <path d="M 42 45 Q 45 28 42 15" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <path d="M 42 45 Q 50 32 58 24" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <path d="M 50 35 Q 40 20 32 10" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <path d="M 50 35 Q 52 18 50 8" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <path d="M 50 35 Q 60 22 68 12" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                  <circle cx="25" cy="22" r="1" fill="#ecc062" />
+                  <circle cx="32" cy="15" r="1" fill="#ecc062" />
+                  <circle cx="42" cy="15" r="1" fill="#ecc062" />
+                  <circle cx="58" cy="24" r="1" fill="#ecc062" />
+                  <circle cx="32" cy="10" r="1" fill="#ecc062" />
+                  <circle cx="42" cy="8" r="1" fill="#ecc062" />
+                  <circle cx="50" cy="8" r="1" fill="#ecc062" />
+                  <circle cx="60" cy="8" r="1" fill="#ecc062" />
+                  <circle cx="68" cy="12" r="1" fill="#ecc062" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <h3>Switchgrass</h3>
+              <p class="botanical">Panicum virgatum</p>
+              <p>Soaring, architectural screen grass with delicate panicled seed heads. Root depth: 10–12 feet. Provides extreme flood absorption, heavy seed crops for birds, and dense cover.</p>
+            </div>
+          </article>
+          <article class="native-card">
+            <div class="native-art inland-sea-oats">
+              <svg class="plant-svg sea-oats-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <g class="sway-group-1">
+                  <path d="M 30 115 Q 35 60 55 35" stroke="#548b54" stroke-width="1.2" fill="none" />
+                  <path d="M 45 115 Q 50 50 80 32" stroke="#548b54" stroke-width="1.5" fill="none" />
+                </g>
+                <g class="oats-dangle-group-1">
+                  <g class="dangle-oat" style="transform-origin: 55px 35px;">
+                    <path d="M 55 35 Q 52 45 50 55" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                    <path d="M 50 55 L 47 50 L 50 48 L 53 50 Z" fill="#a7e084" />
+                    <path d="M 52 48 L 49 43 L 52 41 L 55 43 Z" fill="#a7e084" />
+                  </g>
+                </g>
+                <g class="oats-dangle-group-2">
+                  <g class="dangle-oat" style="transform-origin: 80px 32px;">
+                    <path d="M 80 32 Q 78 45 74 58" stroke="#ecc062" stroke-width="0.8" fill="none" />
+                    <path d="M 74 58 L 70 54 L 74 51 L 78 54 Z" fill="#ecc062" />
+                    <path d="M 76 51 L 72 46 L 76 43 L 80 46 Z" fill="#ecc062" />
+                    <path d="M 78 43 L 74 38 L 78 35 L 82 38 Z" fill="#ecc062" />
+                  </g>
+                </g>
+                <g class="sway-group-2">
+                  <path d="M 33 90 Q 20 80 8 85" stroke="#548b54" stroke-width="1.2" fill="none" />
+                  <path d="M 38 75 Q 25 65 15 72" stroke="#548b54" stroke-width="1.2" fill="none" />
+                  <path d="M 48 85 Q 65 80 75 88" stroke="#548b54" stroke-width="1.2" fill="none" />
+                  <path d="M 52 70 Q 70 65 82 72" stroke="#548b54" stroke-width="1.2" fill="none" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <h3>Inland Sea Oats</h3>
+              <p class="botanical">Chasmanthium latifolium</p>
+              <p>Graceful, drooping chevron-like seed heads that resemble oats hanging over water. Extremely shade-tolerant; ideal for Piney Woods edges, damp corners, and bayou banks.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 8: ACTION PLAN -->
+      <section class="section timeline-section" id="action-plan">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Action Plan</p>
+          <h2>How to Dethrone the Lawn Step-by-Step</h2>
+          <p>Transitioning away from a turf monoculture doesn't mean your yard has to look like an abandoned lot. Use design cues to keep the neighborhood happy while you restore the sponge.</p>
+        </div>
+
+        <ol class="timeline reveal">
+          <li>
+            <span>1</span>
+            <div>
+              <h3>Start with Strategic Zones</h3>
+              <p>Never try to scrape your whole yard at once. Pick a wet drainage ditch, a sunny back fence line, a dry corner, or an area that struggles with St. Augustine die-off. Convert this zone first.</p>
+            </div>
+          </li>
+          <li>
+            <span>2</span>
+            <div>
+              <h3>Solarize or Sheet Mulch</h3>
+              <p>Instead of spraying glyphosate, lay down thick cardboard overlapping by 6 inches, and cover it with 4 inches of native shredded hardwood mulch. This smothers runners, seeds, and St. Augustine stolons without sterilizing the soil biology.</p>
+            </div>
+          </li>
+          <li>
+            <span>3</span>
+            <div>
+              <h3>Plant in Dense Layers</h3>
+              <p>Combine native grasses with native sedges and pioneer wildflowers (like Purple Coneflower, Blue Mistflower, and Gulf Coast Penstemon). Planting densely mimics native prairie structures, blocking out opportunistic weeds naturally.</p>
+            </div>
+          </li>
+          <li>
+            <span>4</span>
+            <div>
+              <h3>Establish Design Cues</h3>
+              <p>Make your native garden look highly intentional. Frame it with clean, mowed borders, neat wooden or steel edging, stone paths, or repeated drifts. Add a bird bath or a "Native Plant Habitat" sign. If it reads as "designed," HOAs and neighbors will celebrate it.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- SECTION 9: INTERACTIVE ECOLOGICAL QUIZ -->
+      <section class="section quiz-section" id="quiz">
+        <div class="quiz-card reveal">
+          <p class="eyebrow">Test Your Ecological Wisdom</p>
+          <h2>The Southeast Texas Lawn Mythology Quiz</h2>
+          
+          <div class="quiz-container">
+            <div id="quiz-question-box">
+              <!-- Dynamically populated via JS -->
+            </div>
+            
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="quizProgressFill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+          <strong>South East Stump Jumpers</strong>
+        </div>
+        <p>
+          Built for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
+        </p>
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. Information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
+      </div>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

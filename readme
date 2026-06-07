@@ -1,0 +1,7 @@
+Static educational webpage about Southeast Texas invasive lawn grasses and native alternatives.
+
+Open `index.html` in a browser, or run:
+
+```bash
+python3 -m http.server 8000
+```

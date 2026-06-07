@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>South East Stump Jumpers - Southeast Texas Invasive Trees & Understory Reform Guide</title>
+    <meta
+      name="description"
+      content="An interactive guide to invasive tree species in Southeast Texas, including Chinese Tallow, Chinese Privet, and Camphor tree. Learn about their ecological impact and how to restore your local understory."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Return to index">
+        <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+        <span>South East Stump Jumpers</span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="index.html">Lawn Reform</a>
+        <a href="invasives.html" class="active">Invasive Trees</a>
+        <a href="tree-health.html">Tree Health & Termites</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- HERO SECTION -->
+      <section class="hero hero-single">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Southeast Texas • Forests, Prairies, and Riparian Bayous</p>
+          <h1>The Popcorn Tree and the understory chokehold.</h1>
+          <p class="hero-lede">
+            Invasive trees like the Chinese Tallow and Chinese Privet are silently replacing the biodiverse forests of Southeast Texas, creating sterile monocultures. Explore how these species choke out our regional ecology, and learn how to reclaim our native understory.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#offenders">Identify the Invaders</a>
+            <a class="button ghost" href="#reclaim">Understory Reclaim Plan</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS STRIP -->
+      <section class="stats-strip reveal" aria-label="Invasive Tree Statistics">
+        <article>
+          <span class="stat">98%</span>
+          <h3>Sunlight Deprivation</h3>
+          <p>Chinese Privet forms dense evergreen thickets that block up to 98% of sunlight from reaching the forest floor, completely halting native seedling growth.</p>
+        </article>
+        <article>
+          <span class="stat">9x</span>
+          <h3>Faster Leaf Decay</h3>
+          <p>Chinese Tallow leaves decompose nine times faster than native oak leaves, flooding the soil with nitrogen and tannins that alter soil biology.</p>
+        </article>
+        <article>
+          <span class="stat">100,000+</span>
+          <h3>Seeds Per Year</h3>
+          <p>A single mature Chinese Tallow tree produces over 100,000 toxic seeds annually, quickly spread by local birds and water drainage pathways.</p>
+        </article>
+      </section>
+
+      <!-- SECTION 1: THE OFFENDERS -->
+      <section class="section" id="offenders">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Invader Showcase</p>
+          <h2>The Four Most Destructive Trees in Southeast Texas</h2>
+          <p>These invasive tree species escape yards and landscaping, destroying our native coastal prairies, piney woods, and river basins.</p>
+        </div>
+
+        <div class="offender-container reveal">
+          <div class="grass-selector-box">
+            <h3>Select a Species to Analyze:</h3>
+            <div class="grass-grid">
+              <button class="grass-card active" data-tree="tallow">
+                <span class="card-kicker">Prairies & Wetlands</span>
+                <strong>Chinese Tallow</strong>
+                <small>Triadica sebifera</small>
+              </button>
+              <button class="grass-card" data-tree="privet">
+                <span class="card-kicker">Forest Understory</span>
+                <strong>Chinese Privet</strong>
+                <small>Ligustrum sinense</small>
+              </button>
+              <button class="grass-card" data-tree="camphor">
+                <span class="card-kicker">Acidic Woodlands</span>
+                <strong>Camphor Tree</strong>
+                <small>Cinnamomum camphora</small>
+              </button>
+              <button class="grass-card" data-tree="koelreuteria">
+                <span class="card-kicker">Woodland Margins</span>
+                <strong>Golden Rain Tree</strong>
+                <small>Koelreuteria bipinnata</small>
+              </button>
+            </div>
+
+            <!-- Profile Details Box -->
+            <div class="grass-profile" id="treeProfile">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Dynamic Illustration Panel -->
+          <div class="offender-card">
+            <span class="offender-tag">Ecological Warning</span>
+            <div class="offender-header">
+              <h3>Invasive Root Displacement</h3>
+            </div>
+            <ul class="danger-list" style="margin-top: 1.5rem;">
+              <li>
+                <strong>Allelopathic Warfare</strong>
+                Tallow and Camphor trees secrete chemical compounds from their root zones directly into the clay soil, poisoning native acorns and preventing wild seed germination.
+              </li>
+              <li>
+                <strong>Soil Chemistry Alterations</strong>
+                Tallow leaves alter the soil microbial community, favoring fast-growing weeds and creating a soil feedback loop that actively repels native pines and magnolias.
+              </li>
+              <li>
+                <strong>Hydrology Disruptions</strong>
+                Privet thickets along bayou banks alter normal water flow, trap silt, cause bank erosion during major storms, and increase localized flood heights.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: CULTURAL PARADOXES -->
+      <section class="section" id="paradox">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Nursery Trap</p>
+          <h2>The Nursery Industry Paradox</h2>
+          <p>Homeowners buy fast-growing "privacy hedges" and ornamental trees that end up destroying their own home's foundations, sewer lines, and surrounding natural woodlands.</p>
+        </div>
+
+        <div class="paradox-explorer reveal">
+          <div class="paradox-tabs" role="tablist">
+            <button class="tab-btn active" data-tab="ligustrum" role="tab" aria-selected="true">The Ligustrum Hype</button>
+            <button class="tab-btn" data-tab="tallow_ornament" role="tab" aria-selected="false">Tallow Ornamental Hype</button>
+            <button class="tab-btn" data-tab="migration" role="tab" aria-selected="false">The Bird Trap Myth</button>
+          </div>
+
+          <div class="paradox-content" id="paradoxContent">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: RECLAIM PLAN -->
+      <section class="section" id="reclaim">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Action Guide</p>
+          <h2>How to Reclaim the Understory</h2>
+          <p>Simple, effective, and ecologically sound removal methods that target root cambiums without poisoning the local water table.</p>
+        </div>
+
+        <div class="dependency-grid reveal">
+          <div class="dep-card">
+            <span class="dep-num">01</span>
+            <h3>Hack-and-Squirt Treatment</h3>
+            <p>For mature Tallow or Camphor trees: use a hatchet to make downward cuts around the trunk base, exposing the green cambium layer. Immediately spray a tiny, concentrated amount of systemic herbicide into the cut. This kills the tree from the inside out, preventing stump sprouts without chemical runoff.</p>
+          </div>
+          <div class="dep-card">
+            <span class="dep-num">02</span>
+            <h3>Cut-Stump Herbicide Painting</h3>
+            <p>When cutting down large Ligustrum/Tallow trees, paint the fresh cut stump surface with a concentrated systemic solution within 5 minutes. If left untreated, the root system will sprout dozens of aggressive, fast-growing water shoots within weeks.</p>
+          </div>
+          <div class="dep-card">
+            <span class="dep-num">03</span>
+            <h3>Manual Pulling (Up to 3ft)</h3>
+            <p>Privet seedlings have shallow, fibrous roots. When the clay soil is wet after a rainstorm, grab them at the base and pull them straight up. Ensure you extract the entire root system, as root fragments left in the soil can regrow into clone shrubs.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: BOTANICAL ID & ECOSYSTEM TRUTHS -->
+      <section class="section" id="botanical-id">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Critical Field Identification</p>
+          <h2>Yaupon Holly vs. Chinese Privet & Forest Myths</h2>
+          <p>
+            Telling the difference between our most resilient native understory shrub and the invasive privet that chokes it out is the first step in restoring local forest balance.
+          </p>
+        </div>
+
+        <div class="paradox-explorer reveal" style="padding: 2.2rem; margin-top: 1.5rem;">
+          <!-- Identification Comparison Grid -->
+          <h3 style="color: var(--gold); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 1.25rem;">Field Identification Key</h3>
+          <div class="paradox-grid" style="margin-bottom: 2rem;">
+            <div class="paradox-side normal" style="border-left: 3px solid var(--green);">
+              <span class="eco-badge prairie" style="background: var(--green-deep); color: var(--green);">Native</span>
+              <h4>Yaupon Holly (<em>Ilex vomitoria</em>)</h4>
+              <ul style="list-style: none; margin-top: 1rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); padding-left: 0;">
+                <li><strong>Alternate Leaf Pattern:</strong> Leaves grow in a staggered, zig-zagging fashion up the twig.</li>
+                <li><strong>Crenate Leaf Margins:</strong> Edges have fine, rounded scalloped teeth (never completely smooth).</li>
+                <li><strong>Glossy Red Berries:</strong> Bright, translucent red round berries nested flush against the woody twig.</li>
+                <li><strong>Wood:</strong> Distinct, smooth, light-grey bark with pale spots.</li>
+              </ul>
+            </div>
+            <div class="paradox-side backfire" style="border-left: 3px solid var(--rose);">
+              <span class="eco-badge bayou" style="background: rgba(240, 139, 135, 0.12); color: var(--rose);">Invasive Invader</span>
+              <h4>Chinese Privet (<em>Ligustrum sinense</em>)</h4>
+              <ul style="list-style: none; margin-top: 1rem; font-size: 0.9rem; line-height: 1.6; color: var(--muted); padding-left: 0;">
+                <li><strong>Opposite Leaf Pattern:</strong> Leaves grow directly across from each other in identical pairs.</li>
+                <li><strong>Entire Leaf Margins:</strong> Edges are completely smooth with no teeth or scallops.</li>
+                <li><strong>Terminal Black Berries:</strong> Loose clusters of dark-purple/black egg-shaped berries hanging at twig tips.</li>
+                <li><strong>Wood:</strong> Twigs have fine, white velvety hairs on new growth.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Common Woodland Myths & Mitigation tips -->
+          <h3 style="color: var(--gold); font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 1.25rem; margin-top: 2.5rem;">Ecosystem Facts vs. Beliefs</h3>
+          <div class="paradox-grid">
+            <div class="paradox-side normal">
+              <h4>Myth: "Pine trees acidify the soil, preventing native growth."</h4>
+              <p><strong>The Reality:</strong> While Loblolly pine needles are slightly acidic when fresh, they rot very slowly and do not substantially alter soil pH. The bare forest floor under pine woods is actually caused by the dense canopy shadow and aggressive shallow root competition for water. Understory plants like Inland Sea Oats are adapted to this shade and thrive beneath pines.</p>
+            </div>
+            <div class="paradox-side normal">
+              <h4>Myth: "Invasive tallow is fine because it stabilizes wet clay soils."</h4>
+              <p><strong>The Reality:</strong> Chinese Tallow has shallow, weak lateral roots that do not stabilize bayou slopes. During heavy floodwaters, tallow trees are easily uprooted, tearing away large clay chunks and worsening erosion. Native Bald Cypress and Black Willow taproots anchor deeply, providing structural bank defense.</p>
+            </div>
+            <div class="paradox-side normal">
+              <h4>Ecosystem Fact: The Human Footprint</h4>
+              <p><strong>The Reality:</strong> Heavy machinery compaction from subdivisions destroys the porous soil sponge, locking out oxygen. This compaction stresses native oak roots, rendering them vulnerable to wood-boring insects. Mitigate this by sheet mulching with native hardwood chips and avoiding heavy vehicles near the tree canopy drip line.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: NATIVE SWAPS -->
+      <section class="section" id="swaps">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The Reclaim Palette</p>
+          <h2>Native Understory Alternatives</h2>
+          <p>Replace invasive plants with highly ornamental, drought-resilient native shrubs and trees that feed local pollinators and birds.</p>
+        </div>
+
+        <div class="native-showcase reveal">
+          <div class="native-card">
+            <div class="native-art yaupon-holly">
+              <svg class="plant-svg yaupon-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <!-- Stems & Branches (sway-group-1) -->
+                <g class="sway-group-1">
+                  <path d="M 50 115 Q 48 70 50 20" stroke="#7a827c" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                  <path d="M 49 80 Q 35 68 25 50" stroke="#7a827c" stroke-width="1.8" fill="none" stroke-linecap="round" />
+                  <path d="M 50 65 Q 65 55 72 40" stroke="#7a827c" stroke-width="1.8" fill="none" stroke-linecap="round" />
+                  
+                  <!-- Translucent Red Berries nested flush against twigs -->
+                  <circle cx="46" cy="80" r="2.5" fill="#e03b3b" />
+                  <circle cx="47" cy="77" r="2.3" fill="#ff5e5e" />
+                  <circle cx="52" cy="79" r="2.5" fill="#e03b3b" />
+                  <circle cx="49" cy="82" r="2" fill="#b02121" />
+                  <circle cx="33" cy="58" r="2.4" fill="#e03b3b" />
+                  <circle cx="36" cy="57" r="2.4" fill="#ff5e5e" />
+                  <circle cx="34" cy="62" r="2" fill="#b02121" />
+                  <circle cx="23" cy="48" r="2.2" fill="#e03b3b" />
+                  <circle cx="27" cy="49" r="2.2" fill="#ff5e5e" />
+                  <circle cx="53" cy="63" r="2.4" fill="#e03b3b" />
+                  <circle cx="47" cy="65" r="2.2" fill="#ff5e5e" />
+                  <circle cx="62" cy="50" r="2.3" fill="#e03b3b" />
+                  <circle cx="59" cy="49" r="2" fill="#b02121" />
+                  <circle cx="74" cy="38" r="2.4" fill="#e03b3b" />
+                  <circle cx="71" cy="37" r="2" fill="#b02121" />
+                  <circle cx="47" cy="33" r="2.4" fill="#e03b3b" />
+                  <circle cx="52" cy="34" r="2.4" fill="#ff5e5e" />
+                  <circle cx="52" cy="23" r="2.2" fill="#e03b3b" />
+                  <circle cx="48" cy="22" r="2.2" fill="#ff5e5e" />
+                </g>
+                <!-- Crenate Leaves (sway-group-2) -->
+                <g class="sway-group-2">
+                  <path d="M 25 50 Q 15 42 10 45 Q 18 58 25 50" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 35 60 Q 20 58 16 65 Q 26 72 35 60" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 72 40 Q 82 32 88 35 Q 80 48 72 40" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 60 52 Q 72 50 78 58 Q 66 65 60 52" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 50 35 Q 35 30 30 38 Q 42 45 50 35" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 50 25 Q 65 20 70 28 Q 58 35 50 25" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 50 20 Q 42 5 50 2 Q 58 5 50 20" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 49 80 Q 30 82 24 75 Q 35 68 49 80" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                  <path d="M 50 65 Q 65 68 70 60 Q 58 55 50 65" fill="#2d5e3c" stroke="#1f422a" stroke-width="0.5" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <span class="botanical">Ilex vomitoria</span>
+              <h3>Yaupon Holly</h3>
+              <p>An evergreen shrub with beautiful red winter berries. Extremely tough, storm-resilient, handles both drought and temporary standing floodwaters.</p>
+            </div>
+          </div>
+          <div class="native-card">
+            <div class="native-art beautyberry">
+              <svg class="plant-svg beautyberry-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <!-- Central woody stem and whorl rings (sway-group-1) -->
+                <g class="sway-group-1">
+                  <path d="M 50 115 Q 49 65 50 15" stroke="#8c6a51" stroke-width="3" fill="none" stroke-linecap="round" />
+                  
+                  <!-- Magenta Berry Whorls wrapping AROUND the stem (node 1, y=80) -->
+                  <circle cx="43" cy="80" r="3.2" fill="#a03ecb" />
+                  <circle cx="50" cy="76" r="3.2" fill="#a03ecb" />
+                  <circle cx="57" cy="80" r="3.2" fill="#a03ecb" />
+                  <circle cx="54" cy="77" r="3.2" fill="#b03ecb" />
+                  <circle cx="46" cy="77" r="3.2" fill="#d972f0" />
+                  <circle cx="45" cy="83" r="3.2" fill="#c154db" />
+                  <circle cx="50" cy="84" r="3.2" fill="#c154db" />
+                  <circle cx="55" cy="83" r="3.2" fill="#d972f0" />
+                  <circle cx="48" cy="80" r="3" fill="#e286fa" />
+                  <circle cx="52" cy="80" r="3" fill="#c154db" />
+                  <circle cx="50" cy="81" r="2" fill="#ffffff" opacity="0.6" />
+
+                  <!-- Magenta Berry Whorls wrapping AROUND the stem (node 2, y=50) -->
+                  <circle cx="44" cy="50" r="3" fill="#a03ecb" />
+                  <circle cx="50" cy="46" r="3" fill="#a03ecb" />
+                  <circle cx="56" cy="50" r="3" fill="#a03ecb" />
+                  <circle cx="47" cy="47" r="3" fill="#d972f0" />
+                  <circle cx="53" cy="47" r="3" fill="#b03ecb" />
+                  <circle cx="54" cy="53" r="3" fill="#d972f0" />
+                  <circle cx="50" cy="54" r="3" fill="#c154db" />
+                  <circle cx="46" cy="53" r="3" fill="#b03ecb" />
+                  <circle cx="49" cy="50" r="2.8" fill="#e286fa" />
+                  <circle cx="51" cy="50" r="2.8" fill="#c154db" />
+                  <circle cx="50" cy="50.5" r="1.5" fill="#ffffff" opacity="0.6" />
+
+                  <!-- Magenta Berry Whorls wrapping AROUND the stem (node 3, y=25) -->
+                  <circle cx="45" cy="25" r="2.5" fill="#a03ecb" />
+                  <circle cx="50" cy="21" r="2.5" fill="#a03ecb" />
+                  <circle cx="55" cy="25" r="2.5" fill="#a03ecb" />
+                  <circle cx="48" cy="22" r="2.5" fill="#d972f0" />
+                  <circle cx="52" cy="22" r="2.5" fill="#b03ecb" />
+                  <circle cx="53" cy="27" r="2.5" fill="#d972f0" />
+                  <circle cx="50" cy="28" r="2.5" fill="#c154db" />
+                  <circle cx="47" cy="27" r="2.5" fill="#b03ecb" />
+                  <circle cx="49" cy="25" r="2.3" fill="#e286fa" />
+                  <circle cx="51" cy="25" r="2.3" fill="#c154db" />
+                </g>
+                <!-- Large Opposite Serrated Leaves (sway-group-2) -->
+                <g class="sway-group-2">
+                  <path d="M 47 80 Q 25 85 10 75 Q 28 65 47 80" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 53 80 Q 75 85 90 75 Q 72 65 53 80" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 48 50 Q 20 52 8 40 Q 28 32 48 50" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 52 50 Q 80 52 92 40 Q 72 32 52 50" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 48 25 Q 28 22 18 10 Q 35 10 48 25" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 52 25 Q 72 22 82 10 Q 65 10 52 25" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                  <path d="M 50 15 Q 45 2 50 0 Q 55 2 50 15" fill="#4d8f58" stroke="#33663c" stroke-width="0.5" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <span class="botanical">Callicarpa americana</span>
+              <h3>American Beautyberry</h3>
+              <p>Known for its striking magenta berry clusters that wrap around the branches. Provides critical high-lipid nutrition for migrating songbirds in autumn.</p>
+            </div>
+          </div>
+          <div class="native-card">
+            <div class="native-art wax-myrtle">
+              <svg class="plant-svg waxmyrtle-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <!-- Twigs and waxy grey-blue berries (sway-group-1) -->
+                <g class="sway-group-1">
+                  <path d="M 50 115 Q 48 75 45 40" stroke="#705e52" stroke-width="2" fill="none" stroke-linecap="round" />
+                  <path d="M 47 80 Q 32 60 22 45" stroke="#705e52" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                  <path d="M 46 60 Q 62 48 68 30" stroke="#705e52" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                  
+                  <!-- Waxy grey-blue berries clustered on twigs below foliage -->
+                  <circle cx="45" cy="52" r="2.2" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="47" cy="54" r="2.0" fill="#a2b8c9" />
+                  <circle cx="43" cy="55" r="2.2" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="44" cy="58" r="2.0" fill="#a2b8c9" />
+                  <circle cx="46" cy="61" r="2.2" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="43" cy="63" r="2.0" fill="#a2b8c9" />
+                  <circle cx="45" cy="66" r="2.2" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="48" cy="67" r="2.2" fill="#a2b8c9" />
+                  <circle cx="44" cy="70" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="47" cy="72" r="2.0" fill="#a2b8c9" />
+                  <circle cx="32" cy="60" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="34" cy="62" r="2.2" fill="#a2b8c9" />
+                  <circle cx="30" cy="61" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="28" cy="58" r="2.2" fill="#a2b8c9" />
+                  <circle cx="26" cy="55" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="24" cy="53" r="2.0" fill="#a2b8c9" />
+                  <circle cx="56" cy="48" r="2.2" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="58" cy="46" r="2.0" fill="#a2b8c9" />
+                  <circle cx="55" cy="44" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                  <circle cx="60" cy="42" r="2.2" fill="#a2b8c9" />
+                  <circle cx="62" cy="40" r="2.0" fill="#8ca5b8" stroke="#5d7282" stroke-width="0.3" />
+                </g>
+                <!-- Narrow Pointed Olive-Green Leaves (sway-group-2) -->
+                <g class="sway-group-2">
+                  <path d="M 45 40 Q 38 20 40 10 Q 48 22 45 40" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 45 40 Q 52 22 55 12 Q 52 28 45 40" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 45 40 Q 30 30 25 22 Q 40 32 45 40" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 45 40 Q 60 30 65 24 Q 52 35 45 40" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 22 45 Q 12 32 10 22 Q 20 32 22 45" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 22 45 Q 26 28 28 18 Q 28 35 22 45" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 22 45 Q 10 40 4 38 Q 15 45 22 45" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 68 30 Q 68 12 70 5 Q 74 18 68 30" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 68 30 Q 82 20 88 12 Q 78 28 68 30" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                  <path d="M 68 30 Q 80 40 85 45 Q 74 38 68 30" fill="#6f8252" stroke="#485734" stroke-width="0.4" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <span class="botanical">Morella cerifera</span>
+              <h3>Wax Myrtle</h3>
+              <p>A fast-growing evergreen privacy screen that releases a wonderful spicy scent. Its waxy berries feed yellow-rumped warblers and local swallowtails.</p>
+            </div>
+          </div>
+          <div class="native-card">
+            <div class="native-art red-buckeye">
+              <svg class="plant-svg redbuckeye-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
+                <!-- Branch and Red Flower Spike (sway-group-1) -->
+                <g class="sway-group-1">
+                  <path d="M 50 115 Q 49 80 50 50" stroke="#634f42" stroke-width="3" fill="none" stroke-linecap="round" />
+                  <path d="M 50 50 L 50 12" stroke="#c93838" stroke-width="1.8" fill="none" />
+                  
+                  <!-- Red tubular flowers with yellow pollen throats -->
+                  <path d="M 50 45 Q 38 42 34 39 C 38 43 45 45 50 45" fill="#d12a2a" />
+                  <circle cx="34" cy="39" r="1.2" fill="#eed95a" />
+                  <path d="M 50 36 Q 37 32 32 29 C 36 34 44 36 50 36" fill="#d12a2a" />
+                  <circle cx="32" cy="29" r="1.2" fill="#eed95a" />
+                  <path d="M 50 27 Q 38 23 34 20 C 37 25 45 27 50 27" fill="#d12a2a" />
+                  <circle cx="34" cy="20" r="1.2" fill="#eed95a" />
+                  <path d="M 50 18 Q 40 14 36 11 C 39 16 46 18 50 18" fill="#d12a2a" />
+                  <circle cx="36" cy="11" r="1.2" fill="#eed95a" />
+                  <path d="M 50 45 Q 62 42 66 39 C 62 43 55 45 50 45" fill="#d12a2a" />
+                  <circle cx="66" cy="39" r="1.2" fill="#eed95a" />
+                  <path d="M 50 36 Q 63 32 68 29 C 64 34 56 36 50 36" fill="#d12a2a" />
+                  <circle cx="68" cy="29" r="1.2" fill="#eed95a" />
+                  <path d="M 50 27 Q 62 23 66 20 C 63 25 55 27 50 27" fill="#d12a2a" />
+                  <circle cx="66" cy="20" r="1.2" fill="#eed95a" />
+                  <path d="M 50 18 Q 60 14 64 11 C 61 16 54 18 50 18" fill="#d12a2a" />
+                  <circle cx="64" cy="11" r="1.2" fill="#eed95a" />
+                  <path d="M 50 12 Q 50 4 48 2 C 50 4 52 4 50 12" fill="#d12a2a" />
+                </g>
+                <!-- Palmately Compound Leaves (5 leaflets, sway-group-2) -->
+                <g class="sway-group-2">
+                  <!-- Stalk Left -->
+                  <path d="M 49 75 Q 35 70 25 65" stroke="#486e4f" stroke-width="1.5" fill="none" />
+                  <path d="M 25 65 Q 12 52 6 48 Q 18 58 25 65" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 25 65 Q 22 42 21 35 Q 27 45 25 65" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 25 65 Q 8 68 2 70 Q 12 72 25 65" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 25 65 Q 18 85 17 92 Q 25 80 25 65" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 25 65 Q 32 55 36 50 Q 32 60 25 65" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <!-- Stalk Right -->
+                  <path d="M 50 65 Q 65 62 75 60" stroke="#486e4f" stroke-width="1.5" fill="none" />
+                  <path d="M 75 60 Q 88 48 94 44 Q 82 55 75 60" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 75 60 Q 72 38 71 30 Q 77 40 75 60" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 75 60 Q 92 63 98 65 Q 88 67 75 60" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 75 60 Q 82 80 83 87 Q 83 75 75 60" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                  <path d="M 75 60 Q 68 50 64 45 Q 68 55 75 60" fill="#3f784d" stroke="#254a2e" stroke-width="0.4" />
+                </g>
+              </svg>
+            </div>
+            <div class="native-card-content">
+              <span class="botanical">Aesculus pavia</span>
+              <h3>Red Buckeye</h3>
+              <p>A stunning, small understory tree producing bright red, tubular flower spikes in early spring, synchronized with the arrival of migrating hummingbirds.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+          <strong>South East Stump Jumpers</strong>
+        </div>
+        <p>
+          Built for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
+        </p>
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. Information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
+      </div>
+    </footer>
+
+    <script src="./invasives.js"></script>
+  </body>
+</html>

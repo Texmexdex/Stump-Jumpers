@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>South East Stump Jumpers - Southeast Texas Tree Health & Termite Guide</title>
+    <meta
+      name="description"
+      content="An interactive guide to arborist tree care standards, Dead, Diseased & Decaying (DDD) tree diagnostics, oak pruning schedules, and the Formosan termite swarm alert system."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Return to index">
+        <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+        <span>South East Stump Jumpers</span>
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="index.html">Lawn Reform</a>
+        <a href="invasives.html">Invasive Trees</a>
+        <a href="tree-health.html" class="active">Tree Health & Termites</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- HERO SECTION & TERMITE ALERT SYSTEM -->
+      <section class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Southeast Texas • Arborist Standards & Home Protection</p>
+          <h1>Keep your canopy standing. Protect your home.</h1>
+          <p class="hero-lede">
+            Diagnose internal tree decay, plan regional pruning to prevent oak wilt, and defend your walls from destructive Formosan subterranean termites. Sign up for our swarming light-out warnings below.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#diagnostics">Diagnose Tree Decay</a>
+            <a class="button ghost" href="#pruning">Pruning Schedule</a>
+          </div>
+        </div>
+
+        <!-- Termite Alert Widget Container -->
+        <div class="hero-visual reveal" id="termiteVisual" aria-label="Formosan Termite Swarm Notification System">
+          <div class="swarm-dashboard">
+            <div class="swarm-header">
+              <span class="pulse-dot status-green" id="pulseDot"></span>
+              <h3>System Status: <span id="systemStatusText">CALM</span></h3>
+            </div>
+
+            <div class="swarm-grid">
+              <!-- Alarm Details -->
+              <div class="swarm-status-box">
+                <h4>Formosan Swarm Indicator</h4>
+                <p id="swarmDesc">Active weather monitoring indicates no termite swarms in the area. Standard night lighting is safe.</p>
+                
+                <button class="button primary" id="triggerSwarmBtn" style="margin-top: 1.5rem; width: 100%;">
+                  Admin: Simulate Swarm Trigger
+                </button>
+              </div>
+
+              <!-- Signup Form -->
+              <div class="swarm-signup-box" id="signupBox">
+                <h4>Swarm Lights-Out Alarm</h4>
+                <p>Formosan termites swarm on warm, humid spring nights. Turn off outdoor lights to save your walls. Sign up for instant warnings:</p>
+                
+                <form id="swarmForm" style="margin-top: 1rem;">
+                  <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="userName">Name</label>
+                    <input type="text" id="userName" required placeholder="John Doe" />
+                  </div>
+                  <div class="form-group" style="margin-bottom: 1rem;">
+                    <label for="userContact">Email or Mobile Number</label>
+                    <input type="text" id="userContact" required placeholder="name@domain.com or 409-555-0199" />
+                  </div>
+                  <button type="submit" class="button ghost" style="width: 100%; min-height: 2.8rem; padding: 0.6rem;">
+                    Sign Up for Alerts
+                  </button>
+                </form>
+              </div>
+
+              <!-- Signup Confirmation (hidden by default) -->
+              <div class="swarm-signup-box" id="confirmBox" style="display: none; text-align: center; justify-content: center; align-items: center; flex-direction: column;">
+                <div class="finished-icon" style="font-size: 2.5rem; color: var(--green); margin-bottom: 0.5rem;">&check;</div>
+                <h4>Alert Subscription Active</h4>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--muted);" id="confirmText">You will receive warning notifications to turn off lights when flying swarms are detected by Stump Jumpers.</p>
+                <button class="button ghost" id="resetSignupBtn" style="margin-top: 1.25rem; font-size: 0.8rem; padding: 0.5rem 1rem; min-height: auto;">Change Details</button>
+              </div>
+            </div>
+
+            <!-- Flashing warning overlay display -->
+            <div class="swarm-alert-banner" id="swarmAlertBanner">
+              <span class="warning-icon">🚨</span>
+              <div class="alert-content">
+                <strong>WARNING: FORMOSAN TERMITE SWARMS DETECTED!</strong>
+                <p>Draw interior blinds and turn off all outdoor floodlights/porch lights immediately to avoid attracting colonies to your home.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 1: DDD TREE DIAGNOSTICS -->
+      <section class="section" id="diagnostics">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Tree Safety & Decay</p>
+          <h2>Dead, Diseased, and Decaying (DDD) Diagnostics</h2>
+          <p>Learn to spot internal decay before high-velocity winds or hurricane gusts split your trees onto structures.</p>
+        </div>
+
+        <div class="offender-container reveal">
+          <div class="grass-selector-box">
+            <h3>Click a Symptom to Inspect:</h3>
+            <div class="grass-grid">
+              <button class="grass-card active" data-symptom="fungal">
+                <span class="card-kicker">Trunk & Roots</span>
+                <strong>Fungal Bracket Conks</strong>
+                <small>Internal wood rot</small>
+              </button>
+              <button class="grass-card" data-symptom="codominant">
+                <span class="card-kicker">Branch Junction</span>
+                <strong>Included Bark Cracks</strong>
+                <small>Fracture risk union</small>
+              </button>
+              <button class="grass-card" data-symptom="dieback">
+                <span class="card-kicker">Upper Canopy</span>
+                <strong>Crown Dieback</strong>
+                <small>Root rot indicator</small>
+              </button>
+              <button class="grass-card" data-symptom="frass">
+                <span class="card-kicker">Bark Boring</span>
+                <strong>Borer Exit Frass</strong>
+                <small>Insect colonization</small>
+              </button>
+            </div>
+
+            <!-- Diagnostic Profile Details -->
+            <div class="grass-profile" id="diagnosticProfile">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Ecological Snags Card -->
+          <div class="offender-card" style="background: rgba(167, 224, 132, 0.03); border-color: rgba(167, 224, 132, 0.15);">
+            <span class="eco-badge prairie" style="margin-bottom: 1rem;">Wild Wildlife Habitat</span>
+            <div class="offender-header">
+              <h3>The Ecological Value of Snags</h3>
+            </div>
+            <p style="color: var(--muted); font-size: 0.94rem; margin-top: 1rem; line-height: 1.6;">
+              A <strong>"snag"</strong> is a dead standing tree. While most homeowners remove them immediately, snags represent one of the most critical ecosystems in Southeast Texas forests:
+            </p>
+            <ul class="danger-list" style="margin-top: 1rem; list-style: none;">
+              <li style="padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--green);">&bull;</span>
+                <strong>Woodpecker Cavities:</strong> Woodpeckers excavate nests in the soft decaying wood, which are later occupied by owls, bluebirds, and tree frogs.
+              </li>
+              <li style="padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--green);">&bull;</span>
+                <strong>Roosting Bat Crevices:</strong> Peeling pine bark provides shelter for migratory bats that devour thousands of mosquitoes nightly.
+              </li>
+              <li style="padding-left: 1.5rem; position: relative;">
+                <span style="position: absolute; left: 0; color: var(--green);">&bull;</span>
+                <strong>Stump Jumpers Tip:</strong> If a snag is not located within target distance of your house, driveway, or power lines, **leave it standing**. It is a free, high-end wildlife sanctuary.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: REGIONAL PRUNING SCHEDULE -->
+      <section class="section" id="pruning">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Arborist Guidelines</p>
+          <h2>Southeast Texas Pruning Standards</h2>
+          <p>Pruning at the wrong time of year opens trees to vascular fungal spores and wood-boring pests. Always plan your cuts according to local seasonal vectors.</p>
+        </div>
+
+        <!-- Pruning Schedule Table -->
+        <div class="reveal" style="background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow); overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; font-size: 0.94rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--card-border); color: var(--gold);">
+                <th style="padding: 1rem 0.5rem; font-weight: 700;">Species Group</th>
+                <th style="padding: 1rem 0.5rem; font-weight: 700;">Best Pruning Window</th>
+                <th style="padding: 1rem 0.5rem; font-weight: 700;">Prohibited Window</th>
+                <th style="padding: 1rem 0.5rem; font-weight: 700;">Key Southeast Texas Risk Factors</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1.2rem 0.5rem;"><strong>Live Oaks & Red Oaks</strong></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--green);">Sept 1 – Jan 31 <br><small>(Fall & Winter Dormancy)</small></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--rose); font-weight: 600;">Feb 1 – Aug 31 <br><small>(Spring Sap Flow & Summer Heat)</small></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--muted);"><strong>Oak Wilt disease.</strong> Nitidulid beetles swarm to fresh wounds, carrying fungal spores. Summer heat stresses trees further. Do NOT prune from Feb 1 to Aug 31 to protect vascular health. ALWAYS paint wounds immediately.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1.2rem 0.5rem;"><strong>Loblolly & Slash Pines</strong></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--green);">Nov 1 – Jan 31 <br><small>(Deep Winter Dormancy)</small></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--rose);">Spring & Summer</td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--muted);"><strong>Pine Bark Beetles (Ips).</strong> Fresh pine sap odors attract boring beetles that vector devastating blue-stain fungi into pine timber.</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--card-border);">
+                <td style="padding: 1.2rem 0.5rem;"><strong>Bald Cypress & Maples</strong></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--green);">Nov 15 – Feb 15 <br><small>(Leaf Drop Dormancy)</small></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--rose);">Spring Growth Flush</td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--muted);">Sap bleeding from spring cuts exhausts energy reserves, drawing fungal rust and wood bores into soft wood tissues.</td>
+              </tr>
+              <tr>
+                <td style="padding: 1.2rem 0.5rem;"><strong>Pecans & Elms</strong></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--green);">Dec 1 – Feb 15 <br><small>(Winter Dormancy)</small></td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--rose);">Late Summer</td>
+                <td style="padding: 1.2rem 0.5rem; color: var(--muted);">Humid late summer cuts rot quickly due to aerial fungal spores. Winter cuts allow dry healing before spring sap rise.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3-Cut Pruning Method Info -->
+        <div class="paradox-explorer reveal" style="margin-top: 2.5rem; padding: 2rem;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 1rem; color: var(--gold);">The 3-Cut Branch Removal Method</h3>
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; max-width: 800px; margin-bottom: 1.5rem;">
+            When removing limbs larger than 2 inches in diameter, never make a single downward cut. The weight of the falling branch will peel the bark down the tree trunk, exposing a massive wound that rots. Always use this arborist standard:
+          </p>
+          <div class="paradox-grid">
+            <div class="paradox-side normal">
+              <h4>1. The Undercut</h4>
+              <p>Make a small cut on the underside of the limb, about 12 to 18 inches away from the trunk, cutting 1/3 of the way through the wood. This acts as a bark break.</p>
+            </div>
+            <div class="paradox-side backfire">
+              <h4>2. The Drop Cut</h4>
+              <p>Make a cut from the top side, 2 inches further out on the limb. As the limb falls, it splits clean at the first undercut, leaving a short, weightless stub.</p>
+            </div>
+            <div class="paradox-side cure">
+              <h4>3. The Collar Cut</h4>
+              <p>Remove the stub by cutting just outside the branch collar (the swelling where the limb joins the trunk). Never cut flush with the trunk, and never leave a long stub.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: ARBORICULTURE ERRORS -->
+      <section class="section" id="structural-errors">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Canopy Hazards</p>
+          <h2>Arboriculture Errors & Storm Hazards</h2>
+          <p>Homeowner practices that weaken tree structure, turning healthy trees into high-risk targets during Gulf storms and hurricanes.</p>
+        </div>
+
+        <div class="dependency-grid reveal">
+          <div class="dep-card">
+            <span class="dep-num">&cross;</span>
+            <h3>Co-Dominant Stems</h3>
+            <p>Trees with twin trunks of equal size growing from a single V-shaped crotch. As they grow, bark gets trapped between them (included bark). Lacking solid wood connection, the union acts as a giant wedge. Under heavy winds, co-dominant trunks split down the center, destroying homes beneath.</p>
+          </div>
+          <div class="dep-card">
+            <span class="dep-num">&cross;</span>
+            <h3>The Danger of Tree Topping</h3>
+            <p>Cutting off the top of mature trees to reduce height. This starves the roots, exposes the trunk to severe sunscald decay, and forces the growth of hundreds of rapid "water sprouts" (epicormic branches). These sprouts are weakly attached to the outer bark and fail catastrophically during storms.</p>
+          </div>
+          <div class="dep-card">
+            <span class="dep-num">&cross;</span>
+            <h3>Deep Root Burying</h3>
+            <p>Piling mulch or soil high against the base of the trunk (commonly called "volcano mulching"). Keeping the root flare moist rot-decays the bark, suffocates active gas exchange, and leads to circling roots that eventually strangle the tree's own sap flow.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: TERMITE FACT VS FICTION -->
+      <section class="section" id="termite-info">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Formosan Swarm Intelligence</p>
+          <h2>Formosan Subterranean Termites: Fact vs. Fiction</h2>
+          <p>Understand the biology of Southeast Texas' most destructive wood pest to protect your structural investments.</p>
+        </div>
+
+        <div class="paradox-explorer reveal" style="padding: 2.2rem;">
+          <div class="paradox-grid">
+            <div class="paradox-side normal">
+              <h4>Fiction</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--rose);">"Mulch spread in garden beds attracts termite colonies directly to your house."</p>
+              <p><strong>Fact:</strong> Termites prefer moist soil conditions which mulch helps create, but wood mulch itself is not a primary colony food source unless it is in direct contact with your wooden foundation framing. Keep mulch 6 inches away from stucco or siding.</p>
+            </div>
+            <div class="paradox-side backfire">
+              <h4>Fiction</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--rose);">"Finding discarded termite wings indoors means your home is collapsing."</p>
+              <p><strong>Fact:</strong> Swarmers fly towards light and are easily blown through windows or vents on spring evenings. Finding wings means a swarm occurred nearby, but does not guarantee active invasion. Check for active mud tubes along baseboards or slab edges.</p>
+            </div>
+            <div class="paradox-side cure">
+              <h4>Fiction</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--rose);">"Termites only attack dead wood, so live trees in the yard are completely safe."</p>
+              <p><strong>Fact:</strong> Formosan subterranean termites build massive nests (carton nests) inside the hollow trunks of live, healthy trees (especially Live Oaks and Hackberries). They feed on the dead heartwood inside, completely hiding the infestation until the tree falls.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: LOCAL ECOLOGY MYTHS & THE GREEN BUG PANIC -->
+      <section class="section" id="ecology-myths">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Local Ecosystem Truths</p>
+          <h2>The Green Bug Panic & Safe Air Plants</h2>
+          <p>
+            Homeowners often mistake beneficial insects for invasive killers, and harmless native air plants for parasites. Learn the facts to avoid unnecessary chemical treatments.
+          </p>
+        </div>
+
+        <div class="paradox-explorer reveal" style="padding: 2.2rem; margin-top: 1.5rem;">
+          <div class="paradox-grid">
+            <div class="paradox-side normal">
+              <span class="eco-badge prairie" style="margin-bottom: 0.8rem; background: var(--green-deep); color: var(--green);">Insect Specificity</span>
+              <h4>EAB vs. Pecan Tree Pests</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--gold);">"I saw a metallic-green beetle on my Pecan tree. It must be the invasive Emerald Ash Borer!"</p>
+              <p>
+                <strong>The Reality:</strong> The invasive **Emerald Ash Borer** (EAB) is strictly host-specific to true **Ash trees** (<em>Fraxinus</em>). It cannot feed on, lay eggs in, or harm Pecan trees. The green beetles on pecans are usually either **Six-spotted Tiger Beetles** (bright metallic green, fast-running predators that eat harmful pests on tree bark) or **Green June Beetles** (harmless leaf/sap feeders). 
+              </p>
+              <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted);">
+                <em>Tip:</em> Keep pecans watered during summer droughts. Stressed pecans release stress chemicals that draw native wood borers (like flatheaded borers), but EAB will never touch them.
+              </p>
+            </div>
+            <div class="paradox-side backfire">
+              <span class="eco-badge piney" style="margin-bottom: 0.8rem; background: #5c4132; color: var(--gold);">Epiphyte Myth</span>
+              <h4>Spanish Moss: Oak Parasite?</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--rose);">"Spanish Moss is a parasite strangling my Live Oaks and draining their sap. I need to strip it off."</p>
+              <p>
+                <strong>The Reality:</strong> Spanish Moss (<em>Tillandsia usneoides</em>) is an air plant (epiphyte), not a parasite. It has no root system and absorbs zero nutrients or water from the tree. It only uses the oak branches for physical support. 
+              </p>
+              <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted);">
+                <em>Why it spreads:</em> Stressed, dying oaks lose their leaves, allowing more sunlight into the canopy, which makes the moss grow faster. The moss is a *symptom* of oak decline, not the *cause*. Removing it will not cure the underlying root compaction or drought stress.
+              </p>
+            </div>
+            <div class="paradox-side cure">
+              <span class="eco-badge bayou" style="margin-bottom: 0.8rem; background: #1c273a; color: var(--blue);">Chemical Trap</span>
+              <h4>Ball Moss & Copper Sprays</h4>
+              <p style="margin-bottom: 1rem; font-style: italic; color: var(--rose);">"Ball Moss is a fungus that will choke my tree. I should spray copper treatments to kill it."</p>
+              <p>
+                <strong>The Reality:</strong> Ball Moss (<em>Tillandsia recurvata</em>) is a native air plant. Copper hydroxide sprays sold to kill it are a massive scam. The copper runs off and poisons the soil biology, killing beneficial mycorrhizal fungi the tree relies on to absorb iron and trace minerals.
+              </p>
+              <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted);">
+                <em>Arborist Tip:</em> Prune out dry, dead interior twigs to naturally reduce the spots where ball moss seeds can lodge. Light and airflow are the best natural regulators.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+          <strong>South East Stump Jumpers</strong>
+        </div>
+        <p>
+          Built for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
+        </p>
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. Information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
+      </div>
+    </footer>
+
+    <script src="./tree-health.js"></script>
+  </body>
+</html>
