@@ -38,23 +38,10 @@ const diagnosticData = {
 const diagnosticProfile = document.querySelector("#diagnosticProfile");
 const symptomCards = document.querySelectorAll(".grass-card");
 
-// Swarm Alarm Elements
-const termiteVisual = document.querySelector("#termiteVisual");
-const triggerSwarmBtn = document.querySelector("#triggerSwarmBtn");
-const pulseDot = document.querySelector("#pulseDot");
-const systemStatusText = document.querySelector("#systemStatusText");
-const swarmDesc = document.querySelector("#swarmDesc");
-const swarmAlertBanner = document.querySelector("#swarmAlertBanner");
-const swarmForm = document.querySelector("#swarmForm");
-const signupBox = document.querySelector("#signupBox");
-const confirmBox = document.querySelector("#confirmBox");
-const confirmText = document.querySelector("#confirmText");
-const resetSignupBtn = document.querySelector("#resetSignupBtn");
-
 // Render Selected Symptom Profile
 function renderDiagnosticProfile(key) {
   const symptom = diagnosticData[key];
-  if (!symptom) return;
+  if (!symptom || !diagnosticProfile) return;
 
   diagnosticProfile.innerHTML = `
     <div class="profile-details">
@@ -67,43 +54,6 @@ function renderDiagnosticProfile(key) {
       </div>
     </div>
   `;
-}
-
-// Swarm Alert Dashboard Controller
-let isSwarmingActive = false;
-
-function toggleSwarmAlarm() {
-  isSwarmingActive = !isSwarmingActive;
-  
-  if (isSwarmingActive) {
-    termiteVisual.classList.add("active-alarm");
-    triggerSwarmBtn.textContent = "Admin: Reset Swarm Status";
-    triggerSwarmBtn.classList.add("active");
-    
-    // Status indicators
-    pulseDot.className = "pulse-dot status-red";
-    systemStatusText.textContent = "ACTIVE SWARM ALARM";
-    systemStatusText.style.color = "var(--rose)";
-    
-    swarmDesc.innerHTML = `<strong>WARNING: Active swarms detected in Southeast Texas.</strong> Formosan subterranean termites and swarming aphids are currently flight-active. Turn off all outdoor landscaping lighting and draw interior blinds to prevent house entry.`;
-    
-    // Alert banner slide up
-    swarmAlertBanner.classList.add("active-alert");
-  } else {
-    termiteVisual.classList.remove("active-alarm");
-    triggerSwarmBtn.textContent = "Admin: Simulate Swarm Trigger";
-    triggerSwarmBtn.classList.remove("active");
-    
-    // Status indicators
-    pulseDot.className = "pulse-dot status-green";
-    systemStatusText.textContent = "CALM";
-    systemStatusText.style.color = "var(--green)";
-    
-    swarmDesc.textContent = "Active weather monitoring indicates no termite swarms in the area. Standard night lighting is safe.";
-    
-    // Alert banner slide down
-    swarmAlertBanner.classList.remove("active-alert");
-  }
 }
 
 // SETUP INTERACTION OBSERVERS FOR SCROLL REVEALS
@@ -121,7 +71,7 @@ const revealObserver = new IntersectionObserver(
 
 // INITIALIZATION
 document.addEventListener("DOMContentLoaded", () => {
-  // Attach observers
+  // Attach scroll-reveal observers
   document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
   // Symptom card selectors
@@ -133,34 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Swarm Alarm trigger handler
-  if (triggerSwarmBtn) {
-    triggerSwarmBtn.addEventListener("click", toggleSwarmAlarm);
-  }
-
-  // Swarm Signup Form handler
-  if (swarmForm) {
-    swarmForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.querySelector("#userName").value;
-      const contact = document.querySelector("#userContact").value;
-      
-      confirmText.innerHTML = `Thank you, <strong>${name}</strong>! Your alarm contact (<strong>${contact}</strong>) is verified. You will receive emergency swarming notifications when flying insect vectors are active in your area.`;
-      
-      signupBox.style.display = "none";
-      confirmBox.style.display = "flex";
-    });
-  }
-
-  // Reset Signup Form
-  if (resetSignupBtn) {
-    resetSignupBtn.addEventListener("click", () => {
-      swarmForm.reset();
-      confirmBox.style.display = "none";
-      signupBox.style.display = "block";
-    });
-  }
-
-// Initial renders
+  // Initial render
   renderDiagnosticProfile("fungal");
 });

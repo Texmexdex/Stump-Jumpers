@@ -3,11 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>South East Stump Jumpers - Southeast Texas Prairie Sponge & Ecological Lawn Reform Guide</title>
+    <title>South East Stump Jumpers | Conservation Tree Care in Southeast Texas</title>
     <meta
       name="description"
-      content="An interactive guide to Southeast Texas ecosystems, how Saint Augustine lawns exhaust soil micronutrients and cause downstream algal blooms, and how normal cultural practices backfire on homeowners."
+      content="Conservation-focused residential tree care in Southeast Texas: expert pruning, hazardous limb and tree removal, stump grinding, and storm debris cleanup, plus practical guides to native plants, tree health, and invasive species."
     />
+    <link rel="icon" href="SESJ.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0c0e0c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="South East Stump Jumpers" />
+    <meta property="og:title" content="South East Stump Jumpers | Conservation Tree Care in Southeast Texas" />
+    <meta property="og:description" content="Conservation-focused residential tree care: pruning, hazardous removal, stump grinding, and storm debris cleanup across Southeast Texas." />
+    <meta property="og:url" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/" />
+    <meta property="og:image" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/Sesj.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +24,19 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LandscapingBusiness",
+        "name": "South East Stump Jumpers",
+        "description": "Conservation-focused residential tree care in Southeast Texas: pruning, hazardous limb and tree removal, stump grinding, and storm debris cleanup.",
+        "email": "dex@sestumpjumpers.com",
+        "url": "https://texmexdex.github.io/Southeast-Stump-Jumpers/",
+        "areaServed": "Highlands, Crosby, Baytown, Dayton, Huffman, and surrounding areas in Southeast Texas",
+        "openingHours": "Mo-Sa 07:00-18:00",
+        "knowsAbout": ["Tree care", "Tree removal", "Storm debris cleanup", "Native plants", "Invasive species"]
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">
@@ -31,98 +53,15 @@
 
     <main id="top">
       <!-- HERO SECTION -->
-      <section class="hero">
+      <section class="hero hero-single">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Southeast Texas • Prairies, Bayous, and Subdivisions</p>
-          <h1>When a lawn becomes a monoculture, the ecosystem pays rent.</h1>
+          <p class="eyebrow">Southeast Texas • Native Landscapes & Lawn Alternatives</p>
+          <h1>Why Southeast Texas lawns struggle, and what thrives instead.</h1>
           <p class="hero-lede">
-            Homeowners spend thousands of dollars and sweat hours to maintain Saint Augustine lawns—an artificial, shallow-rooted beach grass that starves local food chains, flushes soil micronutrients, and fuels toxic algal blooms down in the Gulf. Discover how working *with* our native ecoregions saves labor, prevents floods, and stops pests naturally.
+            Saint Augustine turf is a poor fit for our heavy clay soils and flood-prone climate. This guide explains how our native coastal prairies and riparian forests actually work, why they matter for drainage and soil health, and how to bring resilient native plantings back to your property.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#calculator">Launch Rebellion Calculator</a>
-            <a class="button ghost" href="#st-augustine">Analyze St. Augustine</a>
-          </div>
-        </div>
-
-        <div class="hero-visual reveal" id="heroVisual" aria-label="Interactive comparison of lawn roots vs native roots">
-          <button class="storm-btn" id="stormBtn" aria-label="Simulate Gulf storm downpour">
-            <span class="btn-icon">⚡</span> <span id="stormBtnText">Trigger Gulf Downpour</span>
-          </button>
-          
-          <div class="sky">
-            <div class="sun"></div>
-            <div class="cloud cloud-one"></div>
-            <div class="cloud cloud-two"></div>
-            <div class="rain-overlay" id="rainOverlay"></div>
-          </div>
-          
-          <div class="grass-stage">
-            <div class="grass-side turf">
-              <span class="label">Turf Monoculture</span>
-              <div class="blades turf-blades">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-              <div class="soil-layer turf-soil">
-                <!-- Shallow roots - highly expanded -->
-                <span class="root short"></span>
-                <span class="root tiny"></span>
-                <span class="root short"></span>
-                <span class="root tiny"></span>
-                <span class="root short"></span>
-                <span class="root tiny"></span>
-                <span class="root short"></span>
-                <span class="root tiny"></span>
-                <span class="root short"></span>
-                <span class="root tiny"></span>
-                <!-- Soil compaction visual -->
-                <div class="soil-compaction">Compacted Clay (Hardscape)</div>
-                <!-- Runoff water drops - staggered flow -->
-                <div class="water-drop runoff-drop rd1"></div>
-                <div class="water-drop runoff-drop rd2"></div>
-                <div class="water-drop runoff-drop rd3"></div>
-                <div class="water-drop runoff-drop rd4"></div>
-                <div class="water-drop runoff-drop rd5"></div>
-                <div class="water-drop runoff-drop rd6"></div>
-                <!-- Interactive flooding layer -->
-                <div class="water-pool" id="waterPool"></div>
-                <div class="runoff-stream" id="runoffStream"></div>
-                <div class="storm-alert" id="stormAlert">Bayou Flood Hazard!</div>
-              </div>
-            </div>
-            <div class="grass-side native">
-              <span class="label">Native Tallgrass</span>
-              <div class="blades native-blades">
-                <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-              </div>
-              <div class="soil-layer native-soil">
-                <!-- Deep roots - highly expanded network -->
-                <span class="root deep"></span>
-                <span class="root deeper"></span>
-                <span class="root deep"></span>
-                <span class="root deepest"></span>
-                <span class="root deeper"></span>
-                <span class="root web"></span>
-                <span class="root deep"></span>
-                <span class="root deepest"></span>
-                <span class="root deeper"></span>
-                <span class="root web"></span>
-                <span class="root deep"></span>
-                <!-- Microbes and porous soil visual -->
-                <div class="soil-porous">Porous Organic Sponge</div>
-                <!-- Infiltration water drops - staggered flow -->
-                <div class="water-drop absorb-drop ad1"></div>
-                <div class="water-drop absorb-drop ad2"></div>
-                <div class="water-drop absorb-drop ad3"></div>
-                <div class="water-drop absorb-drop ad4"></div>
-                <div class="water-drop absorb-drop ad5"></div>
-                <div class="water-drop absorb-drop ad6"></div>
-                <!-- Glowing soil biology elements -->
-                <div class="microbe m1"></div>
-                <div class="microbe m2"></div>
-                <div class="microbe m3"></div>
-                <div class="myco-network"></div>
-              </div>
-            </div>
+            <a class="button primary" href="#st-augustine">Start Reading</a>
           </div>
         </div>
       </section>
@@ -159,7 +98,6 @@
         <div class="offender-container reveal">
           <div class="offender-card">
             <div class="offender-header">
-              <span class="offender-tag">High Danger</span>
               <h3>St. Augustine Sod</h3>
             </div>
             <div class="offender-body">
@@ -259,8 +197,8 @@
       <!-- SECTION 3: CULTURAL PARADOX -->
       <section class="section" id="paradox">
         <div class="section-heading reveal">
-          <p class="eyebrow">The Domestication Paradox</p>
-          <h2>Harmful Normal Cultural Practices & Feedback Loops</h2>
+          <p class="eyebrow">Everyday Yard Habits</p>
+          <h2>Common Practices That Quietly Backfire</h2>
           <p>
             Many standard yard care routines that society considers "normal" or "neat" actively sabotage the homeowner, causing the very problems they spend money trying to fix.
           </p>
@@ -284,10 +222,10 @@
       <!-- SECTION 4: THE CHEMICAL TRAP & GASLIGHTING -->
       <section class="section" id="dependency">
         <div class="section-heading reveal">
-          <p class="eyebrow">Industrial Gaslighting</p>
-          <h2>The Chemical Dependency Loop</h2>
+          <p class="eyebrow">The Chemical Cycle</p>
+          <h2>The Chemical Dependency Cycle</h2>
           <p>
-            Why isn't this information common knowledge? Because a healthy, self-sustaining native ecosystem doesn't require recurring purchases. Chemical conglomerates profit from keeping your lawn "addicted."
+            Many lawn problems are self-reinforcing: each treatment tends to create the conditions for the next one. Understanding the cycle helps you step out of it and spend less over time.
           </p>
         </div>
 
@@ -296,7 +234,7 @@
             <div class="dep-num">01</div>
             <h3>Synthetic Nitrogen Push</h3>
             <p>
-              Conglomerates market high-nitrogen fertilizer. This forces rapid, watery top-growth in St. Augustine, which looks bright green but has weak cell walls and virtually no root growth.
+              High-nitrogen fertilizer forces rapid, watery top-growth in St. Augustine, which looks bright green but has weak cell walls and virtually no root growth.
             </p>
           </div>
           <div class="dep-card step-2">
@@ -333,113 +271,6 @@
             <p>
               Without soil biology to deliver iron and trace minerals, the grass turns yellow. The solution sold? Apply more synthetic nitrogen and iron chelates. The cycle resets, draining your wallet.
             </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 5: IMPACT LAB (SLIDER SIMULATOR) -->
-      <section class="section lab" id="impact-lab">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Interactive Impact Lab</p>
-          <h2>Slide from Turf Monoculture to Native Sponge</h2>
-          <p>Watch how the ecological variables shift as you swap non-native lawns for native ecosystems in Southeast Texas.</p>
-        </div>
-
-        <div class="lab-panel reveal">
-          <div class="slider-container">
-            <label for="nativeSlider">
-              Native Grass and Wildflower Coverage
-              <span id="nativePercent">50%</span>
-            </label>
-            <input id="nativeSlider" type="range" min="0" max="100" value="50" />
-          </div>
-
-          <div class="meter-grid" aria-live="polite">
-            <div class="meter">
-              <span>Habitat Value (Insects, Birds, Pollinators)</span>
-              <div class="meter-track"><i id="habitatMeter"></i></div>
-            </div>
-            <div class="meter">
-              <span>Stormwater Absorption (Flood Defense)</span>
-              <div class="meter-track"><i id="waterMeter"></i></div>
-            </div>
-            <div class="meter">
-              <span>Soil Biology & Micronutrient Retention</span>
-              <div class="meter-track"><i id="erosionMeter"></i></div>
-            </div>
-            <div class="meter">
-              <span>Labor & Chemical Input Demands</span>
-              <div class="meter-track warning"><i id="mowMeter"></i></div>
-            </div>
-          </div>
-
-          <p id="labNarrative" class="lab-narrative"></p>
-        </div>
-      </section>
-
-      <!-- SECTION 6: COST & ECOLOGICAL IMPACT CALCULATOR -->
-      <section class="section" id="calculator">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Calculate Your Impact</p>
-          <h2>The Lawn Rebellion Calculator</h2>
-          <p>
-            Input your current yard specs to calculate your personal annual contribution to local water waste, chemical runoff, expenses, and pest vulnerability.
-          </p>
-        </div>
-
-        <div class="calc-container reveal">
-          <form class="calc-inputs" id="calcForm">
-            <div class="form-group">
-              <label for="calcArea">Lawn Area (approximate square feet):</label>
-              <input type="number" id="calcArea" value="5000" min="100" max="100000" step="100" />
-              <small>Average suburban yard is 5,000 - 8,000 sq ft.</small>
-            </div>
-            <div class="form-group">
-              <label for="calcWater">Watering Frequency (minutes per week in summer):</label>
-              <input type="number" id="calcWater" value="60" min="0" max="300" step="10" />
-              <small>Usually three 20-minute sessions per week.</small>
-            </div>
-            <div class="form-group">
-              <label for="calcCost">Annual Chemical & Lawn Service Costs ($):</label>
-              <input type="number" id="calcCost" value="800" min="0" max="10000" step="50" />
-              <small>Include fertilizers, weed-killers, pest control, and fuel or services.</small>
-            </div>
-            <div class="form-group">
-              <label for="calcMowing">Mowing Time (hours per week):</label>
-              <input type="number" id="calcMowing" value="1.5" min="0" max="10" step="0.5" />
-              <small>Time spent prep, mowing, trimming, and blowing clippings.</small>
-            </div>
-          </form>
-
-          <div class="calc-outputs" aria-live="polite">
-            <h3>Your Annual Turf Footprint</h3>
-            <div class="output-grid">
-              <div class="output-card">
-                <span class="output-label">Clean Water Expended</span>
-                <strong class="output-val" id="outWater">0 gal</strong>
-                <p class="output-desc">Enough to supply one human's drinking water needs for 15+ years.</p>
-              </div>
-              <div class="output-card">
-                <span class="output-label">Direct Financial Drain</span>
-                <strong class="output-val" id="outCost">$0</strong>
-                <p class="output-desc">Money spent on fertilizers, pesticides, fungicides, and sod replacement.</p>
-              </div>
-              <div class="output-card">
-                <span class="output-label">Time Spent Fighting Nature</span>
-                <strong class="output-val" id="outLabor">0 hours</strong>
-                <p class="output-desc">Hours of weekend labor that could be spent resting or watching birds.</p>
-              </div>
-              <div class="output-card">
-                <span class="output-label">Downstream Runoff Risk</span>
-                <strong class="output-val warning" id="outToxicity">Extreme</strong>
-                <p class="output-desc">Estimated volume of nitrogen-rich water washing into local bayous.</p>
-              </div>
-              <div class="output-card full-width">
-                <span class="output-label">Pest Infestation Vulnerability</span>
-                <strong class="output-val warning" id="outPestRisk">High Risk</strong>
-                <p class="output-desc" id="outPestDetail">Because broad-spectrum pesticides wipe out natural predators, you are highly susceptible to sudden spikes in mosquitoes, roaches, and rodents.</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -604,7 +435,7 @@
       <section class="section timeline-section" id="action-plan">
         <div class="section-heading reveal">
           <p class="eyebrow">Action Plan</p>
-          <h2>How to Dethrone the Lawn Step-by-Step</h2>
+          <h2>Transitioning Away From Turf, Step by Step</h2>
           <p>Transitioning away from a turf monoculture doesn't mean your yard has to look like an abandoned lot. Use design cues to keep the neighborhood happy while you restore the sponge.</p>
         </div>
 
@@ -640,35 +471,167 @@
         </ol>
       </section>
 
-      <!-- SECTION 9: INTERACTIVE ECOLOGICAL QUIZ -->
-      <section class="section quiz-section" id="quiz">
-        <div class="quiz-card reveal">
-          <p class="eyebrow">Test Your Ecological Wisdom</p>
-          <h2>The Southeast Texas Lawn Mythology Quiz</h2>
-          
-          <div class="quiz-container">
-            <div id="quiz-question-box">
-              <!-- Dynamically populated via JS -->
-            </div>
-            
-            <div class="quiz-progress-bar">
-              <div class="quiz-progress-fill" id="quizProgressFill" style="width: 0%"></div>
-            </div>
+      <!-- SECTION 10: SERVICES -->
+      <section class="section" id="services">
+        <div class="section-heading reveal">
+          <p class="eyebrow">What We Do</p>
+          <h2>Conservation-Focused Tree Care for Southeast Texas</h2>
+          <p>
+            We're a residential tree care company that puts the health of your trees and the surrounding ecosystem first. From routine pruning to emergency storm response, we work to keep canopies safe, standing, and thriving—removing only what truly has to go.
+          </p>
+        </div>
+
+        <div class="services-grid reveal">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16c-3.3 0-6-2.7-6-6 0-3 2-5.5 6-8 4 2.5 6 5 6 8 0 3.3-2.7 6-6 6Z"/></svg></div>
+            <h3>Residential Tree Care</h3>
+            <p>Structural and health pruning, crown thinning, and decay assessment guided by arborist standards—so your trees stay strong, safe, and beautiful for decades.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10.3 4 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+            <h3>Hazardous Limb &amp; Tree Removal</h3>
+            <p>Safe, careful removal of dangerous limbs and trees that threaten your home, power lines, or family—handled with rigging and precision, not guesswork.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h9a2.5 2.5 0 1 1-2.5 2.5"/></svg></div>
+            <h3>Storm Debris Cleanup</h3>
+            <p>Fast response after Gulf Coast storms. We clear downed limbs and fallen trees, make hazards safe, and haul off debris so you can get back to normal.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20l1-7a5 5 0 0 1 10 0l1 7"/><path d="M9.5 12c1.5 1 3.5 1 5 0"/><path d="M10 16c1 .6 3 .6 4 0"/></svg></div>
+            <h3>Stump Grinding &amp; Removal</h3>
+            <p>Grinding and removal that reclaims your space cleanly, with care for the surrounding soil biology and root systems you want to keep healthy.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- SECTION 11: WHY TRUST US -->
+      <section class="section trust-section" id="why-us">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Why Homeowners Choose Us</p>
+          <h2>Local Expertise You Can Count On</h2>
+        </div>
+        <div class="trust-band reveal">
+          <div class="trust-item">
+            <strong>Licensed &amp; Insured</strong>
+            <p>Fully insured crews and professional safety standards on every job.</p>
           </div>
+          <div class="trust-item">
+            <strong>Conservation-Minded</strong>
+            <p>We preserve healthy trees and ecosystems—removal is the last resort, not the default.</p>
+          </div>
+          <div class="trust-item">
+            <strong>Locally Owned</strong>
+            <p>Based in and serving the Southeast Texas Gulf Coast community.</p>
+          </div>
+          <div class="trust-item">
+            <strong>Satisfaction First</strong>
+            <p>Clear estimates, tidy job sites, and full debris haul-off every time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 12: CONTACT / GET A QUOTE -->
+      <section class="section" id="contact">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Get Started</p>
+          <h2>Request a Free Estimate</h2>
+          <p>
+            Tell us about your trees and what you need—routine care, a hazardous removal, or storm cleanup. We'll follow up with a clear, no-pressure estimate.
+          </p>
+        </div>
+
+        <div class="contact-container reveal">
+          <div class="contact-details">
+            <h3>Talk to a Stump Jumper</h3>
+            <ul class="contact-list">
+              <li>
+                <span class="contact-label">Email</span>
+                <a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a>
+              </li>
+              <li>
+                <span class="contact-label">Service Area</span>
+                <span>Highlands, Crosby, Baytown, Dayton, Huffman &amp; surrounding areas</span>
+              </li>
+              <li>
+                <span class="contact-label">Hours</span>
+                <span>Mon–Sat, 7:00am – 6:00pm</span>
+              </li>
+            </ul>
+            <p class="contact-aside">Storm damage emergency? Email us with "URGENT" in the subject line and we'll prioritize your response.</p>
+          </div>
+
+          <form class="contact-form" id="quoteForm" action="https://formspree.io/f/your-form-id" method="POST">
+            <div class="form-group">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" name="name" required placeholder="Jane Homeowner" />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" name="email" required placeholder="name@domain.com" />
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">Phone (optional)</label>
+              <input type="tel" id="contactPhone" name="phone" placeholder="(409) 555-0199" />
+            </div>
+            <div class="form-group">
+              <label for="contactService">What do you need?</label>
+              <select id="contactService" name="service">
+                <option>Residential Tree Care &amp; Pruning</option>
+                <option>Hazardous Limb &amp; Tree Removal</option>
+                <option>Storm Debris Cleanup</option>
+                <option>Stump Grinding &amp; Removal</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contactMessage">Tell us about your trees</label>
+              <textarea id="contactMessage" name="message" rows="4" placeholder="Number and type of trees, what's going on, and what you'd like done."></textarea>
+            </div>
+            <button type="submit" class="button primary" style="width: 100%;">Request My Free Estimate</button>
+            <p class="form-note">We'll reply within one business day. No spam, ever.</p>
+          </form>
         </div>
       </section>
     </main>
 
     <footer>
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
-          <strong>South East Stump Jumpers</strong>
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div class="footer-brand">
+            <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+            <strong>South East Stump Jumpers</strong>
+          </div>
+          <p>
+            Ecological landscaping for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
+          </p>
         </div>
-        <p>
-          Built for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
-        </p>
-        <p class="copyright">&copy; 2026 South East Stump Jumpers. Information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Lawn Reform</a></li>
+            <li><a href="invasives.html">Invasive Trees</a></li>
+            <li><a href="tree-health.html">Tree Health &amp; Termites</a></li>
+            <li><a href="index.html#services">Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a></li>
+            <li>Highlands, Crosby, Baytown, Dayton, Huffman &amp; surrounding areas</li>
+            <li>Mon–Sat, 7:00am – 6:00pm</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <p>Have a tree that needs a look? Send a note and we'll get back to you.</p>
+          <a class="button ghost" href="index.html#contact">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. All rights reserved.</p>
+        <p class="copyright">Educational information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
       </div>
     </footer>
 

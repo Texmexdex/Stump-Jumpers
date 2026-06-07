@@ -6,8 +6,17 @@
     <title>South East Stump Jumpers - Southeast Texas Tree Health & Termite Guide</title>
     <meta
       name="description"
-      content="An interactive guide to arborist tree care standards, Dead, Diseased & Decaying (DDD) tree diagnostics, oak pruning schedules, and the Formosan termite swarm alert system."
+      content="An interactive guide to arborist tree care standards, Dead, Diseased & Decaying (DDD) tree diagnostics, oak pruning schedules, and Formosan termite swarm awareness."
     />
+    <link rel="icon" href="SESJ.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0c0e0c" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="South East Stump Jumpers" />
+    <meta property="og:title" content="Tree Health & Termites | South East Stump Jumpers" />
+    <meta property="og:description" content="Spot tree decay and hazards, time your pruning to avoid oak wilt, and stay ahead of Formosan termite swarms in Southeast Texas." />
+    <meta property="og:url" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/tree-health.html" />
+    <meta property="og:image" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/Sesj.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -36,7 +45,7 @@
           <p class="eyebrow">Southeast Texas • Arborist Standards & Home Protection</p>
           <h1>Keep your canopy standing. Protect your home.</h1>
           <p class="hero-lede">
-            Diagnose internal tree decay, plan regional pruning to prevent oak wilt, and defend your walls from destructive Formosan subterranean termites. Sign up for our swarming light-out warnings below.
+            Diagnose internal tree decay, time your pruning to avoid spreading oak wilt, and protect your walls from destructive Formosan subterranean termites, with practical, arborist-grade guidance for Southeast Texas homeowners.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#diagnostics">Diagnose Tree Decay</a>
@@ -44,63 +53,24 @@
           </div>
         </div>
 
-        <!-- Termite Alert Widget Container -->
-        <div class="hero-visual reveal" id="termiteVisual" aria-label="Formosan Termite Swarm Notification System">
-          <div class="swarm-dashboard">
-            <div class="swarm-header">
-              <span class="pulse-dot status-green" id="pulseDot"></span>
-              <h3>System Status: <span id="systemStatusText">CALM</span></h3>
+        <!-- Formosan Termite Swarm Advisory -->
+        <div class="hero-visual reveal advisory-panel" aria-label="Formosan termite swarm advisory">
+          <span class="advisory-tag">Seasonal Advisory</span>
+          <h3>Formosan Termite Swarms</h3>
+          <p>Formosan subterranean termites swarm on warm, humid nights in spring and early summer, roughly April through June along the Gulf Coast. Swarmers are drawn to bright outdoor lights, where they can slip indoors and start new colonies.</p>
+          <ul class="advisory-list">
+            <li>Switch off porch and floodlights on still, humid nights during swarm season.</li>
+            <li>Close blinds so interior light is less visible from outside.</li>
+            <li>Seal gaps around doors, weep holes, and utility penetrations.</li>
+            <li>Found discarded wings on windowsills? Have the area inspected promptly.</li>
+          </ul>
+          <form class="advisory-signup" action="https://formspree.io/f/your-form-id" method="POST">
+            <label for="alertEmail">Get a reminder before peak swarm nights</label>
+            <div class="advisory-field">
+              <input type="email" id="alertEmail" name="email" required placeholder="name@domain.com" />
+              <button type="submit" class="button primary">Notify Me</button>
             </div>
-
-            <div class="swarm-grid">
-              <!-- Alarm Details -->
-              <div class="swarm-status-box">
-                <h4>Formosan Swarm Indicator</h4>
-                <p id="swarmDesc">Active weather monitoring indicates no termite swarms in the area. Standard night lighting is safe.</p>
-                
-                <button class="button primary" id="triggerSwarmBtn" style="margin-top: 1.5rem; width: 100%;">
-                  Admin: Simulate Swarm Trigger
-                </button>
-              </div>
-
-              <!-- Signup Form -->
-              <div class="swarm-signup-box" id="signupBox">
-                <h4>Swarm Lights-Out Alarm</h4>
-                <p>Formosan termites swarm on warm, humid spring nights. Turn off outdoor lights to save your walls. Sign up for instant warnings:</p>
-                
-                <form id="swarmForm" style="margin-top: 1rem;">
-                  <div class="form-group" style="margin-bottom: 1rem;">
-                    <label for="userName">Name</label>
-                    <input type="text" id="userName" required placeholder="John Doe" />
-                  </div>
-                  <div class="form-group" style="margin-bottom: 1rem;">
-                    <label for="userContact">Email or Mobile Number</label>
-                    <input type="text" id="userContact" required placeholder="name@domain.com or 409-555-0199" />
-                  </div>
-                  <button type="submit" class="button ghost" style="width: 100%; min-height: 2.8rem; padding: 0.6rem;">
-                    Sign Up for Alerts
-                  </button>
-                </form>
-              </div>
-
-              <!-- Signup Confirmation (hidden by default) -->
-              <div class="swarm-signup-box" id="confirmBox" style="display: none; text-align: center; justify-content: center; align-items: center; flex-direction: column;">
-                <div class="finished-icon" style="font-size: 2.5rem; color: var(--green); margin-bottom: 0.5rem;">&check;</div>
-                <h4>Alert Subscription Active</h4>
-                <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--muted);" id="confirmText">You will receive warning notifications to turn off lights when flying swarms are detected by Stump Jumpers.</p>
-                <button class="button ghost" id="resetSignupBtn" style="margin-top: 1.25rem; font-size: 0.8rem; padding: 0.5rem 1rem; min-height: auto;">Change Details</button>
-              </div>
-            </div>
-
-            <!-- Flashing warning overlay display -->
-            <div class="swarm-alert-banner" id="swarmAlertBanner">
-              <span class="warning-icon">🚨</span>
-              <div class="alert-content">
-                <strong>WARNING: FORMOSAN TERMITE SWARMS DETECTED!</strong>
-                <p>Draw interior blinds and turn off all outdoor floodlights/porch lights immediately to avoid attracting colonies to your home.</p>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </section>
 
@@ -349,15 +319,42 @@
     </main>
 
     <footer>
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
-          <strong>South East Stump Jumpers</strong>
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div class="footer-brand">
+            <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+            <strong>South East Stump Jumpers</strong>
+          </div>
+          <p>
+            Ecological landscaping for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
+          </p>
         </div>
-        <p>
-          Built for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
-        </p>
-        <p class="copyright">&copy; 2026 South East Stump Jumpers. Information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Lawn Reform</a></li>
+            <li><a href="invasives.html">Invasive Trees</a></li>
+            <li><a href="tree-health.html">Tree Health &amp; Termites</a></li>
+            <li><a href="index.html#services">Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a></li>
+            <li>Highlands, Crosby, Baytown, Dayton, Huffman &amp; surrounding areas</li>
+            <li>Mon–Sat, 7:00am – 6:00pm</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <p>Have a tree that needs a look? Send a note and we'll get back to you.</p>
+          <a class="button ghost" href="index.html#contact">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. All rights reserved.</p>
+        <p class="copyright">Educational information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
       </div>
     </footer>
 
