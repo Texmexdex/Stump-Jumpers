@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Termite Swarm Alerts | South East Stump Jumpers</title>
+    <meta
+      name="description"
+      content="Free Formosan termite swarm alerts for Southeast Texas. Get an email when a local swarm is observed or when warm, humid, low-pressure evenings make a swarm likely, so you know to kill the porch lights."
+    />
+    <link rel="icon" href="SESJ.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0c0e0c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="South East Stump Jumpers" />
+    <meta property="og:title" content="Termite Swarm Alerts | South East Stump Jumpers" />
+    <meta property="og:description" content="Get a heads-up before Formosan termites swarm your porch light in Southeast Texas." />
+    <meta property="og:url" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/termite-alert.html" />
+    <meta property="og:image" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/Sesj.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      /* Living swarm background */
+      #swarm-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      /* legibility scrim over the canvas */
+      .swarm-scrim {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, rgba(8, 11, 10, 0.92) 0%, rgba(8, 11, 10, 0.55) 45%, rgba(8, 11, 10, 0.15) 100%),
+          radial-gradient(ellipse 80% 60% at 70% 40%, transparent 40%, rgba(5, 8, 7, 0.6) 100%);
+      }
+
+      .alert-hero {
+        min-height: calc(100vh - 6rem);
+        display: flex;
+        align-items: center;
+        padding: clamp(2rem, 6vw, 6rem) clamp(1rem, 5vw, 5rem);
+      }
+      .alert-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: center;
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      @media (max-width: 880px) {
+        .alert-grid { grid-template-columns: 1fr; }
+      }
+
+      .alert-copy .eyebrow { color: var(--gold); }
+      .alert-copy h1 {
+        font-family: var(--font-serif);
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        line-height: 1.05;
+        font-weight: 700;
+        margin: 0.6rem 0 1.2rem;
+      }
+      .alert-copy p { color: var(--muted); max-width: 46ch; margin-bottom: 1rem; }
+      .alert-points {
+        list-style: none;
+        margin: 1.6rem 0 0;
+        display: grid;
+        gap: 0.9rem;
+      }
+      .alert-points li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        color: var(--text);
+        font-size: 0.96rem;
+      }
+      .alert-points li span.dot {
+        flex: none;
+        width: 0.7rem;
+        height: 0.7rem;
+        margin-top: 0.45rem;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 12px rgba(169, 139, 94, 0.7);
+      }
+
+      /* Signup card */
+      .signup-card {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow);
+        padding: clamp(1.6rem, 3vw, 2.4rem);
+        backdrop-filter: blur(14px);
+      }
+      .signup-card h2 {
+        font-family: var(--font-serif);
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.4rem;
+      }
+      .signup-card .sub { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+
+      .field { margin-bottom: 1.15rem; }
+      .field label {
+        display: block;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 0.45rem;
+        font-weight: 600;
+      }
+      .field input[type="text"],
+      .field input[type="email"] {
+        width: 100%;
+        padding: 0.85rem 0.95rem;
+        background: rgba(8, 11, 10, 0.7);
+        border: 1px solid var(--card-border);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 0.98rem;
+        border-radius: var(--radius);
+        transition: border-color 0.2s ease;
+      }
+      .field input:focus {
+        outline: none;
+        border-color: var(--green);
+      }
+
+      .checks { display: grid; gap: 0.7rem; margin-top: 0.3rem; }
+      .check {
+        display: flex;
+        gap: 0.7rem;
+        align-items: flex-start;
+        padding: 0.75rem 0.85rem;
+        border: 1px solid var(--card-border);
+        background: rgba(8, 11, 10, 0.45);
+        cursor: pointer;
+      }
+      .check input { margin-top: 0.25rem; accent-color: var(--green); }
+      .check .ctext strong { display: block; font-size: 0.92rem; }
+      .check .ctext small { color: var(--muted); font-size: 0.8rem; line-height: 1.4; }
+
+      .signup-card button[type="submit"] { width: 100%; margin-top: 0.4rem; }
+      .form-note { font-size: 0.76rem; color: var(--muted); margin-top: 1rem; line-height: 1.5; }
+      .hp { position: absolute; left: -9999px; opacity: 0; }
+
+      /* This page doesn't load script.js, so neutralize any reveal-hide defaults */
+      .reveal { opacity: 1 !important; transform: none !important; }
+    </style>
+  </head>
+  <body>
+    <canvas id="swarm-bg"></canvas>
+    <div class="swarm-scrim"></div>
+
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Home">
+        <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+        <img src="STUMP%20JUMPERS.svg" alt="South East Stump Jumpers" class="brand-wordmark" />
+      </a>
+      <nav aria-label="Page navigation">
+        <a href="index.html">Lawn Reform</a>
+        <a href="invasives.html">Invasive Trees</a>
+        <a href="tree-health.html">Tree Health & Termites</a>
+        <a href="termite-alert.html" class="active">Termite Alerts</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="alert-hero">
+        <div class="alert-grid">
+          <div class="alert-copy reveal">
+            <p class="eyebrow">Free Neighborhood Service • Southeast Texas</p>
+            <h1>Get the heads-up before the swarm.</h1>
+            <p>
+              On warm, humid, low-pressure evenings in spring and early summer, Formosan subterranean termites take flight at dusk and pour toward porch lights and windows. A lit porch is an open invitation, and a swarm at your house means a colony is established nearby.
+            </p>
+            <p>
+              Sign up and we'll email you when it's time to kill the outdoor lights, either because a swarm has been observed locally or because conditions line up for one to be likely.
+            </p>
+            <ul class="alert-points">
+              <li><span class="dot"></span> Observed-swarm alerts when flights are reported in your area.</li>
+              <li><span class="dot"></span> Conditions-likely alerts on warm, humid, falling-pressure evenings.</li>
+              <li><span class="dot"></span> Simple, practical steps to keep swarmers away from your home and trees.</li>
+            </ul>
+          </div>
+
+          <div class="signup-card reveal" id="signup">
+            <h2>Termite Swarm Alert Signup</h2>
+            <p class="sub">No spam, no sales calls. Just timely swarm warnings for the SE Texas Gulf Coast.</p>
+
+            <!--
+              SETUP NOTE FOR DEX:
+              This form posts to Formspree (free tier works for a static GitHub Pages site).
+              1) Create a free account at https://formspree.io with dex@sestumpjumpers.com
+              2) Make a new form, copy its endpoint, and replace YOUR_FORM_ID below.
+              Until then the form will not deliver. Mailchimp/Buttondown/Brevo endpoints
+              can be swapped into the same action attribute if you prefer a true list.
+            -->
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+              <input type="hidden" name="_subject" value="New termite swarm alert signup" />
+
+              <div class="field">
+                <label for="name">Name (optional)</label>
+                <input type="text" id="name" name="name" autocomplete="name" placeholder="First name" />
+              </div>
+
+              <div class="field">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+              </div>
+
+              <div class="field">
+                <label for="area">Town or ZIP (optional)</label>
+                <input type="text" id="area" name="area" placeholder="Highlands, Crosby, Baytown, Dayton, Huffman…" />
+              </div>
+
+              <div class="field">
+                <label>Alert me about</label>
+                <div class="checks">
+                  <label class="check">
+                    <input type="checkbox" name="alerts" value="observed-swarm" checked />
+                    <span class="ctext">
+                      <strong>Observed swarms</strong>
+                      <small>Email me when an active swarm is reported nearby.</small>
+                    </span>
+                  </label>
+                  <label class="check">
+                    <input type="checkbox" name="alerts" value="conditions-likely" checked />
+                    <span class="ctext">
+                      <strong>Swarm-likely conditions</strong>
+                      <small>Email me when barometric and atmospheric conditions favor a swarm.</small>
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- honeypot for bots -->
+              <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <button type="submit" class="button primary">Sign Me Up</button>
+              <p class="form-note">
+                Prefer email? Send your address to
+                <a href="mailto:dex@sestumpjumpers.com?subject=Termite%20Swarm%20Alert%20Signup">dex@sestumpjumpers.com</a>
+                and we'll add you to the list.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div class="footer-brand">
+            <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
+            <strong>South East Stump Jumpers</strong>
+          </div>
+          <p>
+            Conservation-focused residential tree care for Southeast Texas: expert pruning, hazardous limb and tree removal, and storm debris cleanup, with removal always as a last resort.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Lawn Reform</a></li>
+            <li><a href="invasives.html">Invasive Trees</a></li>
+            <li><a href="tree-health.html">Tree Health &amp; Termites</a></li>
+            <li><a href="termite-alert.html">Termite Alerts</a></li>
+            <li><a href="index.html#services">Services</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a></li>
+            <li>Greater Houston &amp; surrounding areas</li>
+            <li>Mon–Sat, 7:00am – 6:00pm</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get in Touch</h4>
+          <p>Have a tree that needs a look? Send a note and we'll get back to you.</p>
+          <a class="button ghost" href="index.html#contact">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">&copy; 2026 South East Stump Jumpers. All rights reserved.</p>
+        <p class="copyright">Formosan termite (Coptotermes formosanus) swarm guidance for Gulf Coast homeowners.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      (function () {
+        const canvas = document.getElementById('swarm-bg');
+        if (!window.THREE || !canvas) return;
+
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(innerWidth, innerHeight);
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x05080c);
+        scene.fog = new THREE.FogExp2(0x05080c, 0.018);
+
+        const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 200);
+        camera.position.set(3.2, 3.4, 16);
+        camera.lookAt(2.0, 3.2, 0);
+
+        scene.add(new THREE.AmbientLight(0x1a2433, 0.9));
+        const moon = new THREE.DirectionalLight(0x9fb6d8, 0.55);
+        moon.position.set(-8, 12, -4);
+        scene.add(moon);
+
+        const ground = new THREE.Mesh(
+          new THREE.PlaneGeometry(80, 80),
+          new THREE.MeshStandardMaterial({ color: 0x0a1410, roughness: 1 })
+        );
+        ground.rotation.x = -Math.PI / 2;
+        scene.add(ground);
+
+        // House silhouette (right side)
+        const house = new THREE.Group();
+        const wallMat = new THREE.MeshStandardMaterial({ color: 0x14181d, roughness: 0.95 });
+        const body = new THREE.Mesh(new THREE.BoxGeometry(7, 5, 6), wallMat);
+        body.position.set(0, 2.5, 0);
+        house.add(body);
+        const roof = new THREE.Mesh(
+          new THREE.ConeGeometry(5.6, 2.8, 4),
+          new THREE.MeshStandardMaterial({ color: 0x0d1013, roughness: 1 })
+        );
+        roof.position.set(0, 6.4, 0);
+        roof.rotation.y = Math.PI / 4;
+        house.add(roof);
+        const winMat = new THREE.MeshBasicMaterial({ color: 0x2a2410 });
+        [[-1.6, 3.2], [1.6, 3.2]].forEach(([x, y]) => {
+          const w = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.7), winMat.clone());
+          w.position.set(x, y, 3.01);
+          house.add(w);
+        });
+        house.position.set(4.5, 0, -1);
+        scene.add(house);
+
+        // Porch lamp (the attractor)
+        const LAMP = new THREE.Vector3(0.6, 3.4, 0.6);
+        const lampGlobe = new THREE.Mesh(
+          new THREE.SphereGeometry(0.32, 20, 20),
+          new THREE.MeshBasicMaterial({ color: 0xffe6a0 })
+        );
+        lampGlobe.position.copy(LAMP);
+        scene.add(lampGlobe);
+        const fixture = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.18, 0.34, 0.5, 12),
+          new THREE.MeshStandardMaterial({ color: 0x161210, roughness: 0.8 })
+        );
+        fixture.position.set(LAMP.x, LAMP.y + 0.42, LAMP.z);
+        scene.add(fixture);
+        const halo = new THREE.Mesh(
+          new THREE.SphereGeometry(0.9, 20, 20),
+          new THREE.MeshBasicMaterial({ color: 0xffd070, transparent: true, opacity: 0.22 })
+        );
+        halo.position.copy(LAMP);
+        scene.add(halo);
+        const porchLight = new THREE.PointLight(0xffcf80, 2.6, 22, 2);
+        porchLight.position.copy(LAMP);
+        scene.add(porchLight);
+
+        // Termites
+        const COUNT = 170;
+        const termites = [];
+        const bodyGeo = new THREE.CylinderGeometry(0.022, 0.022, 0.16, 5);
+        const bodyMat = new THREE.MeshBasicMaterial({ color: 0x3a2c1c });
+        const wingMat = new THREE.MeshBasicMaterial({ color: 0xcfd8e0, transparent: true, opacity: 0.45, side: THREE.DoubleSide });
+        const wingGeo = new THREE.PlaneGeometry(0.14, 0.05);
+
+        for (let i = 0; i < COUNT; i++) {
+          const g = new THREE.Group();
+          const b = new THREE.Mesh(bodyGeo, bodyMat);
+          b.rotation.z = Math.PI / 2;
+          g.add(b);
+          const wL = new THREE.Mesh(wingGeo, wingMat.clone()); wL.position.set(0, 0.04, 0.03);
+          const wR = new THREE.Mesh(wingGeo, wingMat.clone()); wR.position.set(0, 0.04, -0.03);
+          g.add(wL); g.add(wR);
+          scene.add(g);
+
+          const da = Math.random() * Math.PI * 2;
+          const dr = 9 + Math.random() * 14;
+          const disp = new THREE.Vector3(
+            LAMP.x + Math.cos(da) * dr,
+            0.4 + Math.random() * 9,
+            LAMP.z + Math.sin(da) * dr - 3
+          );
+          termites.push({
+            g, wL, wR, disp,
+            orbitR: 0.5 + Math.random() * 2.4,
+            orbitSpeed: (0.6 + Math.random() * 1.5) * (Math.random() < 0.5 ? -1 : 1),
+            orbitPhase: Math.random() * Math.PI * 2,
+            yAmp: 0.4 + Math.random() * 1.6,
+            ySpeed: 0.5 + Math.random() * 1.4,
+            yPhase: Math.random() * Math.PI * 2,
+            wingPhase: Math.random() * Math.PI * 2,
+            f: Math.random(),
+            prev: new THREE.Vector3().copy(disp)
+          });
+        }
+
+        const clock = new THREE.Clock();
+        let t = 0;
+        const ON_DUR = 7.0, OFF_DUR = 4.0, CYCLE = ON_DUR + OFF_DUR;
+        const tmp = new THREE.Vector3();
+        const onLight = (time) => (time % CYCLE) < ON_DUR;
+
+        addEventListener('resize', () => {
+          camera.aspect = innerWidth / innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(innerWidth, innerHeight);
+        });
+
+        function animate() {
+          requestAnimationFrame(animate);
+          const dt = Math.min(clock.getDelta(), 0.05);
+          t += dt;
+          const on = onLight(t);
+
+          porchLight.intensity += ((on ? 2.8 : 0.0) - porchLight.intensity) * Math.min(1, dt * 4);
+          const lit = porchLight.intensity / 2.8;
+          lampGlobe.material.color.setRGB(0.15 + 0.85 * lit, 0.12 + 0.78 * lit, 0.05 + 0.55 * lit);
+          halo.material.opacity = 0.04 + 0.22 * lit;
+          halo.scale.setScalar(0.7 + 0.5 * lit);
+
+          for (const m of termites) {
+            const target = on ? 1 : 0;
+            const rate = (on ? 0.55 : 0.8) + m.orbitR * 0.1;
+            m.f += (target - m.f) * Math.min(1, dt * rate);
+
+            const a = m.orbitPhase + t * m.orbitSpeed;
+            const r = m.orbitR * (0.7 + 0.3 * Math.sin(t * 2.1 + m.yPhase));
+            const sx = LAMP.x + Math.cos(a) * r + Math.sin(t * 3.0 + m.wingPhase) * 0.12;
+            const sy = LAMP.y + Math.sin(t * m.ySpeed + m.yPhase) * m.yAmp * 0.5 + Math.sin(a * 1.7) * 0.2;
+            const sz = LAMP.z + Math.sin(a) * r + Math.cos(t * 2.7 + m.wingPhase) * 0.12;
+
+            tmp.set(
+              m.disp.x + (sx - m.disp.x) * m.f,
+              m.disp.y + (sy - m.disp.y) * m.f,
+              m.disp.z + (sz - m.disp.z) * m.f
+            );
+
+            m.g.position.lerp(tmp, 0.6);
+            const v = m.g.position.clone().sub(m.prev);
+            if (v.lengthSq() > 1e-6) m.g.lookAt(m.g.position.clone().add(v));
+            m.prev.copy(m.g.position);
+
+            const flutter = Math.sin(t * 40 + m.wingPhase) * 0.5 + 0.5;
+            m.wL.rotation.x = 0.4 + flutter * 0.9;
+            m.wR.rotation.x = -(0.4 + flutter * 0.9);
+            const vis = 0.12 + 0.5 * m.f;
+            m.wL.material.opacity = vis; m.wR.material.opacity = vis;
+          }
+
+          camera.position.x = 3.2 + Math.sin(t * 0.12) * 0.7;
+          camera.position.y = 3.4 + Math.sin(t * 0.09) * 0.3;
+          camera.lookAt(2.0, 3.2, 0);
+
+          renderer.render(scene, camera);
+        }
+        animate();
+      })();
+    </script>
+  </body>
+</html>
