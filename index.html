@@ -1,636 +1,872 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>South East Stump Jumpers | Conservation Tree Care in Southeast Texas</title>
-    <meta
-      name="description"
-      content="Conservation-focused residential tree care in Southeast Texas: expert pruning, hazardous limb and tree removal, and storm debris cleanup, plus practical guides to native plants, tree health, and invasive species."
-    />
-    <link rel="icon" href="SESJ.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#0c0e0c" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="South East Stump Jumpers" />
-    <meta property="og:title" content="South East Stump Jumpers | Conservation Tree Care in Southeast Texas" />
-    <meta property="og:description" content="Conservation-focused residential tree care: pruning, hazardous removal, and storm debris cleanup across Southeast Texas." />
-    <meta property="og:url" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/" />
-    <meta property="og:image" content="https://texmexdex.github.io/Southeast-Stump-Jumpers/Sesj.jpg" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./styles.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "LandscapingBusiness",
-        "name": "South East Stump Jumpers",
-        "description": "Conservation-focused residential tree care in Southeast Texas: pruning, hazardous limb and tree removal, and storm debris cleanup.",
-        "email": "dex@sestumpjumpers.com",
-        "url": "https://texmexdex.github.io/Southeast-Stump-Jumpers/",
-        "areaServed": "Greater Houston, and surrounding areas in Southeast Texas",
-        "openingHours": "Mo-Sa 07:00-18:00",
-        "knowsAbout": ["Tree care", "Tree removal", "Storm debris cleanup", "Native plants", "Invasive species"]
-      }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        stone: {
+                            950: '#0c0a09',
+                        },
+                        gold: {
+                            400: '#d4af37',
+                            500: '#c5a028',
+                            600: '#aa820a'
+                        },
+                        forest: {
+                            900: '#111e16',
+                            950: '#080f0b'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
     </script>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Return to top">
-        <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
-        <img src="STUMP%20JUMPERS.svg" alt="South East Stump Jumpers" class="brand-wordmark" />
-      </a>
-      <nav aria-label="Page navigation">
-        <a href="index.html" class="active">Lawn Reform</a>
-        <a href="invasives.html">Invasive Trees</a>
-        <a href="tree-health.html">Tree Health & Termites</a>
-        <a href="termite-alert.html">Termite Alerts</a>
-      </nav>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Three.js & GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #080f0b;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Elegant custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080f0b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #203528;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c5a028;
+        }
+        /* Luxury Glassmorphism panels */
+        .glass-card {
+            background: rgba(8, 15, 11, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.08);
+        }
+        .luxury-border {
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 30%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="text-stone-200 antialiased overflow-x-hidden selection:bg-gold-500 selection:text-black">
+
+    <!-- High-Performance WebGL Background -->
+    <div id="spatial-canvas-container" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></div>
+
+    <!-- Luxury Brand Header -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-card border-b border-white/5 px-6 md:px-12 py-5 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <span class="w-10 h-10 border border-gold-400/30 rounded-full flex items-center justify-center text-gold-400">
+                <img src="SESJ.svg" alt="South East Stump Jumpers logo" class="w-6 h-6" style="filter:invert(1) brightness(1.15);">
+            </span>
+            <div>
+                <span class="text-lg font-serif tracking-[0.15em] text-white uppercase block">South East Stump Jumpers</span>
+                <span class="text-[9px] tracking-[0.3em] text-gold-400 block uppercase font-medium">Conservation Tree Care - Southeast Texas</span>
+            </div>
+        </div>
+        <nav class="hidden lg:flex space-x-10 text-[11px] font-sans uppercase tracking-[0.25em] text-stone-400">
+            <a href="lawn-reform.html" class="hover:text-gold-400 transition duration-300">Lawn Reform</a>
+            <a href="invasives.html" class="hover:text-gold-400 transition duration-300">Invasive Trees</a>
+            <a href="tree-health.html" class="hover:text-gold-400 transition duration-300">Tree Health</a>
+            <a href="termite-alert.html" class="hover:text-gold-400 transition duration-300">Termite Alerts</a>
+            <a href="#consultation" class="hover:text-gold-400 transition duration-300">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            <a href="mailto:dex@sestumpjumpers.com" class="hidden sm:inline-flex items-center space-x-2 text-xs font-mono text-gold-400 hover:text-white transition">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+                <span>dex@sestumpjumpers.com</span>
+            </a>
+            <a href="#consultation" class="bg-gold-500 hover:bg-gold-600 text-stone-950 font-sans text-[10px] font-bold uppercase tracking-widest py-3 px-6 rounded transition-all duration-300 shadow-xl border border-gold-400/20">
+                Inquire
+            </a>
+        </div>
     </header>
 
-    <main id="top">
-      <!-- HERO SECTION -->
-      <section class="hero hero-single">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Southeast Texas • Native Landscapes & Lawn Alternatives</p>
-          <h1>Why Southeast Texas lawns struggle, and what thrives instead.</h1>
-          <p class="hero-lede">
-            Saint Augustine turf is a poor fit for our heavy clay soils and flood-prone climate. This guide explains how our native coastal prairies and riparian forests actually work, why they matter for drainage and soil health, and how to bring resilient native plantings back to your property.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#st-augustine">Start Reading</a>
-          </div>
-        </div>
-      </section>
+    <!-- MAIN SCROLLABLE CONTENT (Layered clean, editorial typography blocks over the 3D canvas) -->
+    <main class="relative z-10 w-full">
 
-      <!-- STATS STRIP -->
-      <section class="stats-strip reveal" aria-label="Key Ecological Metrics">
-        <article>
-          <span class="stat">9.0 in/hr</span>
-          <h3>Prairie Sponge Capacity</h3>
-          <p>Undisturbed native coastal prairie soil can absorb up to 9 inches of rainfall per hour, functioning as crucial regional flood defense.</p>
-        </article>
-        <article>
-          <span class="stat">0.5 in/hr</span>
-          <h3>Turf Compaction Shed</h3>
-          <p>Compacted Saint Augustine clay lawns shed heavy rainfall like concrete, magnifying street pooling and bayou erosion downstream.</p>
-        </article>
-        <article>
-          <span class="stat">90% Less</span>
-          <h3>Food Chain Dead Zone</h3>
-          <p>Lawn monocultures support 90% fewer caterpillar species than native plants, starving birds and disrupting the local food web.</p>
-        </article>
-      </section>
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center px-6 md:px-12 lg:px-24 py-20 relative">
+            <div class="max-w-3xl space-y-8 mt-12">
+                <!-- Elite Trust Badge -->
+                <div class="inline-flex items-center space-x-3 bg-stone-950/80 border border-gold-400/20 rounded-full px-5 py-2 text-[10px] font-sans font-bold tracking-[0.2em] text-gold-400 uppercase">
+                    <span class="w-2 h-2 rounded-full bg-gold-400 animate-pulse"></span>
+                    <span>Conservation-Minded - Locally Owned</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-none">
+                    Tree care that works <br>
+                    <span class="italic text-gradient">with the land.</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-stone-300 font-sans font-light leading-relaxed max-w-2xl">
+                    Conservation-focused residential tree care for Southeast Texas: expert pruning, hazardous limb and tree removal, and storm debris cleanup, done with care for your trees and the ecosystem around them. Serving Highlands, Crosby, Baytown, Dayton, Huffman, and surrounding areas.
+                </p>
 
-      <!-- SECTION 1: THE OFFENDER SPOTLIGHT -->
-      <section class="section" id="st-augustine">
-        <div class="section-heading reveal">
-          <p class="eyebrow">The Primary Culprit</p>
-          <h2>Saint Augustine Grass & The Micro-Nutrient Flush</h2>
-          <p>
-            Introduced from tropical sandy beach ridges, Saint Augustine grass (<em>Stenotaphrum secundatum</em>) was never meant for the dense clay soils of Southeast Texas. Its maintenance creates severe, hidden environmental problems.
-          </p>
-        </div>
+                <!-- Scroll-driven storm cue -->
+                <div class="max-w-lg space-y-2">
+                    <span class="text-[10px] font-sans font-bold text-gold-400 uppercase tracking-widest block">Scroll to weather the storm</span>
+                    <p class="text-xs text-stone-400 leading-relaxed">
+                        As you scroll, twilight gives way to a Gulf Coast storm &mdash; watch how a properly thinned canopy lets hurricane winds pass through instead of catching them.
+                    </p>
+                </div>
 
-        <div class="offender-container reveal">
-          <div class="offender-card">
-            <div class="offender-header">
-              <h3>St. Augustine Sod</h3>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#consultation" class="bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-500 text-stone-950 font-bold uppercase tracking-widest py-4 px-10 rounded shadow-2xl transition duration-300 text-xs">
+                        Request a Free Estimate
+                    </a>
+                    <a href="#structural-pruning" class="glass-card hover:bg-white/5 text-white font-bold uppercase tracking-widest py-4 px-10 rounded transition duration-300 text-xs flex items-center space-x-2">
+                        <span>See What We Do</span>
+                        <i data-lucide="arrow-down" class="w-4 h-4 text-gold-400"></i>
+                    </a>
+                </div>
             </div>
-            <div class="offender-body">
-              <ul class="danger-list">
-                <li>
-                  <strong>Trace Mineral Depletion:</strong> St. Augustine requires massive watering (1 inch+ per week). On local loams and clays, this constant irrigation flushes essential water-soluble trace minerals (iron, zinc, magnesium, boron) deep past the shallow root zone, starving the soil biology.
-                </li>
-                <li>
-                  <strong>Downstream Algal Blooms:</strong> Because the grass has shallow roots and sits on compacted soil, excess nitrogen/phosphorus fertilizers wash directly into bayous (like Buffalo and Cypress Bayous), flowing into the Gulf of Mexico. This fuels massive algal blooms, depleting dissolved oxygen and creating marine "dead zones" and toxic red tides.
-                </li>
-                <li>
-                  <strong>Shallow Soil Anchoring:</strong> The root system is stoloniferous and rarely penetrates more than 2 to 4 inches into heavy Texas clay. It provides zero bank stabilization, leading to erosion and soil slumping.
-                </li>
-              </ul>
-            </div>
-          </div>
+        </section>
 
-          <div class="grass-selector-box">
-            <h3>Compare Other Invasive & High-Input Lawn Grasses:</h3>
-            <div class="grass-grid">
-              <button class="grass-card active" data-grass="bermuda">
-                <span class="card-kicker">Cynodon dactylon</span>
-                <strong>Bermudagrass</strong>
-                <small>Stoloniferous Spreader</small>
-              </button>
-              <button class="grass-card" data-grass="torpedo">
-                <span class="card-kicker">Panicum repens</span>
-                <strong>Torpedograss</strong>
-                <small>Riparian Wetland Invader</small>
-              </button>
-              <button class="grass-card" data-grass="johnson">
-                <span class="card-kicker">Sorghum halepense</span>
-                <strong>Johnsongrass</strong>
-                <small>Heavy Seed Spreader</small>
-              </button>
-              <button class="grass-card" data-grass="bahia">
-                <span class="card-kicker">Paspalum notatum</span>
-                <strong>Bahiagrass</strong>
-                <small>Pasture Runaway</small>
-              </button>
-            </div>
-            <article class="grass-profile" id="grassProfile" aria-live="polite"></article>
-          </div>
-        </div>
-      </section>
+        <!-- SECTION 1: SURGICAL REMOVALS & CANOPY PRUNING -->
+        <section id="structural-pruning" class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-24 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full max-w-7xl mx-auto">
+                <div class="lg:col-span-6 space-y-8 self-center">
+                    <div class="space-y-3">
+                        <span class="text-[11px] font-sans font-bold text-gold-400 tracking-[0.3em] uppercase block">What We Do</span>
+                        <h2 class="text-4xl md:text-5xl font-serif text-white leading-tight">Hurricane Resiliency Pruning & Safe Removals</h2>
+                    </div>
+                    
+                    <p class="text-stone-300 font-sans font-light leading-relaxed">
+                        In Southeast Texas, high wind is a constant threat. We do not just hack branches off, we make precise, calculated weight-distribution cuts on live oaks, elms, and cypress to keep them sound and standing.
+                    </p>
 
-      <!-- SECTION 2: SOUTHEAST TEXAS ECOSYSTEMS -->
-      <section class="section" id="ecoregions">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Local Ecoregions</p>
-          <h2>The Natural Architecture of Southeast Texas</h2>
-          <p>
-            Understanding our region is the first step to working with it. Southeast Texas is a rich convergence zone of three distinct ecological systems.
-          </p>
-        </div>
+                    <div class="space-y-6 pt-4 border-t border-white/5">
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="wind" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Canopy Thinning & Wind Resistance Reduction</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">By selectively removing high-resistance secondary limbs, we allow gale-force hurricane winds to blow through the canopy, reducing mechanical leverage and the risk of storm failure.</p>
+                            </div>
+                        </div>
 
-        <div class="ecoregions-grid reveal">
-          <div class="ecoregion-card">
-            <div class="eco-badge prairie">Coastal Prairie</div>
-            <h3>Gulf Coast Saline & Clay Prairie</h3>
-            <p>
-              A fire-adapted grassland system defined by heavy vertisol clay soils. Dominated by tall grasses and deep roots that act as flood sponges, absorbing rainfall and filtering sediment before it reaches waterways.
-            </p>
-            <div class="eco-features">
-              <span>Keystone: Little Bluestem</span>
-              <span>Soil: Heavy Black Clay</span>
-              <span>Rain Capacity: High</span>
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="shield-off" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Low-Impact Surgical Removal</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">When a compromised tree must be cleared, we use state-of-the-art rigging systems and premium compact aerial lifts to safely lower structural wood sections. Zero impact to your home, pristine sod, or landscape masonry.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Empty Right Column to let the 3D scene shine through -->
+                <div class="lg:col-span-6 hidden lg:block"></div>
             </div>
-          </div>
-          <div class="ecoregion-card">
-            <div class="eco-badge piney">Piney Woods</div>
-            <h3>Pine-Hardwood Forest Transition</h3>
-            <p>
-              Located in northern parts of Southeast Texas, featuring acidic, sandy loams. The vegetation consists of soaring Loblolly pines, oaks, and a shaded understory of shade-tolerant grasses and sedges.
-            </p>
-            <div class="eco-features">
-              <span>Keystone: Inland Sea Oats</span>
-              <span>Soil: Acidic Sandy Loam</span>
-              <span>Rain Capacity: Moderate</span>
-            </div>
-          </div>
-          <div class="ecoregion-card">
-            <div class="eco-badge bayou">Riparian Bayous</div>
-            <h3>Riparian Floodplain Wetlands</h3>
-            <p>
-              The sluggish bayous, creeks, and rivers that slowly drain the region. Stabilized by dense root masses of native sedges, rushes, and moisture-loving grasses that hold wet mud together during rising waters.
-            </p>
-            <div class="eco-features">
-              <span>Keystone: Eastern Gamagrass</span>
-              <span>Soil: Alluvial Silt & Mud</span>
-              <span>Rain Capacity: Extreme</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- SECTION 3: CULTURAL PARADOX -->
-      <section class="section" id="paradox">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Everyday Yard Habits</p>
-          <h2>Common Practices That Quietly Backfire</h2>
-          <p>
-            Many standard yard care routines that society considers "normal" or "neat" actively sabotage the homeowner, causing the very problems they spend money trying to fix.
-          </p>
-        </div>
+        <!-- SECTION 2: INVASIVE CLEARING & HYDROLOGY RESTORATION -->
+        <section id="land-clearing" class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-24 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full max-w-7xl mx-auto">
+                <div class="lg:col-span-6 space-y-8 self-center">
+                    <div class="space-y-3">
+                        <span class="text-[11px] font-sans font-bold text-gold-400 tracking-[0.3em] uppercase block">What We Do</span>
+                        <h2 class="text-4xl md:text-5xl font-serif text-white leading-tight">Remediating Destructive Invasives & Bayou Erosion</h2>
+                    </div>
+                    
+                    <p class="text-stone-300 font-sans font-light leading-relaxed">
+                        Aggressive non-natives like Chinese tallow, chinaberry, Brazilian peppertree, and Chinese privet are overrunning Southeast Texas, walling off the bayous and turning prairie and bottomland forest into monoculture. Left alone, they crowd out every native and erode the banks.
+                    </p>
 
-        <div class="paradox-explorer reveal">
-          <div class="paradox-tabs" role="tablist" aria-label="Cultural Paradoxes">
-            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="predators">The Predator Vacuum</button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="leaves">Leaf & Clipping Bagging</button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="chemicals">The Chemical Squeeze</button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="ivy">Invasive Ivy & Privet</button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="mowing">Scalping & Short Mowing</button>
-          </div>
+                    <div class="space-y-6 pt-4 border-t border-white/5">
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="waves" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Invasive Tree & Privet Removal</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">Tallow, privet, and their kind resprout from a bare-cut stump, so we pair removal with targeted stump treatment, then replant with deep-rooted natives that actually hold the soil. No broadcast spraying.</p>
+                            </div>
+                        </div>
 
-          <div class="paradox-content" id="paradoxContent" aria-live="polite">
-            <!-- Content dynamic loaded via JS -->
-          </div>
-        </div>
-      </section>
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="sprout" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Native Micro-Prairie Re-wilding</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">Establish a beautiful, self-sustaining micro-prairie of Gulf Coast Native Grasses. These natural root sponges absorb thousands of gallons of runoff, mitigating localized flooding around your home.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      <!-- SECTION 4: THE CHEMICAL TRAP & GASLIGHTING -->
-      <section class="section" id="dependency">
-        <div class="section-heading reveal">
-          <p class="eyebrow">The Chemical Cycle</p>
-          <h2>The Chemical Dependency Cycle</h2>
-          <p>
-            Many lawn problems are self-reinforcing: each treatment tends to create the conditions for the next one. Understanding the cycle helps you step out of it and spend less over time.
-          </p>
-        </div>
+        <!-- SECTION 3: TERMITE & ROOT COLLAR DIAGNOSTICS -->
+        <section id="diagnostics" class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-24 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 w-full max-w-7xl mx-auto">
+                <div class="lg:col-span-6 space-y-8 self-center">
+                    <div class="space-y-3">
+                        <span class="text-[11px] font-sans font-bold text-gold-400 tracking-[0.3em] uppercase block">Tree Health</span>
+                        <h2 class="text-4xl md:text-5xl font-serif text-white leading-tight">Formosan Termites & Trees in Decline</h2>
+                    </div>
+                    
+                    <p class="text-stone-300 font-sans font-light leading-relaxed">
+                        Formosan subterranean termites (Coptotermes formosanus) hollow living trees from the inside. The canopy can look full and healthy while the trunk is failing. We inspect for the structural warning signs - fungal conks, hollow sound, weak codominant unions - before a storm finds them first.
+                    </p>
 
-        <div class="dependency-grid reveal">
-          <div class="dep-card step-1">
-            <div class="dep-num">01</div>
-            <h3>Synthetic Nitrogen Push</h3>
-            <p>
-              High-nitrogen fertilizer forces rapid, watery top-growth in St. Augustine, which looks bright green but has weak cell walls and virtually no root growth.
-            </p>
-          </div>
-          <div class="dep-card step-2">
-            <div class="dep-num">02</div>
-            <h3>The Insect Invitation</h3>
-            <p>
-              Sap-sucking pests (like chinch bugs and sod webworms) are magnetically drawn to this weak, nitrogen-rich tissue. They easily digest the thin cell walls and multiply.
-            </p>
-          </div>
-          <div class="dep-card step-3">
-            <div class="dep-num">03</div>
-            <h3>Broad-Spectrum Spray</h3>
-            <p>
-              The industry sells you synthetic pesticides. This kills the chinch bugs but also wipes out the spiders, ladybugs, and predatory mites that kept them in check. The soil life dies.
-            </p>
-          </div>
-          <div class="dep-card step-4">
-            <div class="dep-num">04</div>
-            <h3>Fungal Infections Bloom</h3>
-            <p>
-              Sterilized, biologically dead soil cannot resist root rot pathogens. In the hot Southeast Texas humidity, Large Patch or Take-All Patch fungus attacks the weakened roots.
-            </p>
-          </div>
-          <div class="dep-card step-5">
-            <div class="dep-num">05</div>
-            <h3>Fungicides & Soil Starvation</h3>
-            <p>
-              The industry sells you synthetic fungicides. This kills the harmful fungus but also destroys beneficial mycorrhizal fungi. Now the roots cannot absorb micronutrients or phosphorus.
-            </p>
-          </div>
-          <div class="dep-card step-6">
-            <div class="dep-num">06</div>
-            <h3>Yellowing (Chlorosis) & Repeat</h3>
-            <p>
-              Without soil biology to deliver iron and trace minerals, the grass turns yellow. The solution sold? Apply more synthetic nitrogen and iron chelates. The cycle resets, draining your wallet.
-            </p>
-          </div>
-        </div>
-      </section>
+                    <div class="space-y-6 pt-4 border-t border-white/5">
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="microscope" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Root Flare & Decay Assessment</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">We check the root flare and trunk for decay, girdling roots, and the fungal conks (like Ganoderma) that signal internal rot, so problems get caught while there are still options.</p>
+                            </div>
+                        </div>
 
-      <!-- SECTION 7: NATIVE SHOWCASE -->
-      <section class="section" id="natives">
-        <div class="section-heading reveal">
-          <p class="eyebrow">The Native Alternatives</p>
-          <h2>Architecture, Beauty, and Flood-Sponge Infrastructure</h2>
-          <p>
-            A native grass planting isn't messy; it is high-design landscaping. These species hold clay, survive droughts, slow down stormwater, and host the foundation of our food chain.
-          </p>
-        </div>
+                        <div class="flex items-start space-x-4">
+                            <span class="p-2 bg-stone-900 border border-gold-400/20 text-gold-400 rounded-lg shrink-0">
+                                <i data-lucide="bug" class="w-5 h-5"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-sm font-semibold text-white">Conservation-Minded by Default</h4>
+                                <p class="text-xs text-stone-400 mt-1 leading-relaxed">We favor the least-toxic effective approach and protect the spiders, snakes, opossums, and soil fungi that keep a yard's pests in check. Removal and chemicals are a last resort, not a default.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-6 hidden lg:block"></div>
+            </div>
+        </section>
 
-        <div class="native-showcase reveal">
-          <article class="native-card">
-            <div class="native-art little-bluestem">
-              <svg class="plant-svg bluestem-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-                <g class="sway-group-1">
-                  <path d="M 20 115 Q 18 60 10 20" stroke="#b86237" stroke-width="1.2" fill="none" />
-                  <path d="M 35 115 Q 38 70 30 30" stroke="#a77a42" stroke-width="1.2" fill="none" />
-                  <path d="M 50 115 Q 46 50 40 10" stroke="#b86237" stroke-width="1.5" fill="none" />
-                  <path d="M 65 115 Q 62 65 52 25" stroke="#a77a42" stroke-width="1.2" fill="none" />
-                  <path d="M 80 115 Q 85 75 75 35" stroke="#b86237" stroke-width="1.2" fill="none" />
-                </g>
-                <g class="sway-group-2">
-                  <path d="M 28 115 Q 25 50 18 15" stroke="#ecc062" stroke-width="1" fill="none" />
-                  <path d="M 42 115 Q 45 60 38 22" stroke="#ecd4ab" stroke-width="1.2" fill="none" />
-                  <path d="M 58 115 Q 60 55 55 18" stroke="#ecc062" stroke-width="1.2" fill="none" />
-                  <path d="M 72 115 Q 70 60 62 20" stroke="#ecd4ab" stroke-width="1" fill="none" />
-                </g>
-                <g class="sway-group-1">
-                  <circle cx="12" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="10" cy="20" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="14" cy="40" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="32" cy="40" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="30" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="41" cy="20" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="40" cy="10" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="43" cy="30" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="53" cy="35" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="52" cy="25" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="76" cy="45" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                  <circle cx="75" cy="35" r="1.5" fill="#f4f6f3" opacity="0.9" />
-                </g>
-              </svg>
-            </div>
-            <div class="native-card-content">
-              <h3>Little Bluestem</h3>
-              <p class="botanical">Schizachyrium scoparium</p>
-              <p>Clump-forming prairie grass with blue-green summer blades and coppery-orange winter coloration. Root depth: 6–9 feet. Provides structure and food for specialist butterflies and nesting cover for birds.</p>
-            </div>
-          </article>
-          <article class="native-card">
-            <div class="native-art gulf-muhly">
-              <svg class="plant-svg muhly-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-                <g class="sway-group-1">
-                  <path d="M 30 115 Q 20 85 10 60" stroke="#1b3d22" stroke-width="1" fill="none" />
-                  <path d="M 40 115 Q 35 90 22 65" stroke="#1b3d22" stroke-width="1" fill="none" />
-                  <path d="M 50 115 Q 50 80 50 55" stroke="#2e593a" stroke-width="1" fill="none" />
-                  <path d="M 60 115 Q 65 90 78 65" stroke="#1b3d22" stroke-width="1" fill="none" />
-                  <path d="M 70 115 Q 80 85 90 60" stroke="#1b3d22" stroke-width="1" fill="none" />
-                </g>
-                <g class="muhly-mist-group">
-                  <ellipse cx="50" cy="40" rx="35" ry="22" fill="rgba(240, 139, 135, 0.15)" filter="blur(6px)" />
-                  <ellipse cx="45" cy="35" rx="20" ry="12" fill="rgba(193, 84, 219, 0.12)" filter="blur(5px)" />
-                  <path d="M 30 115 Q 35 60 25 25" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
-                  <path d="M 42 115 Q 45 50 40 18" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="2 1" fill="none" />
-                  <path d="M 50 115 Q 50 45 60 20" stroke="#c154db" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
-                  <path d="M 58 115 Q 55 55 75 22" stroke="#f08b87" stroke-width="0.8" stroke-dasharray="2 1" fill="none" />
-                  <path d="M 70 115 Q 65 65 85 28" stroke="#c154db" stroke-width="0.8" stroke-dasharray="1 1" fill="none" />
-                </g>
-              </svg>
-            </div>
-            <div class="native-card-content">
-              <h3>Gulf Muhly</h3>
-              <p class="botanical">Muhlenbergia capillaris</p>
-              <p>Stunning pink-purple airy seed plumes in the fall. Highly prized for high-end curb appeal, drought-hardiness, and structural nesting support for predatory insects.</p>
-            </div>
-          </article>
-          <article class="native-card">
-            <div class="native-art switchgrass">
-              <svg class="plant-svg switchgrass-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-                <g class="sway-group-1">
-                  <path d="M 35 115 L 42 45" stroke="#2e593a" stroke-width="1.8" fill="none" />
-                  <path d="M 50 115 L 50 35" stroke="#22442b" stroke-width="2.2" fill="none" />
-                  <path d="M 65 115 L 58 45" stroke="#2e593a" stroke-width="1.8" fill="none" />
-                  <path d="M 39 80 Q 20 75 10 82" stroke="#2e593a" stroke-width="1.2" fill="none" />
-                  <path d="M 46 65 Q 25 60 15 70" stroke="#2e593a" stroke-width="1.2" fill="none" />
-                  <path d="M 61 80 Q 80 75 90 82" stroke="#2e593a" stroke-width="1.2" fill="none" />
-                  <path d="M 54 65 Q 75 60 85 70" stroke="#2e593a" stroke-width="1.2" fill="none" />
-                </g>
-                <g class="sway-group-2">
-                  <path d="M 42 45 Q 35 30 25 22" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <path d="M 42 45 Q 45 28 42 15" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <path d="M 42 45 Q 50 32 58 24" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <path d="M 50 35 Q 40 20 32 10" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <path d="M 50 35 Q 52 18 50 8" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <path d="M 50 35 Q 60 22 68 12" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                  <circle cx="25" cy="22" r="1" fill="#ecc062" />
-                  <circle cx="32" cy="15" r="1" fill="#ecc062" />
-                  <circle cx="42" cy="15" r="1" fill="#ecc062" />
-                  <circle cx="58" cy="24" r="1" fill="#ecc062" />
-                  <circle cx="32" cy="10" r="1" fill="#ecc062" />
-                  <circle cx="42" cy="8" r="1" fill="#ecc062" />
-                  <circle cx="50" cy="8" r="1" fill="#ecc062" />
-                  <circle cx="60" cy="8" r="1" fill="#ecc062" />
-                  <circle cx="68" cy="12" r="1" fill="#ecc062" />
-                </g>
-              </svg>
-            </div>
-            <div class="native-card-content">
-              <h3>Switchgrass</h3>
-              <p class="botanical">Panicum virgatum</p>
-              <p>Soaring, architectural screen grass with delicate panicled seed heads. Root depth: 10–12 feet. Provides extreme flood absorption, heavy seed crops for birds, and dense cover.</p>
-            </div>
-          </article>
-          <article class="native-card">
-            <div class="native-art inland-sea-oats">
-              <svg class="plant-svg sea-oats-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="115" x2="100" y2="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="1" />
-                <g class="sway-group-1">
-                  <path d="M 30 115 Q 35 60 55 35" stroke="#548b54" stroke-width="1.2" fill="none" />
-                  <path d="M 45 115 Q 50 50 80 32" stroke="#548b54" stroke-width="1.5" fill="none" />
-                </g>
-                <g class="oats-dangle-group-1">
-                  <g class="dangle-oat" style="transform-origin: 55px 35px;">
-                    <path d="M 55 35 Q 52 45 50 55" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                    <path d="M 50 55 L 47 50 L 50 48 L 53 50 Z" fill="#a7e084" />
-                    <path d="M 52 48 L 49 43 L 52 41 L 55 43 Z" fill="#a7e084" />
-                  </g>
-                </g>
-                <g class="oats-dangle-group-2">
-                  <g class="dangle-oat" style="transform-origin: 80px 32px;">
-                    <path d="M 80 32 Q 78 45 74 58" stroke="#ecc062" stroke-width="0.8" fill="none" />
-                    <path d="M 74 58 L 70 54 L 74 51 L 78 54 Z" fill="#ecc062" />
-                    <path d="M 76 51 L 72 46 L 76 43 L 80 46 Z" fill="#ecc062" />
-                    <path d="M 78 43 L 74 38 L 78 35 L 82 38 Z" fill="#ecc062" />
-                  </g>
-                </g>
-                <g class="sway-group-2">
-                  <path d="M 33 90 Q 20 80 8 85" stroke="#548b54" stroke-width="1.2" fill="none" />
-                  <path d="M 38 75 Q 25 65 15 72" stroke="#548b54" stroke-width="1.2" fill="none" />
-                  <path d="M 48 85 Q 65 80 75 88" stroke="#548b54" stroke-width="1.2" fill="none" />
-                  <path d="M 52 70 Q 70 65 82 72" stroke="#548b54" stroke-width="1.2" fill="none" />
-                </g>
-              </svg>
-            </div>
-            <div class="native-card-content">
-              <h3>Inland Sea Oats</h3>
-              <p class="botanical">Chasmanthium latifolium</p>
-              <p>Graceful, drooping chevron-like seed heads that resemble oats hanging over water. Extremely shade-tolerant; ideal for Piney Woods edges, damp corners, and bayou banks.</p>
-            </div>
-          </article>
-        </div>
-      </section>
+        <!-- SECTION 4: CONCIERGE ESTATE BOOKING -->
+        <section id="consultation" class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-24 relative">
+            <div class="max-w-4xl mx-auto w-full glass-card p-8 md:p-12 rounded-3xl luxury-border shadow-2xl relative">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left: Contact Details -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="text-[10px] font-sans font-bold text-gold-400 uppercase tracking-widest block">Inquire Now</span>
+                        <h2 class="text-3xl font-serif text-white leading-tight italic">Request a Free Estimate</h2>
+                        <p class="text-xs text-stone-400 leading-relaxed font-sans">
+                            We serve homeowners across Greater Houston, and the surrounding Southeast Texas communities. Tell us about your trees and we'll follow up with a clear, no-pressure estimate. 
+                        </p>
+                        <div class="space-y-4 pt-4 border-t border-white/5 text-xs text-stone-300 font-mono">
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-gold-400"></i>
+                                <span>Greater Houston & surrounding areas</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <i data-lucide="mail" class="w-4 h-4 text-gold-400"></i>
+                                <span>dex@sestumpjumpers.com</span>
+                            </div>
+                        </div>
+                    </div>
 
-      <!-- SECTION 8: ACTION PLAN -->
-      <section class="section timeline-section" id="action-plan">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Action Plan</p>
-          <h2>Transitioning Away From Turf, Step by Step</h2>
-          <p>Transitioning away from a turf monoculture doesn't mean your yard has to look like an abandoned lot. Use design cues to keep the neighborhood happy while you restore the sponge.</p>
-        </div>
+                    <!-- Right: Booking Form -->
+                    <div class="lg:col-span-7">
+                        <form id="estate-form" class="space-y-4 font-sans text-xs">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[9px] text-stone-400 tracking-wider uppercase block mb-1">Name</label>
+                                    <input type="text" required class="w-full bg-stone-900 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-gold-400 transition">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] text-stone-400 tracking-wider uppercase block mb-1">Location / Zip</label>
+                                    <input type="text" required placeholder="e.g. Crosby, TX" class="w-full bg-stone-900 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-gold-400 transition">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[9px] text-stone-400 tracking-wider uppercase block mb-1">Secure Email</label>
+                                    <input type="email" required class="w-full bg-stone-900 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-gold-400 transition">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] text-stone-400 tracking-wider uppercase block mb-1">Urgency Focus</label>
+                                    <select class="w-full bg-stone-900 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-gold-400 transition">
+                                        <option>Select Priority Focus...</option>
+                                        <option>Hazardous Limb & Tree Removal</option>
+                                        <option>Residential Tree Care & Pruning</option>
+                                        <option>Tree Health / Termite Inspection</option>
+                                        <option>Invasive Tree & Privet Removal</option>
+                                        <option>Storm Debris Cleanup</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[9px] text-stone-400 tracking-wider uppercase block mb-1">Tell us about your trees</label>
+                                <textarea rows="3" placeholder="Number and type of trees, what's going on, and what you'd like done." class="w-full bg-stone-900 border border-white/10 rounded p-3 text-white focus:outline-none focus:border-gold-400 transition"></textarea>
+                            </div>
+                            <div id="contact-success" class="hidden p-3 bg-gold-400/10 border border-gold-400/20 text-gold-400 rounded text-center font-bold">
+                                Thanks! We'll get back to you within one business day.
+                            </div>
+                            <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-stone-950 font-bold uppercase tracking-widest py-3.5 rounded transition">
+                                Request My Free Estimate
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <ol class="timeline reveal">
-          <li>
-            <span>1</span>
-            <div>
-              <h3>Start with Strategic Zones</h3>
-              <p>Never try to scrape your whole yard at once. Pick a wet drainage ditch, a sunny back fence line, a dry corner, or an area that struggles with St. Augustine die-off. Convert this zone first.</p>
-            </div>
-          </li>
-          <li>
-            <span>2</span>
-            <div>
-              <h3>Solarize or Sheet Mulch</h3>
-              <p>Instead of spraying glyphosate, lay down thick cardboard overlapping by 6 inches, and cover it with 4 inches of native shredded hardwood mulch. This smothers runners, seeds, and St. Augustine stolons without sterilizing the soil biology.</p>
-            </div>
-          </li>
-          <li>
-            <span>3</span>
-            <div>
-              <h3>Plant in Dense Layers</h3>
-              <p>Combine native grasses with native sedges and pioneer wildflowers (like Purple Coneflower, Blue Mistflower, and Gulf Coast Penstemon). Planting densely mimics native prairie structures, blocking out opportunistic weeds naturally.</p>
-            </div>
-          </li>
-          <li>
-            <span>4</span>
-            <div>
-              <h3>Establish Design Cues</h3>
-              <p>Make your native garden look highly intentional. Frame it with clean, mowed borders, neat wooden or steel edging, stone paths, or repeated drifts. Add a bird bath or a "Native Plant Habitat" sign. If it reads as "designed," HOAs and neighbors will celebrate it.</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <!-- SECTION 10: SERVICES -->
-      <section class="section" id="services">
-        <div class="section-heading reveal">
-          <p class="eyebrow">What We Do</p>
-          <h2>Conservation-Focused Tree Care for Southeast Texas</h2>
-          <p>
-            We're a residential tree care company that puts the health of your trees and the surrounding ecosystem first. From routine pruning to emergency storm response, we work to keep canopies safe, standing, and thriving—removing only what truly has to go.
-          </p>
-        </div>
-
-        <div class="services-grid reveal">
-          <article class="service-card">
-            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16c-3.3 0-6-2.7-6-6 0-3 2-5.5 6-8 4 2.5 6 5 6 8 0 3.3-2.7 6-6 6Z"/></svg></div>
-            <h3>Residential Tree Care</h3>
-            <p>Structural and health pruning, crown thinning, and decay assessment guided by arborist standards—so your trees stay strong, safe, and beautiful for decades.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10.3 4 2.6 17.5A2 2 0 0 0 4.3 20.5h15.4a2 2 0 0 0 1.7-3L13.7 4a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
-            <h3>Hazardous Limb &amp; Tree Removal</h3>
-            <p>Safe, careful removal of dangerous limbs and trees that threaten your home, power lines, or family—handled with rigging and precision, not guesswork.</p>
-          </article>
-          <article class="service-card">
-            <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h15a3 3 0 1 1-3 3"/><path d="M3 16h9a2.5 2.5 0 1 1-2.5 2.5"/></svg></div>
-            <h3>Storm Debris Cleanup</h3>
-            <p>Fast response after Gulf Coast storms. We clear downed limbs and fallen trees, make hazards safe, and haul off debris so you can get back to normal.</p>
-          </article>
-        </div>
-      </section>
-
-      <!-- SECTION 11: WHY TRUST US -->
-      <section class="section trust-section" id="why-us">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Why Homeowners Choose Us</p>
-          <h2>Local Expertise You Can Count On</h2>
-        </div>
-        <div class="trust-band reveal">
-          <div class="trust-item">
-            <strong>Licensed &amp; Insured</strong>
-            <p>Fully insured crews and professional safety standards on every job.</p>
-          </div>
-          <div class="trust-item">
-            <strong>Conservation-Minded</strong>
-            <p>We preserve healthy trees and ecosystems—removal is the last resort, not the default.</p>
-          </div>
-          <div class="trust-item">
-            <strong>Locally Owned</strong>
-            <p>Based in and serving the Southeast Texas Gulf Coast community.</p>
-          </div>
-          <div class="trust-item">
-            <strong>Satisfaction First</strong>
-            <p>Clear estimates, tidy job sites, and full debris haul-off every time.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 12: CONTACT / GET A QUOTE -->
-      <section class="section" id="contact">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Get Started</p>
-          <h2>Request a Free Estimate</h2>
-          <p>
-            Tell us about your trees and what you need—routine care, a hazardous removal, or storm cleanup. We'll follow up with a clear, no-pressure estimate.
-          </p>
-        </div>
-
-        <div class="contact-container reveal">
-          <div class="contact-details">
-            <h3>Talk to a Stump Jumper</h3>
-            <ul class="contact-list">
-              <li>
-                <span class="contact-label">Email</span>
-                <a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a>
-              </li>
-              <li>
-                <span class="contact-label">Service Area</span>
-                <span>Greater Houston &amp; surrounding areas</span>
-              </li>
-              <li>
-                <span class="contact-label">Hours</span>
-                <span>Mon–Sat, 7:00am – 6:00pm</span>
-              </li>
-            </ul>
-            <p class="contact-aside">Storm damage emergency? Email us with "URGENT" in the subject line and we'll prioritize your response.</p>
-          </div>
-
-          <form class="contact-form" id="quoteForm" action="https://formspree.io/f/your-form-id" method="POST">
-            <div class="form-group">
-              <label for="contactName">Name</label>
-              <input type="text" id="contactName" name="name" required placeholder="Jane Homeowner" />
-            </div>
-            <div class="form-group">
-              <label for="contactEmail">Email</label>
-              <input type="email" id="contactEmail" name="email" required placeholder="name@domain.com" />
-            </div>
-            <div class="form-group">
-              <label for="contactPhone">Phone (optional)</label>
-              <input type="tel" id="contactPhone" name="phone" placeholder="(409) 555-0199" />
-            </div>
-            <div class="form-group">
-              <label for="contactService">What do you need?</label>
-              <select id="contactService" name="service">
-                <option>Residential Tree Care &amp; Pruning</option>
-                <option>Hazardous Limb &amp; Tree Removal</option>
-                <option>Storm Debris Cleanup</option>
-                <option>Something else</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="contactMessage">Tell us about your trees</label>
-              <textarea id="contactMessage" name="message" rows="4" placeholder="Number and type of trees, what's going on, and what you'd like done."></textarea>
-            </div>
-            <button type="submit" class="button primary" style="width: 100%;">Request My Free Estimate</button>
-            <p class="form-note">We'll reply within one business day. No spam, ever.</p>
-          </form>
-        </div>
-      </section>
     </main>
 
-    <footer>
-      <div class="footer-grid">
-        <div class="footer-col footer-about">
-          <div class="footer-brand">
-            <img src="SESJ.svg" alt="South East Stump Jumpers Logo" class="brand-logo" />
-            <strong>South East Stump Jumpers</strong>
-          </div>
-          <p>
-            Ecological landscaping for Southeast Texas homeowners who want yards that look stunning, mitigate flooding, rebuild exhausted soil biology, and feed native food webs.
-          </p>
+    <!-- Brand Footer -->
+    <footer class="relative z-10 glass-card border-t border-white/5 py-12 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between text-xs text-stone-500 gap-6">
+        <div class="flex items-center space-x-3">
+            <span class="p-2 border border-stone-800 rounded text-gold-400">
+                <img src="SESJ.svg" alt="South East Stump Jumpers logo" class="w-6 h-6" style="filter:invert(1) brightness(1.15);">
+            </span>
+            <div>
+                <span class="font-serif text-white tracking-widest font-bold">SOUTH EAST STUMP JUMPERS</span>
+                <span class="block text-[9px] font-mono text-stone-600">CONSERVATION TREE CARE - SOUTHEAST TEXAS</span>
+            </div>
         </div>
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Lawn Reform</a></li>
-            <li><a href="invasives.html">Invasive Trees</a></li>
-            <li><a href="tree-health.html">Tree Health &amp; Termites</a></li>
-            <li><a href="termite-alert.html">Termite Alerts</a></li>
-            <li><a href="index.html#services">Services</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a></li>
-            <li>Greater Houston &amp; surrounding areas</li>
-            <li>Mon–Sat, 7:00am – 6:00pm</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Get in Touch</h4>
-          <p>Have a tree that needs a look? Send a note and we'll get back to you.</p>
-          <a class="button ghost" href="index.html#contact">Contact Us</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="copyright">&copy; 2026 South East Stump Jumpers. All rights reserved.</p>
-        <p class="copyright">Educational information sourced from the Native Plant Society of Texas and Coastal Prairie Conservancy.</p>
-      </div>
+        <p class="text-center md:text-right">&copy; 2026 South East Stump Jumpers. Conservation tree care for Southeast Texas.</p>
     </footer>
 
-    <script src="./script.js"></script>
-  </body>
+    <!-- Interactive Script Processing -->
+    <script>
+        lucide.createIcons();
+
+        // Register ScrollTrigger GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Contact Form Submission
+        document.getElementById('estate-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const successEl = document.getElementById('contact-success');
+            successEl.classList.remove('hidden');
+            setTimeout(() => {
+                successEl.classList.add('hidden');
+                this.reset();
+            }, 6000);
+        });
+
+        // -------------------------------------------------------------
+        // THREE.JS SPATIAL SIMULATOR SYSTEM (GEOLOGICAL STRATA & ORGANIC BENDING)
+        // -------------------------------------------------------------
+        let scene, camera, renderer;
+        let groundSlice, waterMesh, cypressTree, trunkMesh, grassSward = [], SpanishMoss = [];
+        let fireflies, termiteSwarm, rainParticles;
+        let windFactor = 0.12, floodFactor = 0.3, termiteFactor = 0.05, invasiveFactor = 0.0;
+        let lightningFlash = false;
+
+        // Camera positioning targets for different scroll zones
+        const scrollCameras = [
+            { pos: { x: 3.2, y: 3.2, z: 15.0 }, look: { x: -5.0, y: 1.6, z: 0.0 } },
+            { pos: { x: 3.4, y: 4.0, z: 12.5 }, look: { x: -5.0, y: 2.6, z: 0.0 } },
+            { pos: { x: 3.0, y: 2.4, z: 13.0 }, look: { x: -5.0, y: 0.9, z: 0.0 } },
+            { pos: { x: 4.0, y: 2.0, z: 11.5 }, look: { x: -4.6, y: 0.2, z: 0.0 } },
+            { pos: { x: 3.2, y: 3.2, z: 14.0 }, look: { x: -5.0, y: 1.6, z: 0.0 } }
+        ];
+
+        let targetCam = { ...scrollCameras[0].pos };
+        let targetLookAt = { ...scrollCameras[0].look };
+        let currentLookAt = { ...scrollCameras[0].look };
+
+        // Scroll mapping linking HTML elements to camera views
+        const sections = ['#hero', '#structural-pruning', '#land-clearing', '#diagnostics', '#consultation'];
+        sections.forEach((id, index) => {
+            ScrollTrigger.create({
+                trigger: id,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => updateCameraTarget(index),
+                onEnterBack: () => updateCameraTarget(index)
+            });
+        });
+
+        function updateCameraTarget(index) {
+            const target = scrollCameras[index];
+            gsap.to(targetCam, { x: target.pos.x, y: target.pos.y, z: target.pos.z, duration: 2.2, ease: 'power2.inOut' });
+            gsap.to(targetLookAt, { x: target.look.x, y: target.look.y, z: target.look.z, duration: 2.2, ease: 'power2.inOut' });
+        }
+
+        function init3D() {
+            const container = document.getElementById('spatial-canvas-container');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x060c09);
+            scene.fog = new THREE.FogExp2(0x060c09, 0.018);
+
+            camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 200);
+            camera.position.set(targetCam.x, targetCam.y, targetCam.z);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            // Fine-tuned luxury lighting profile (late sunset/twilight)
+            const ambient = new THREE.AmbientLight(0x16331f, 3.5);
+            scene.add(ambient);
+
+            // Rich amber backlight simulating golden sunset
+            const sunsetSun = new THREE.DirectionalLight(0xffc070, 3.3);
+            sunsetSun.position.set(-10, 8, -6);
+            sunsetSun.castShadow = true;
+            sunsetSun.shadow.mapSize.width = 1024;
+            sunsetSun.shadow.mapSize.height = 1024;
+            scene.add(sunsetSun);
+
+            // Soft skylight fill
+            const skylight = new THREE.DirectionalLight(0x88bbff, 1.2);
+            skylight.position.set(5, 10, 5);
+            scene.add(skylight);
+
+            buildGeologicalModel();
+            buildStormSystem();
+
+            window.addEventListener('resize', onResize);
+            animate();
+        }
+
+        // Procedural Structural cross-section of Bayou Block
+        function buildGeologicalModel() {
+            // Layer A: Grass/Soil Surface Zone (Mounded organically)
+            const surfaceGeo = new THREE.BoxGeometry(6.0, 0.6, 4.0, 10, 2, 10);
+            // displace slightly to make organic bayou contouring
+            const sPos = surfaceGeo.attributes.position;
+            for(let i=0; i<sPos.count; i++) {
+                let y = sPos.getY(i);
+                if (y > 0.1) {
+                    sPos.setY(i, y + Math.sin(sPos.getX(i)*1.5)*0.15 + (sPos.getZ(i)*0.08));
+                }
+            }
+            surfaceGeo.computeVertexNormals();
+            const surfaceMat = new THREE.MeshStandardMaterial({
+                color: 0x1e351b,
+                roughness: 0.95,
+                flatShading: true
+            });
+            const surface = new THREE.Mesh(surfaceGeo, surfaceMat);
+            surface.position.set(-0.5, -0.3, 0.0);
+            surface.receiveShadow = true;
+            scene.add(surface);
+
+            // Layer B: Heavy Saturated Clay Layer (exposed cross-section block)
+            const clayGeo = new THREE.BoxGeometry(6.0, 2.0, 4.0, 8, 4, 8);
+            const clayMat = new THREE.MeshStandardMaterial({
+                color: 0x2e241b,
+                roughness: 0.9,
+                flatShading: true
+            });
+            const clay = new THREE.Mesh(clayGeo, clayMat);
+            clay.position.set(-0.5, -1.6, 0.0);
+            clay.receiveShadow = true;
+            scene.add(clay);
+
+            // 2. Bayou water surface at the bank edge (flat translucent sheet, ripples in animate)
+            const waterGeo = new THREE.PlaneGeometry(3.6, 4.2, 28, 28);
+            const waterMat = new THREE.MeshStandardMaterial({
+                color: 0x14403c,
+                roughness: 0.12,
+                metalness: 0.0,
+                transparent: true,
+                opacity: 0.74
+            });
+            waterMesh = new THREE.Mesh(waterGeo, waterMat);
+            waterMesh.rotation.x = -Math.PI / 2;
+            waterMesh.position.set(3.0, -0.42, 0);
+            scene.add(waterMesh);
+
+            // (root cross-section removed by request)
+
+            // 5. Majestic Segmented Bald Cypress Trunk
+            cypressTree = new THREE.Group();
+
+            const trunkHeight = 4.8;
+            const trunkGeo = new THREE.CylinderGeometry(0.12, 0.52, trunkHeight, 16, 35);
+            
+            // Generate Buttress root flare manually
+            const positions = trunkGeo.attributes.position;
+            const initialPos = new Float32Array(positions.count * 3);
+            for(let i=0; i<positions.count; i++) {
+                let x = positions.getX(i);
+                let y = positions.getY(i);
+                let z = positions.getZ(i);
+
+                initialPos[i*3] = x;
+                initialPos[i*3+1] = y;
+                initialPos[i*3+2] = z;
+
+                if (y < -0.4) {
+                    let flareFactor = (y + trunkHeight / 2) / (trunkHeight / 2 - 0.4);
+                    let flare = 1.0 + Math.pow(1.0 - flareFactor, 3.8) * 1.9;
+                    positions.setX(i, x * flare);
+                    positions.setZ(i, z * flare);
+                }
+            }
+            trunkGeo.computeVertexNormals();
+            trunkGeo.userData = { initialPositions: initialPos };
+
+            const trunkMat = new THREE.MeshStandardMaterial({
+                color: 0x2d1f18,
+                roughness: 0.94,
+                flatShading: true
+            });
+            trunkMesh = new THREE.Mesh(trunkGeo, trunkMat);
+            trunkMesh.position.y = trunkHeight/2 - 0.15;
+            cypressTree.add(trunkMesh);
+
+            // 6. Weeping Spanish Moss Strands & Foliage Cloud
+            const canopyMat = new THREE.MeshStandardMaterial({
+                color: 0x2f5a34,
+                roughness: 0.92,
+                flatShading: true
+            });
+            // Broad, rounded oak crown (overlapping leafy clumps, not spiky cones)
+            const canopyLayers = [
+                {r: 1.9, y: 3.2, ox: 0.8, oz: -0.6},
+                {r: 2.1, y: 3.6, ox: -0.9, oz: 0.6},
+                {r: 1.8, y: 4.0, ox: 0.4, oz: 0.7},
+                {r: 2.0, y: 3.8, ox: -0.3, oz: -0.7},
+                {r: 1.5, y: 4.5, ox: 0.1, oz: 0.1}
+            ];
+
+            canopyLayers.forEach(l => {
+                const folGeo = new THREE.IcosahedronGeometry(l.r, 1);
+                const folMesh = new THREE.Mesh(folGeo, canopyMat);
+                folMesh.position.set(l.ox, l.y, l.oz);
+                folMesh.scale.set(1.15, 0.82, 1.15);
+                folMesh.castShadow = true;
+                folMesh.userData = { initialX: l.ox, initialZ: l.oz, heightRatio: l.y / trunkHeight };
+                cypressTree.add(folMesh);
+
+                // Add Spanish Moss strands hanging down dynamically
+                const strandGeo = new THREE.CylinderGeometry(0.015, 0.015, 0.8, 4);
+                const mossMat = new THREE.MeshStandardMaterial({
+                    color: 0x475240, // grey-green moss tone
+                    transparent: true,
+                    opacity: 0.75,
+                    roughness: 0.98
+                });
+                for(let k=0; k<3; k++) {
+                    const mossMesh = new THREE.Mesh(strandGeo, mossMat);
+                    const angle = Math.random() * Math.PI*2;
+                    const radius = l.r * 0.6;
+                    mossMesh.position.set(
+                        l.ox + Math.cos(angle)*radius,
+                        l.y - 0.4,
+                        l.oz + Math.sin(angle)*radius
+                    );
+                    mossMesh.userData = {
+                        initialX: mossMesh.position.x,
+                        initialZ: mossMesh.position.z,
+                        heightRatio: (l.y - 0.4) / trunkHeight
+                    };
+                    cypressTree.add(mossMesh);
+                    SpanishMoss.push(mossMesh);
+                }
+            });
+
+            cypressTree.position.set(-0.8, 0.0, 0.0);
+            scene.add(cypressTree);
+
+            // 7. Native shoreline tallgrass — tapered, curved blades with a base→tip gradient
+            function makeBlade(h, baseHex, tipHex) {
+                const g = new THREE.PlaneGeometry(0.07, h, 1, 5);
+                const p = g.attributes.position;
+                const base = new THREE.Color(baseHex), tip = new THREE.Color(tipHex);
+                const colors = [];
+                for (let i = 0; i < p.count; i++) {
+                    const t = (p.getY(i) + h / 2) / h;      // 0 base .. 1 tip
+                    p.setX(i, p.getX(i) * (1.0 - t * 0.85)); // taper to a point
+                    p.setZ(i, Math.pow(t, 2) * 0.14 * h);    // gentle forward curve
+                    const c = base.clone().lerp(tip, t);
+                    colors.push(c.r, c.g, c.b);
+                }
+                g.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+                g.translate(0, h / 2, 0); // pivot at the base
+                g.computeVertexNormals();
+                return g;
+            }
+            const grassMat = new THREE.MeshStandardMaterial({
+                vertexColors: true,
+                roughness: 0.9,
+                side: THREE.DoubleSide
+            });
+            for (let i = 0; i < 230; i++) {
+                const native = Math.random() < 0.55;
+                const gH = native ? (0.6 + Math.random() * 0.6) : (0.12 + Math.random() * 0.12);
+                const gM = new THREE.Mesh(makeBlade(gH, native ? 0x2c5226 : 0x3f5230, native ? 0xb7b85f : 0x6f7a44), grassMat);
+                const pX = native ? (-3.1 + Math.random() * 2.5) : (-0.3 + Math.random() * 2.6);
+                const pZ = (Math.random() - 0.5) * 3.6;
+                gM.position.set(pX, -0.12, pZ);
+                gM.rotation.y = Math.random() * Math.PI;
+                gM.rotation.z = (Math.random() - 0.5) * (native ? 0.22 : 0.1);
+                gM.userData = {
+                    baseX: pX,
+                    baseZ: pZ,
+                    rate: 1.2 + Math.random() * 2.0,
+                    phase: Math.random() * Math.PI
+                };
+                scene.add(gM);
+                grassSward.push(gM);
+            }
+
+            // 8. Glowing Fireflies
+            const fireGeo = new THREE.BufferGeometry();
+            const firePos = [];
+            for(let i=0; i<30; i++) {
+                firePos.push((Math.random()-0.5)*5, 0.4 + Math.random()*3.5, (Math.random()-0.5)*3);
+            }
+            fireGeo.setAttribute('position', new THREE.Float32BufferAttribute(firePos, 3));
+            const fireMat = new THREE.PointsMaterial({
+                color: 0xffd15c,
+                size: 0.08,
+                transparent: true,
+                opacity: 0.95
+            });
+            fireflies = new THREE.Points(fireGeo, fireMat);
+            scene.add(fireflies);
+        }
+
+        // 6. Volumetric Storm Rain Particle System
+        function buildStormSystem() {
+            const count = 350;
+            const rainGeo = new THREE.BufferGeometry();
+            const positions = [];
+            const speeds = [];
+
+            for(let i=0; i<count; i++) {
+                positions.push(
+                    (Math.random()-0.5)*15,
+                    5 + Math.random()*5,
+                    (Math.random()-0.5)*10
+                );
+                speeds.push(0.1 + Math.random()*0.2);
+            }
+
+            rainGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const rainMat = new THREE.PointsMaterial({
+                color: 0x7c94a5,
+                size: 0.05,
+                transparent: true,
+                opacity: 0.0 // starts invisible (Calm twilight mode)
+            });
+            rainParticles = new THREE.Points(rainGeo, rainMat);
+            rainParticles.userData = { speeds: speeds };
+            scene.add(rainParticles);
+        }
+
+        // Scroll-driven weather: intensity ramps from calm twilight to hurricane as you scroll.
+        const calmBg = { r: 6/255, g: 12/255, b: 9/255 };
+        const stormBg = { r: 20/255, g: 25/255, b: 28/255 };
+        function lerp(a, b, t){ return a + (b - a) * t; }
+
+        function setWeatherByScroll(p) {
+            // p: 0 (top, calm) -> 1 (bottom, full storm)
+            const e = Math.min(1, Math.max(0, p));
+
+            // Wind builds steadily; pushes past the rain threshold (0.5) around 25% scroll.
+            windFactor = 0.12 + e * 1.55;
+
+            // Rain fades in after the first quarter of the page.
+            if (rainParticles) {
+                const rainAmt = Math.min(1, Math.max(0, (e - 0.25) / 0.75));
+                rainParticles.material.opacity = rainAmt * 0.85;
+            }
+            // Fireflies retreat as the storm rolls in.
+            if (fireflies) fireflies.material.opacity = (1 - e) * 0.95;
+
+            // Sky and fog deepen from twilight to storm gray.
+            if (scene) {
+                scene.background.setRGB(lerp(calmBg.r, stormBg.r, e), lerp(calmBg.g, stormBg.g, e), lerp(calmBg.b, stormBg.b, e));
+                scene.fog.color.setRGB(lerp(calmBg.r, stormBg.r, e), lerp(calmBg.g, stormBg.g, e), lerp(calmBg.b, stormBg.b, e));
+                scene.fog.density = lerp(0.018, 0.07, e);
+            }
+
+            // Lightning only once the storm is in full force.
+            lightningFlash = e > 0.6;
+        }
+
+        ScrollTrigger.create({
+            trigger: document.body,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+            onUpdate: (self) => setWeatherByScroll(self.progress)
+        });
+
+
+        // -------------------------------------------------------------
+        // ANIMATION LOOP (REALISTIC ORGANIC SWAYING PHYSICS)
+        // -------------------------------------------------------------
+        let lastLightningTime = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = Date.now() * 0.0012;
+
+            // 1. Precise Quadratic Trunk Bending (Base remains absolutely locked!)
+            if (trunkMesh) {
+                const positions = trunkMesh.geometry.attributes.position;
+                const initial = trunkMesh.geometry.userData.initialPositions;
+                const trunkHeight = 4.8;
+                
+                for (let i = 0; i < positions.count; i++) {
+                    let yInitial = initial[i*3 + 1]; // ranges from -2.4 to 2.4
+                    
+                    // Normalize height factor from 0.0 (roots) to 1.0 (top canopy)
+                    let hFactor = (yInitial + 2.4) / trunkHeight; 
+                    
+                    // Sway scales quadratically to prevent base movement
+                    let swayOffset = Math.sin(time * 3.5 + yInitial * 0.7) * (windFactor * 0.38) * Math.pow(hFactor, 2.0);
+                    
+                    // Apply offset
+                    positions.setX(i, initial[i*3] + swayOffset);
+                }
+                trunkMesh.geometry.attributes.position.needsUpdate = true;
+                trunkMesh.geometry.computeVertexNormals();
+
+                // Sway individual branches matching their height ratios
+                for (let i = 1; i < cypressTree.children.length; i++) {
+                    const child = cypressTree.children[i];
+                    if (child !== trunkMesh) {
+                        const hr = child.userData.heightRatio || 0.85;
+                        const sway = Math.sin(time * 3.5 + (hr * trunkHeight - 2.4) * 0.7) * (windFactor * 0.38) * Math.pow(hr, 2.0);
+                        child.position.x = child.userData.initialX + sway;
+                    }
+                }
+            }
+
+            // 2. Bayou water ripple (gentle vertex wave on the surface)
+            if (waterMesh) {
+                const wp = waterMesh.geometry.attributes.position;
+                for (let i = 0; i < wp.count; i++) {
+                    const x = wp.getX(i), y = wp.getY(i);
+                    wp.setZ(i, Math.sin(x * 1.6 + time * 2.0) * 0.03 + Math.cos(y * 1.9 + time * 1.4) * 0.03);
+                }
+                wp.needsUpdate = true;
+            }
+
+            // 3. Realistic grass whipping
+            grassSward.forEach(g => {
+                const ud = g.userData;
+                // Whip heavily in hurricane mode
+                const swayMultiplier = windFactor > 1.0 ? 1.4 : 0.45;
+                g.rotation.z = Math.sin(time * ud.rate + ud.phase) * (windFactor * swayMultiplier);
+                g.rotation.x = Math.cos(time * ud.rate + ud.phase) * (windFactor * swayMultiplier * 0.3);
+            });
+
+            // 4. Spanish moss sway dynamics
+            SpanishMoss.forEach(moss => {
+                const hr = moss.userData.heightRatio;
+                moss.rotation.z = Math.sin(time * 4.0 + hr) * (windFactor * 0.65);
+                moss.rotation.x = Math.cos(time * 3.2 + hr) * (windFactor * 0.25);
+            });
+
+            // 5. Fireflies random walking
+            if (fireflies && windFactor < 0.5) {
+                const posArr = fireflies.geometry.attributes.position.array;
+                for (let i = 0; i < posArr.length; i += 3) {
+                    posArr[i] += Math.sin(time + i) * 0.002;
+                    posArr[i+1] += Math.cos(time * 0.4 + i) * 0.002;
+                }
+                fireflies.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // 6. Falling Storm Rain Simulation
+            if (rainParticles && windFactor > 0.5) {
+                const posArr = rainParticles.geometry.attributes.position.array;
+                const speeds = rainParticles.userData.speeds;
+                for(let i=0; i<posArr.length; i+=3) {
+                    posArr[i+1] -= speeds[i/3] * 1.5; // drop downwards
+                    posArr[i] -= windFactor * 0.08; // blow sideways in wind shear direction
+
+                    // Reset bounds when rain drops hit surface zone
+                    if(posArr[i+1] < -1.5) {
+                        posArr[i+1] = 6 + Math.random()*2;
+                        posArr[i] = (Math.random()-0.5)*15;
+                    }
+                }
+                rainParticles.geometry.attributes.position.needsUpdate = true;
+            }
+
+            // 7. Dynamic Lightning Flashes inside the Cloud Fog
+            if (lightningFlash) {
+                const now = Date.now();
+                if (now - lastLightningTime > 4000 + Math.random() * 8000) {
+                    // Trigger double lightning flash strike
+                    const flashColor = { r: 0x93/255, g: 0xb4/255, b: 0xcc/255 };
+                    const normalColor = { r: 20/255, g: 25/255, b: 28/255 };
+                    gsap.to(scene.fog.color, { 
+                        r: flashColor.r, 
+                        g: flashColor.g, 
+                        b: flashColor.b, 
+                        duration: 0.1, 
+                        yoyo: true, 
+                        repeat: 3, 
+                        onComplete: () => {
+                            scene.fog.color.setRGB(normalColor.r, normalColor.g, normalColor.b);
+                        }
+                    });
+                    lastLightningTime = now;
+                }
+            }
+
+            // 8. Smoothed camera tracking vectors
+            camera.position.x += (targetCam.x - camera.position.x) * 0.03;
+            camera.position.y += (targetCam.y - camera.position.y) * 0.03;
+            camera.position.z += (targetCam.z - camera.position.z) * 0.03;
+
+            currentLookAt.x += (targetLookAt.x - currentLookAt.x) * 0.03;
+            currentLookAt.y += (targetLookAt.y - currentLookAt.y) * 0.03;
+            currentLookAt.z += (targetLookAt.z - currentLookAt.z) * 0.03;
+
+            camera.lookAt(currentLookAt.x, currentLookAt.y, currentLookAt.z);
+
+            renderer.render(scene, camera);
+        }
+
+        function onResize() {
+            const container = document.getElementById('spatial-canvas-container');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        window.onload = function() {
+            init3D();
+        }
+
+    </script>
+</body>
 </html>
