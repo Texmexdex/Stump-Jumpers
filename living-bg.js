@@ -25,23 +25,23 @@
     },
     // Hazy bayou edge: water, mist, fireflies, cypress
     bayou: {
-      bg: 0x09130f, fog: 0x0b1814, fogDensity: 0.05,
-      ground: 0x0d1c15,
-      grass: [0x1f3f37, 0x2a5240, 0x36634a],
-      ambient: 0x16302a, ambIntensity: 0.95,
-      sun: 0x9fc4ad, sunIntensity: 0.8, sunPos: [-6, 9, -3], rim: 0.25,
+      bg: 0x0e1c17, fog: 0x122520, fogDensity: 0.04,
+      ground: 0x12251c,
+      grass: [0x255049, 0x317a4f, 0x429a60],
+      ambient: 0x2c4c42, ambIntensity: 1.35,
+      sun: 0xc4e2cb, sunIntensity: 1.15, sunPos: [-6, 10, -2], rim: 0.35,
       bladeCount: 320, spreadX: 60, spreadZ: 30, bladeH: [1.2, 2.2],
       particle: 'fireflies', mote: 0xffd56b, accent: 'cypress', water: true, camera: 'slow'
     },
     // Warm live-oak: a big oak, falling leaves, gentle orbit
     oak: {
-      bg: 0x17110a, fog: 0x1b140b, fogDensity: 0.03,
-      ground: 0x241a0f,
-      grass: [0x4a5a2a, 0x6f6230, 0x8a6f34],
-      ambient: 0x4a3a22, ambIntensity: 1.2,
-      sun: 0xffca80, sunIntensity: 1.45, sunPos: [8, 10, 4], rim: 0.3,
+      bg: 0x2a2012, fog: 0x352818, fogDensity: 0.02,
+      ground: 0x35291a,
+      grass: [0x5a6e2e, 0x7e7a34, 0x99883e],
+      ambient: 0x6a5a3a, ambIntensity: 1.7,
+      sun: 0xffd79a, sunIntensity: 2.0, sunPos: [8, 11, 5], rim: 0.4,
       bladeCount: 260, spreadX: 50, spreadZ: 26, bladeH: [0.8, 1.5],
-      particle: 'leaves', mote: 0xc89b54, accent: 'oak', camera: 'orbit'
+      particle: 'leaves', mote: 0xd8b56a, accent: 'oak', camera: 'orbit'
     }
   };
   const C = THEMES[theme] || THEMES.prairie;
@@ -143,8 +143,8 @@
     }
   }
   function addOak() {
-    const bark = new THREE.MeshStandardMaterial({ color: 0x2c1d10, roughness: 1, flatShading: true });
-    const leaf = new THREE.MeshStandardMaterial({ color: 0x2f3f18, roughness: 1, flatShading: true });
+    const bark = new THREE.MeshStandardMaterial({ color: 0x4a3320, roughness: 1, flatShading: true });
+    const leaf = new THREE.MeshStandardMaterial({ color: 0x4f7322, roughness: 1, flatShading: true });
     const g = new THREE.Group();
     const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.6, 11, 8), bark);
     trunk.position.y = 5.5; g.add(trunk);
@@ -246,8 +246,8 @@
 
     if (C.camera === 'orbit') {
       const a = Math.sin(t * 0.06) * 0.5;
-      camera.position.set(2 + Math.sin(a) * 15, 5.5 + Math.sin(t * 0.05) * 0.6, -8 + Math.cos(a) * 15);
-      camera.lookAt(2, 6, -8);
+      camera.position.set(2 + Math.sin(a) * 23, 6.8 + Math.sin(t * 0.05) * 0.6, -8 + Math.cos(a) * 23);
+      camera.lookAt(2, 5.5, -8);
     } else if (C.camera === 'slow') {
       camera.position.x = Math.sin(t * 0.05) * 0.8;
       camera.position.y = 2.6 + Math.sin(t * 0.04) * 0.2;
