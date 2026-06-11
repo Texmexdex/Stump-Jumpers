@@ -1,9 +1,10 @@
 /*
   living-bg.js — shared low-poly, flat-shaded ambient background for SE Stump Jumpers.
   Usage: <canvas id="living-bg" data-theme="prairie|bayou|oak"></canvas>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+         <script src="three.min.js (r128)"></script>
          <script src="./living-bg.js"></script>
-  Kept deliberately dim; pages layer a dark scrim on top for text legibility.
+  Each theme has its own palette, accent geometry, particle behavior, and camera motion.
+  Pages layer a dark scrim on top for text legibility.
 */
 (function () {
   const canvas = document.getElementById('living-bg');
@@ -12,34 +13,40 @@
   const theme = (canvas.dataset.theme || 'prairie').toLowerCase();
 
   const THEMES = {
+    // Sunny, dense coastal prairie
     prairie: {
-      bg: 0x0f1a12, fog: 0x121f14, fogDensity: 0.03,
-      ground: 0x16240f,
-      grass: [0x3f5a23, 0x6f7a2c, 0xb6913e],
-      ambient: 0x33402a, ambIntensity: 1.0,
-      sun: 0xffd27f, sunIntensity: 1.2, sunPos: [-9, 10, 4],
-      mote: 0xe8d9a0, accent: 'hills'
+      bg: 0x8fc0e6, fog: 0xbcd8ee, fogDensity: 0.012,
+      ground: 0x2c4a1b,
+      grass: [0x4f7a26, 0x6f9433, 0x9aab3d],
+      ambient: 0xcfe0bd, ambIntensity: 1.55,
+      sun: 0xfff3cc, sunIntensity: 2.2, sunPos: [-7, 13, 6], rim: 0.6,
+      bladeCount: 1500, spreadX: 70, spreadZ: 36, bladeH: [1.0, 1.7],
+      particle: 'pollen', mote: 0xfff2b0, accent: 'treeline', camera: 'drift'
     },
+    // Hazy bayou edge: water, mist, fireflies, cypress
     bayou: {
       bg: 0x09130f, fog: 0x0b1814, fogDensity: 0.05,
-      ground: 0x0e1d16,
-      grass: [0x20403a, 0x2c5340, 0x39674a],
-      ambient: 0x16302a, ambIntensity: 0.85,
-      sun: 0x8fb6a0, sunIntensity: 0.75, sunPos: [-6, 9, -3],
-      mote: 0xffd070, accent: 'cypress'
+      ground: 0x0d1c15,
+      grass: [0x1f3f37, 0x2a5240, 0x36634a],
+      ambient: 0x16302a, ambIntensity: 0.95,
+      sun: 0x9fc4ad, sunIntensity: 0.8, sunPos: [-6, 9, -3], rim: 0.25,
+      bladeCount: 320, spreadX: 60, spreadZ: 30, bladeH: [1.2, 2.2],
+      particle: 'fireflies', mote: 0xffd56b, accent: 'cypress', water: true, camera: 'slow'
     },
+    // Warm live-oak: a big oak, falling leaves, gentle orbit
     oak: {
-      bg: 0x130e07, fog: 0x17110a, fogDensity: 0.032,
+      bg: 0x17110a, fog: 0x1b140b, fogDensity: 0.03,
       ground: 0x241a0f,
-      grass: [0x4a5a2a, 0x7c6f32, 0x9c7b3a],
-      ambient: 0x3a2c1a, ambIntensity: 1.05,
-      sun: 0xffc070, sunIntensity: 1.25, sunPos: [8, 9, 3],
-      mote: 0xd8b56a, accent: 'oak'
+      grass: [0x4a5a2a, 0x6f6230, 0x8a6f34],
+      ambient: 0x4a3a22, ambIntensity: 1.2,
+      sun: 0xffca80, sunIntensity: 1.45, sunPos: [8, 10, 4], rim: 0.3,
+      bladeCount: 260, spreadX: 50, spreadZ: 26, bladeH: [0.8, 1.5],
+      particle: 'leaves', mote: 0xc89b54, accent: 'oak', camera: 'orbit'
     }
   };
   const C = THEMES[theme] || THEMES.prairie;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
   renderer.setSize(innerWidth, innerHeight);
 
@@ -47,20 +54,20 @@
   scene.background = new THREE.Color(C.bg);
   scene.fog = new THREE.FogExp2(C.fog, C.fogDensity);
 
-  const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 220);
+  const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 280);
   camera.position.set(0, 3.6, 16);
-  camera.lookAt(0, 1.6, -6);
+  camera.lookAt(0, 1.8, -6);
 
   scene.add(new THREE.AmbientLight(C.ambient, C.ambIntensity));
   const sun = new THREE.DirectionalLight(C.sun, C.sunIntensity);
   sun.position.set(C.sunPos[0], C.sunPos[1], C.sunPos[2]);
   scene.add(sun);
-  const rim = new THREE.DirectionalLight(0x8ea9c0, 0.3);
+  const rim = new THREE.DirectionalLight(0x9fc0e0, C.rim);
   rim.position.set(4, 6, -8);
   scene.add(rim);
 
   // Ground — gently displaced low-poly plane
-  const groundGeo = new THREE.PlaneGeometry(160, 120, 24, 18);
+  const groundGeo = new THREE.PlaneGeometry(220, 160, 24, 18);
   const gp = groundGeo.attributes.position;
   for (let i = 0; i < gp.count; i++) {
     gp.setZ(i, Math.sin(gp.getX(i) * 0.12) * 0.6 + Math.cos(gp.getY(i) * 0.1) * 0.5);
@@ -71,151 +78,185 @@
   ground.position.y = -0.2;
   scene.add(ground);
 
-  // Grass blades — faceted tapered cones, swaying
+  // ---- Grass (instanced for density) ----
   const bladeGeo = new THREE.ConeGeometry(0.05, 1, 3);
-  bladeGeo.translate(0, 0.5, 0); // base at origin
-  const grassMats = C.grass.map((c) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.95, flatShading: true }));
-  const blades = [];
-  const BLADE_COUNT = 260;
-  for (let i = 0; i < BLADE_COUNT; i++) {
-    const m = new THREE.Mesh(bladeGeo, grassMats[i % grassMats.length]);
-    const x = (Math.random() - 0.5) * 60;
-    const z = -8 + Math.random() * 26;      // mostly in front of / around camera
-    const depth = (z + 8) / 34;             // 0 far .. 1 near
-    const h = 1.1 + Math.random() * 1.9 + depth * 0.8;
-    m.position.set(x, -0.2, z);
-    m.scale.set(0.8 + Math.random() * 0.8, h, 0.8 + Math.random() * 0.8);
-    m.rotation.y = Math.random() * Math.PI;
-    m.userData = {
-      phase: Math.random() * Math.PI * 2,
-      rate: 0.6 + Math.random() * 0.9,
-      baseTilt: (Math.random() - 0.5) * 0.12
-    };
-    blades.push(m);
-    scene.add(m);
+  bladeGeo.translate(0, 0.5, 0);
+  const grassMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.96, flatShading: true });
+  const COUNT = C.bladeCount;
+  const grass = new THREE.InstancedMesh(bladeGeo, grassMat, COUNT);
+  grass.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  const gdat = [];
+  const dummy = new THREE.Object3D();
+  const tmpCol = new THREE.Color();
+  const pal = C.grass.map((h) => new THREE.Color(h));
+  for (let i = 0; i < COUNT; i++) {
+    const x = (Math.random() - 0.5) * C.spreadX;
+    const z = -8 + Math.random() * C.spreadZ;
+    const depth = (z + 8) / C.spreadZ;
+    const h = C.bladeH[0] + Math.random() * (C.bladeH[1] - C.bladeH[0]) + depth * 0.7;
+    const sx = 0.7 + Math.random() * 0.8;
+    const yRot = Math.random() * Math.PI;
+    const d = { x, z, h, sx, yRot, phase: Math.random() * Math.PI * 2, rate: 0.6 + Math.random() * 0.9, tilt: (Math.random() - 0.5) * 0.12 };
+    gdat.push(d);
+    dummy.position.set(x, -0.2, z);
+    dummy.rotation.set(0, yRot, d.tilt);
+    dummy.scale.set(sx, h, sx);
+    dummy.updateMatrix();
+    grass.setMatrixAt(i, dummy.matrix);
+    tmpCol.copy(pal[i % pal.length]);
+    grass.setColorAt(i, tmpCol);
+  }
+  if (grass.instanceColor) grass.instanceColor.needsUpdate = true;
+  scene.add(grass);
+
+  // ---- Theme accents ----
+  let water = null;
+  if (C.water) {
+    const wGeo = new THREE.PlaneGeometry(160, 80, 44, 26);
+    water = new THREE.Mesh(wGeo, new THREE.MeshStandardMaterial({ color: 0x103029, roughness: 0.22, metalness: 0.0, transparent: true, opacity: 0.92 }));
+    water.rotation.x = -Math.PI / 2;
+    water.position.set(0, -0.05, -16);
+    water.userData.base = wGeo.attributes.position.array.slice(0);
+    scene.add(water);
   }
 
-  // Accent silhouettes per theme
-  function addHills() {
-    const mat = new THREE.MeshStandardMaterial({ color: 0x0c160c, roughness: 1, flatShading: true });
-    for (let i = 0; i < 4; i++) {
-      const hill = new THREE.Mesh(new THREE.IcosahedronGeometry(10 + Math.random() * 6, 0), mat);
-      hill.position.set(-30 + i * 20 + (Math.random() - 0.5) * 6, -8, -40 - Math.random() * 10);
-      hill.scale.set(2.2, 0.7, 1);
-      scene.add(hill);
+  function addTreeline() {
+    const mat = new THREE.MeshStandardMaterial({ color: 0x274a1c, roughness: 1, flatShading: true });
+    for (let i = 0; i < 12; i++) {
+      const tr = new THREE.Mesh(new THREE.ConeGeometry(3 + Math.random() * 2, 7 + Math.random() * 5, 5), mat);
+      tr.position.set(-50 + i * 9 + (Math.random() - 0.5) * 4, 2.6, -50 - Math.random() * 8);
+      scene.add(tr);
     }
   }
   function addCypress() {
     const mat = new THREE.MeshStandardMaterial({ color: 0x0a1512, roughness: 1, flatShading: true });
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
       const g = new THREE.Group();
-      const tx = -26 + i * 12 + (Math.random() - 0.5) * 6;
-      const tz = -34 - Math.random() * 12;
       const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 1.0, 16, 6), mat);
-      trunk.position.set(0, 8, 0);
-      g.add(trunk);
+      trunk.position.y = 8; g.add(trunk);
       for (let k = 0; k < 4; k++) {
         const cone = new THREE.Mesh(new THREE.ConeGeometry(4 - k * 0.7, 5, 6), mat);
-        cone.position.set(0, 7 + k * 3.4, 0);
-        g.add(cone);
+        cone.position.y = 7 + k * 3.4; g.add(cone);
       }
-      g.position.set(tx, 0, tz);
+      g.position.set(-30 + i * 12 + (Math.random() - 0.5) * 5, 0, -32 - Math.random() * 12);
       scene.add(g);
     }
-    // low mist sheet
-    const mist = new THREE.Mesh(
-      new THREE.PlaneGeometry(140, 60),
-      new THREE.MeshBasicMaterial({ color: 0x16302a, transparent: true, opacity: 0.18 })
-    );
-    mist.rotation.x = -Math.PI / 2;
-    mist.position.set(0, 0.6, -18);
-    scene.add(mist);
   }
   function addOak() {
-    const mat = new THREE.MeshStandardMaterial({ color: 0x140d07, roughness: 1, flatShading: true });
+    const bark = new THREE.MeshStandardMaterial({ color: 0x2c1d10, roughness: 1, flatShading: true });
+    const leaf = new THREE.MeshStandardMaterial({ color: 0x2f3f18, roughness: 1, flatShading: true });
     const g = new THREE.Group();
-    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.8, 12, 8), mat);
-    trunk.position.set(0, 6, 0);
-    g.add(trunk);
-    const crownPos = [[0, 13, 0, 7], [-5, 12, 1, 5], [5, 12, -1, 5], [0, 16, 0, 5], [-3, 15, 2, 4], [4, 15, -2, 4]];
-    crownPos.forEach(([x, y, z, r]) => {
-      const blob = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), mat);
-      blob.position.set(x, y, z);
-      g.add(blob);
-    });
-    g.position.set(16, -0.2, -16);
-    g.scale.setScalar(1.15);
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.6, 11, 8), bark);
+    trunk.position.y = 5.5; g.add(trunk);
+    const crown = [[0, 11, 0, 4.2], [-3.5, 10, 1, 3.2], [3.5, 10, -1, 3.2], [0, 13.5, 0, 3.4], [-2.5, 12.5, 2, 2.6], [3, 12.5, -2, 2.6]];
+    crown.forEach(([x, y, z, r]) => { const b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), leaf); b.position.set(x, y, z); g.add(b); });
+    g.position.set(2, -0.2, -8); g.scale.setScalar(1.1);
     scene.add(g);
   }
-  if (C.accent === 'hills') addHills();
+  if (C.accent === 'treeline') addTreeline();
   else if (C.accent === 'cypress') addCypress();
   else if (C.accent === 'oak') addOak();
 
-  // Drifting motes / fluff / fireflies
-  const MOTES = 200;
-  const moteGeo = new THREE.BufferGeometry();
-  const mpos = new Float32Array(MOTES * 3);
-  const mseed = [];
-  for (let i = 0; i < MOTES; i++) {
-    mpos[i * 3] = (Math.random() - 0.5) * 70;
-    mpos[i * 3 + 1] = Math.random() * 14;
-    mpos[i * 3 + 2] = -20 + Math.random() * 36;
-    mseed.push({ sx: Math.random() * Math.PI * 2, sy: Math.random() * Math.PI * 2, sp: 0.3 + Math.random() * 0.6 });
+  // ---- Particles (behavior per theme) ----
+  const PCOUNT = C.particle === 'pollen' ? 280 : 170;
+  const pgeo = new THREE.BufferGeometry();
+  const ppos = new Float32Array(PCOUNT * 3);
+  const pseed = [];
+  for (let i = 0; i < PCOUNT; i++) {
+    ppos[i * 3] = (Math.random() - 0.5) * 70;
+    ppos[i * 3 + 1] = Math.random() * 16;
+    ppos[i * 3 + 2] = -24 + Math.random() * 42;
+    pseed.push({ sx: Math.random() * 6.28, sy: Math.random() * 6.28, sp: 0.3 + Math.random() * 0.7 });
   }
-  moteGeo.setAttribute('position', new THREE.BufferAttribute(mpos, 3));
-  const moteMat = new THREE.PointsMaterial({
-    color: C.mote, size: theme === 'bayou' ? 0.16 : 0.12,
-    transparent: true, opacity: theme === 'bayou' ? 0.9 : 0.6,
-    depthWrite: false, blending: THREE.AdditiveBlending
+  pgeo.setAttribute('position', new THREE.BufferAttribute(ppos, 3));
+  const pmat = new THREE.PointsMaterial({
+    color: C.mote,
+    size: C.particle === 'leaves' ? 0.34 : C.particle === 'fireflies' ? 0.17 : 0.1,
+    transparent: true,
+    opacity: C.particle === 'fireflies' ? 0.9 : 0.65,
+    depthWrite: false,
+    blending: C.particle === 'leaves' ? THREE.NormalBlending : THREE.AdditiveBlending
   });
-  const motes = new THREE.Points(moteGeo, moteMat);
-  scene.add(motes);
+  const parts = new THREE.Points(pgeo, pmat);
+  scene.add(parts);
 
-  // Animation
+  // ---- Animation ----
   const clock = new THREE.Clock();
-  let t = 0;
-  let wind = 0.5;
-
+  let t = 0, wind = 0.5, gust = 0, lastScroll = window.scrollY;
+  addEventListener('scroll', () => {
+    const dy = Math.abs(window.scrollY - lastScroll);
+    lastScroll = window.scrollY;
+    gust = Math.min(1.5, gust + dy * 0.01);
+  }, { passive: true });
   addEventListener('resize', () => {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
   });
 
-  // gentle wind gusts tied to scroll velocity for a touch of life
-  let lastScroll = window.scrollY, gust = 0;
-  addEventListener('scroll', () => {
-    const dy = Math.abs(window.scrollY - lastScroll);
-    lastScroll = window.scrollY;
-    gust = Math.min(1.4, gust + dy * 0.01);
-  }, { passive: true });
-
   function animate() {
     requestAnimationFrame(animate);
     const dt = Math.min(clock.getDelta(), 0.05);
-    t += dt;
-    gust *= 0.94;
-    wind = 0.45 + Math.sin(t * 0.6) * 0.18 + gust;
+    t += dt; gust *= 0.94;
+    wind = 0.4 + Math.sin(t * 0.6) * 0.18 + gust;
 
-    for (const b of blades) {
-      const ud = b.userData;
-      b.rotation.z = ud.baseTilt + Math.sin(t * ud.rate + ud.phase) * 0.14 * wind;
-      b.rotation.x = Math.cos(t * ud.rate * 0.7 + ud.phase) * 0.05 * wind;
+    for (let i = 0; i < COUNT; i++) {
+      const d = gdat[i];
+      dummy.position.set(d.x, -0.2, d.z);
+      dummy.rotation.set(Math.cos(t * d.rate * 0.7 + d.phase) * 0.05 * wind, d.yRot, d.tilt + Math.sin(t * d.rate + d.phase) * 0.14 * wind);
+      dummy.scale.set(d.sx, d.h, d.sx);
+      dummy.updateMatrix();
+      grass.setMatrixAt(i, dummy.matrix);
+    }
+    grass.instanceMatrix.needsUpdate = true;
+
+    if (water) {
+      const wp = water.geometry.attributes.position;
+      const base = water.userData.base;
+      for (let i = 0; i < wp.count; i++) {
+        const bx = base[i * 3], by = base[i * 3 + 1];
+        wp.setZ(i, Math.sin(bx * 0.3 + t * 1.4) * 0.25 + Math.cos(by * 0.4 + t * 1.1) * 0.2);
+      }
+      wp.needsUpdate = true;
+      water.geometry.computeVertexNormals();
     }
 
-    const arr = motes.geometry.attributes.position.array;
-    for (let i = 0; i < MOTES; i++) {
-      const s = mseed[i];
-      arr[i * 3] += Math.sin(t * 0.3 + s.sx) * 0.01 + 0.004 * wind;
-      arr[i * 3 + 1] += Math.sin(t * s.sp + s.sy) * 0.006 + 0.003;
-      if (arr[i * 3 + 1] > 15) arr[i * 3 + 1] = 0.2;
+    const arr = parts.geometry.attributes.position.array;
+    for (let i = 0; i < PCOUNT; i++) {
+      const s = pseed[i];
+      if (C.particle === 'leaves') {
+        arr[i * 3] += Math.sin(t * 0.8 + s.sx) * 0.02 + 0.006 * wind;
+        arr[i * 3 + 1] -= 0.02 + s.sp * 0.02;
+        arr[i * 3 + 2] += Math.cos(t * 0.6 + s.sy) * 0.012;
+        if (arr[i * 3 + 1] < 0.2) arr[i * 3 + 1] = 14 + Math.random() * 3;
+      } else if (C.particle === 'fireflies') {
+        arr[i * 3] += Math.sin(t * 0.5 + s.sx) * 0.012;
+        arr[i * 3 + 1] += Math.sin(t * s.sp + s.sy) * 0.006;
+        arr[i * 3 + 2] += Math.cos(t * 0.4 + s.sx) * 0.01;
+      } else {
+        arr[i * 3] += Math.sin(t * 0.3 + s.sx) * 0.01 + 0.004 * wind;
+        arr[i * 3 + 1] += 0.004 + Math.sin(t * s.sp + s.sy) * 0.004;
+        if (arr[i * 3 + 1] > 15) arr[i * 3 + 1] = 0.3;
+      }
       if (arr[i * 3] > 36) arr[i * 3] = -36;
+      else if (arr[i * 3] < -36) arr[i * 3] = 36;
     }
-    motes.geometry.attributes.position.needsUpdate = true;
+    parts.geometry.attributes.position.needsUpdate = true;
+    if (C.particle === 'fireflies') pmat.opacity = 0.6 + Math.sin(t * 2.0) * 0.3;
 
-    camera.position.x = Math.sin(t * 0.08) * 1.2;
-    camera.position.y = 3.6 + Math.sin(t * 0.06) * 0.25;
-    camera.lookAt(0, 1.6, -6);
+    if (C.camera === 'orbit') {
+      const a = Math.sin(t * 0.06) * 0.5;
+      camera.position.set(2 + Math.sin(a) * 15, 5.5 + Math.sin(t * 0.05) * 0.6, -8 + Math.cos(a) * 15);
+      camera.lookAt(2, 6, -8);
+    } else if (C.camera === 'slow') {
+      camera.position.x = Math.sin(t * 0.05) * 0.8;
+      camera.position.y = 2.6 + Math.sin(t * 0.04) * 0.2;
+      camera.lookAt(0, 1.4, -8);
+    } else {
+      camera.position.x = Math.sin(t * 0.08) * 1.2;
+      camera.position.y = 3.6 + Math.sin(t * 0.06) * 0.25;
+      camera.lookAt(0, 1.8, -6);
+    }
 
     renderer.render(scene, camera);
   }
