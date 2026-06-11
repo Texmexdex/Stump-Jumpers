@@ -314,15 +314,15 @@
         renderer.setSize(innerWidth, innerHeight);
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x05080c);
-        scene.fog = new THREE.FogExp2(0x05080c, 0.018);
+        scene.background = new THREE.Color(0x0a1018);
+        scene.fog = new THREE.FogExp2(0x0a1018, 0.016);
 
         const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 200);
         camera.position.set(3.2, 3.4, 16);
         camera.lookAt(2.0, 3.2, 0);
 
-        scene.add(new THREE.AmbientLight(0x1a2433, 0.9));
-        const moon = new THREE.DirectionalLight(0x9fb6d8, 0.55);
+        scene.add(new THREE.AmbientLight(0x2a3a52, 1.6));
+        const moon = new THREE.DirectionalLight(0xafc6e8, 1.0);
         moon.position.set(-8, 12, -4);
         scene.add(moon);
 
