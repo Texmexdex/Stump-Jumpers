@@ -21,15 +21,15 @@
       ambient: 0xcfe0bd, ambIntensity: 1.55,
       sun: 0xfff3cc, sunIntensity: 2.2, sunPos: [-7, 13, 6], rim: 0.6,
       bladeCount: 1500, spreadX: 70, spreadZ: 36, bladeH: [1.0, 1.7],
-      particle: 'pollen', mote: 0xfff2b0, accent: 'treeline', camera: 'drift'
+      particle: 'pollen', mote: 0xfff2b0, accent: 'none', camera: 'drift'
     },
     // Hazy bayou edge: water, mist, fireflies, cypress
     bayou: {
-      bg: 0x0e1c17, fog: 0x122520, fogDensity: 0.04,
-      ground: 0x12251c,
-      grass: [0x255049, 0x317a4f, 0x429a60],
-      ambient: 0x2c4c42, ambIntensity: 1.35,
-      sun: 0xc4e2cb, sunIntensity: 1.15, sunPos: [-6, 10, -2], rim: 0.35,
+      bg: 0x18342c, fog: 0x1f4034, fogDensity: 0.024,
+      ground: 0x1c3c2d,
+      grass: [0x2f6052, 0x3f8a5a, 0x52a86a],
+      ambient: 0x3e6256, ambIntensity: 2.0,
+      sun: 0xd8f2df, sunIntensity: 1.7, sunPos: [-6, 11, -1], rim: 0.45,
       bladeCount: 320, spreadX: 60, spreadZ: 30, bladeH: [1.2, 2.2],
       particle: 'fireflies', mote: 0xffd56b, accent: 'cypress', water: true, camera: 'slow'
     },
