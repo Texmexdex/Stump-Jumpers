@@ -375,7 +375,7 @@
         );
         halo.position.copy(LAMP);
         scene.add(halo);
-        const porchLight = new THREE.PointLight(0xffcf80, 2.6, 22, 2);
+        const porchLight = new THREE.PointLight(0xffcf80, 2.6, 32, 2);
         porchLight.position.copy(LAMP);
         scene.add(porchLight);
 
@@ -436,11 +436,11 @@
           t += dt;
           const on = onLight(t);
 
-          porchLight.intensity += ((on ? 2.8 : 0.0) - porchLight.intensity) * Math.min(1, dt * 4);
-          const lit = porchLight.intensity / 2.8;
+          porchLight.intensity += ((on ? 5.6 : 0.0) - porchLight.intensity) * Math.min(1, dt * 4);
+          const lit = porchLight.intensity / 5.6;
           lampGlobe.material.color.setRGB(0.15 + 0.85 * lit, 0.12 + 0.78 * lit, 0.05 + 0.55 * lit);
-          halo.material.opacity = 0.04 + 0.22 * lit;
-          halo.scale.setScalar(0.7 + 0.5 * lit);
+          halo.material.opacity = 0.04 + 0.5 * lit;
+          halo.scale.setScalar(0.7 + 1.0 * lit);
 
           for (const m of termites) {
             const target = on ? 1 : 0;
