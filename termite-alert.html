@@ -98,12 +98,8 @@
 
       /* Signup card */
       .signup-card {
-        background: rgba(10, 16, 13, 0.38);
-        border: 1px solid rgba(255, 255, 255, 0.10);
-        box-shadow: var(--shadow);
-        padding: clamp(1.6rem, 3vw, 2.4rem);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        background: transparent;
+        padding: clamp(0.5rem, 2vw, 1rem) 0;
       }
       .signup-card h2 {
         font-family: var(--font-serif);
@@ -205,7 +201,7 @@
             <!--
               SETUP NOTE FOR DEX:
               This form posts to Formspree (free tier works for a static GitHub Pages site).
-              1) Create a free account at https://formspree.io with dex@sestumpjumpers.com
+              1) Create a free account at https://formspree.io with your business email
               2) Make a new form, copy its endpoint, and replace YOUR_FORM_ID below.
               Until then the form will not deliver. Mailchimp/Buttondown/Brevo endpoints
               can be swapped into the same action attribute if you prefer a true list.
@@ -253,9 +249,7 @@
 
               <button type="submit" class="button primary">Sign Me Up</button>
               <p class="form-note">
-                Prefer email? Send your address to
-                <a href="mailto:dex@sestumpjumpers.com?subject=Termite%20Swarm%20Alert%20Signup">dex@sestumpjumpers.com</a>
-                and we'll add you to the list.
+                We'll only use your email to send swarm alerts &mdash; never shared, and no spam.
               </p>
             </form>
           </div>
@@ -287,7 +281,7 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:dex@sestumpjumpers.com">dex@sestumpjumpers.com</a></li>
+            <li><a href="lawn-reform.html#contact">Request an estimate</a></li>
             <li>Greater Houston &amp; surrounding areas</li>
             <li>Mon–Sat, 7:00am – 6:00pm</li>
           </ul>

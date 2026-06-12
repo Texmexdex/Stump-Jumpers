@@ -148,14 +148,82 @@
     const g = new THREE.Group();
     const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.6, 11, 8), bark);
     trunk.position.y = 5.5; g.add(trunk);
-    const crown = [[0, 11, 0, 4.2], [-3.5, 10, 1, 3.2], [3.5, 10, -1, 3.2], [0, 13.5, 0, 3.4], [-2.5, 12.5, 2, 2.6], [3, 12.5, -2, 2.6]];
-    crown.forEach(([x, y, z, r]) => { const b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), leaf); b.position.set(x, y, z); g.add(b); });
+    // Sparse starting canopy (always visible)
+    const base = [[0, 11, 0, 3.0], [-3, 10, 1, 2.2], [3, 10, -1, 2.2]];
+    base.forEach(([x, y, z, r]) => { const b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), leaf); b.position.set(x, y, z); g.add(b); });
+    // Growth blobs — canopy fills in as the page scrolls
+    const grow = [[0, 13.5, 0, 3.0], [-2.5, 12.5, 2, 2.6], [3, 12.5, -2, 2.6], [-4.5, 11, 1, 2.4], [4.5, 11, -1, 2.4], [0, 9.5, 3, 2.2], [0, 9.5, -3, 2.2], [-3, 13, -2, 2.2], [3.2, 13.2, 2, 2.2]];
+    grow.forEach(([x, y, z, r], idx) => {
+      const b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), leaf);
+      b.position.set(x, y, z);
+      b.scale.setScalar(0.001);
+      b.userData = { threshold: idx / grow.length };
+      growBlobs.push(b);
+      g.add(b);
+    });
     g.position.set(2, -0.2, -8); g.scale.setScalar(1.1);
     scene.add(g);
   }
-  if (C.accent === 'treeline') addTreeline();
-  else if (C.accent === 'cypress') addCypress();
+
+  // ---- Scroll-driven feature elements (built per theme) ----
+  let sunDisc = null;     // prairie: sun that arcs across the sky
+  const tallows = [];     // bayou: invasive tallow trees that pop up over the pines
+  const growBlobs = [];   // oak: canopy blobs that fill in
+  let bird = null, birdT = 0; // oak: a bird drifting across
+
+  if (C.accent === 'cypress') addCypress();
   else if (C.accent === 'oak') addOak();
+
+  if (theme === 'prairie') {
+    sunDisc = new THREE.Mesh(new THREE.SphereGeometry(3.4, 24, 24), new THREE.MeshBasicMaterial({ color: 0xfff3c4 }));
+    sunDisc.position.set(-58, 16, -72);
+    const glow = new THREE.Mesh(new THREE.SphereGeometry(5.4, 24, 24), new THREE.MeshBasicMaterial({ color: 0xfff0b0, transparent: true, opacity: 0.25 }));
+    sunDisc.add(glow);
+    scene.add(sunDisc);
+  }
+
+  if (theme === 'bayou') {
+    // Native pines in the far background (what the invasives crowd out)
+    const pineMat = new THREE.MeshStandardMaterial({ color: 0x183a23, roughness: 1, flatShading: true });
+    for (let i = 0; i < 9; i++) {
+      const pine = new THREE.Group();
+      for (let k = 0; k < 3; k++) {
+        const cone = new THREE.Mesh(new THREE.ConeGeometry(3.2 - k * 0.7, 5, 6), pineMat);
+        cone.position.y = 6 + k * 3; pine.add(cone);
+      }
+      const ptr = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 6, 5), pineMat);
+      ptr.position.y = 3; pine.add(ptr);
+      pine.position.set(-44 + i * 11 + (Math.random() - 0.5) * 4, 0, -44 - Math.random() * 6);
+      scene.add(pine);
+    }
+    // Invasive Chinese tallow: pale rounded canopies that pop up over the pines on scroll
+    const tBark = new THREE.MeshStandardMaterial({ color: 0x6b5a3a, roughness: 1, flatShading: true });
+    const tLeaf = new THREE.MeshStandardMaterial({ color: 0x93b15e, roughness: 1, flatShading: true });
+    for (let i = 0; i < 8; i++) {
+      const g = new THREE.Group();
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.6, 7, 6), tBark);
+      trunk.position.y = 3.5; g.add(trunk);
+      [[0, 8, 0, 3.0], [1.8, 7, 0.5, 2.2], [-1.8, 7.2, -0.5, 2.0]].forEach(([x, y, z, r]) => {
+        const c = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), tLeaf); c.position.set(x, y, z); g.add(c);
+      });
+      g.position.set(-40 + i * 11 + (Math.random() - 0.5) * 3, 0, -36 - Math.random() * 6);
+      g.scale.setScalar(0.001);
+      g.userData.threshold = i / 8;
+      tallows.push(g);
+      scene.add(g);
+    }
+  }
+
+  if (theme === 'oak') {
+    bird = new THREE.Group();
+    const bmat = new THREE.MeshBasicMaterial({ color: 0x20160c, side: THREE.DoubleSide });
+    const wl = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.32), bmat); wl.position.x = -0.65; wl.rotation.z = 0.5;
+    const wr = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 0.32), bmat); wr.position.x = 0.65; wr.rotation.z = -0.5;
+    bird.add(wl); bird.add(wr);
+    bird.userData = { wl, wr };
+    bird.position.set(-22, 12, -14);
+    scene.add(bird);
+  }
 
   // ---- Particles (behavior per theme) ----
   const PCOUNT = C.particle === 'pollen' ? 280 : 170;
@@ -243,6 +311,43 @@
     }
     parts.geometry.attributes.position.needsUpdate = true;
     if (C.particle === 'fireflies') pmat.opacity = 0.6 + Math.sin(t * 2.0) * 0.3;
+
+    // ---- Scroll-driven storytelling per page ----
+    const docH = document.documentElement.scrollHeight - innerHeight;
+    const scrollP = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
+
+    if (sunDisc) {
+      // Prairie: the sun arcs east -> west and the sky warms toward the ends of the day.
+      const sx = -60 + scrollP * 120;
+      const sy = 8 + Math.sin(scrollP * Math.PI) * 34;
+      sunDisc.position.set(sx, sy, -72);
+      sun.position.set(sx * 0.25, sy * 0.4 + 4, -20);
+      const warm = 1 - Math.sin(scrollP * Math.PI);
+      const r = 0.56 + 0.30 * warm, g2 = 0.75 - 0.10 * warm, b = 0.90 - 0.45 * warm;
+      scene.background.setRGB(r, g2, b);
+      scene.fog.color.setRGB(r * 0.95, g2 * 0.95, b * 0.95);
+    }
+
+    for (const tw of tallows) {
+      // Bayou: invasive tallows pop up over the native pines as you scroll.
+      const target = scrollP > tw.userData.threshold ? 1 : 0.001;
+      tw.scale.setScalar(tw.scale.x + (target - tw.scale.x) * Math.min(1, dt * 2.5));
+    }
+
+    for (const b of growBlobs) {
+      // Tree health: the oak canopy fills in as you scroll.
+      const target = scrollP > b.userData.threshold ? 1 : 0.001;
+      b.scale.setScalar(b.scale.x + (target - b.scale.x) * Math.min(1, dt * 2.5));
+    }
+
+    if (bird) {
+      birdT += dt * 0.12;
+      const bx = -22 + (birdT % 1) * 60;
+      bird.position.set(bx, 12 + Math.sin(birdT * 6) * 1.5, -14);
+      const flap = Math.sin(t * 8) * 0.4;
+      bird.userData.wl.rotation.z = 0.5 + flap;
+      bird.userData.wr.rotation.z = -0.5 - flap;
+    }
 
     if (C.camera === 'orbit') {
       const a = Math.sin(t * 0.06) * 0.5;
