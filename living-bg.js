@@ -167,6 +167,7 @@
 
   // ---- Scroll-driven feature elements (built per theme) ----
   let sunDisc = null;     // prairie: sun that arcs across the sky
+  const clouds = [];      // prairie: drifting puffy clouds (always in front of the sun)
   const tallows = [];     // bayou: invasive tallow trees that pop up over the pines
   const pines = [];       // bayou: native pines, most of which topple as they're starved out
   const growBlobs = [];   // oak: canopy blobs that fill in
@@ -181,6 +182,34 @@
     const glow = new THREE.Mesh(new THREE.SphereGeometry(5.4, 24, 24), new THREE.MeshBasicMaterial({ color: 0xfff0b0, transparent: true, opacity: 0.25 }));
     sunDisc.add(glow);
     scene.add(sunDisc);
+
+    // Puffy low-poly clouds. z is always nearer the camera than the sun (-72), so they pass in front of it.
+    function makeCloud() {
+      const g = new THREE.Group();
+      const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x222428, roughness: 1, flatShading: true, transparent: true, opacity: 0.9 });
+      const puffs = 4 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < puffs; i++) {
+        const r = 2.2 + Math.random() * 2.2;
+        const s = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), mat);
+        s.position.set((i - puffs / 2) * 2.4 + (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5);
+        s.scale.y = 0.65;
+        g.add(s);
+      }
+      g.userData.mat = mat;
+      return g;
+    }
+    for (let i = 0; i < 6; i++) {
+      const cloud = makeCloud();
+      cloud.userData.speed = 1.2 + Math.random() * 2.2;
+      cloud.userData.baseScale = 0.7 + Math.random() * 0.8;
+      cloud.userData.baseOpacity = 0.72 + Math.random() * 0.22;
+      cloud.userData.phase = Math.random() * 6.28;
+      cloud.userData.phase2 = Math.random() * 6.28;
+      cloud.position.set(-70 + Math.random() * 145, 16 + Math.random() * 16, -58 - Math.random() * 8);
+      cloud.scale.setScalar(cloud.userData.baseScale);
+      clouds.push(cloud);
+      scene.add(cloud);
+    }
   }
 
   if (theme === 'bayou') {
@@ -335,6 +364,22 @@
       const r = 0.56 + 0.30 * warm, g2 = 0.75 - 0.10 * warm, b = 0.90 - 0.45 * warm;
       scene.background.setRGB(r, g2, b);
       scene.fog.color.setRGB(r * 0.95, g2 * 0.95, b * 0.95);
+
+      // Drifting clouds: travel across, fade at the edges, gently form/shrink.
+      for (const c of clouds) {
+        c.position.x += c.userData.speed * dt;
+        if (c.position.x > 78) {
+          c.position.x = -78;
+          c.position.y = 16 + Math.random() * 16;
+          c.position.z = -58 - Math.random() * 8;
+          c.userData.baseScale = 0.7 + Math.random() * 0.8;
+          c.userData.speed = 1.2 + Math.random() * 2.2;
+        }
+        const edge = Math.min(1, Math.max(0, (78 - Math.abs(c.position.x)) / 24));
+        const pulse = 0.75 + 0.25 * Math.sin(t * 0.25 + c.userData.phase);
+        c.userData.mat.opacity = c.userData.baseOpacity * edge * pulse;
+        c.scale.setScalar(c.userData.baseScale * (0.85 + 0.15 * Math.sin(t * 0.18 + c.userData.phase2)));
+      }
     }
 
     for (const tw of tallows) {
