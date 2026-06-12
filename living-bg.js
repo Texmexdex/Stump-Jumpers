@@ -168,6 +168,7 @@
   // ---- Scroll-driven feature elements (built per theme) ----
   let sunDisc = null;     // prairie: sun that arcs across the sky
   const tallows = [];     // bayou: invasive tallow trees that pop up over the pines
+  const pines = [];       // bayou: native pines, most of which topple as they're starved out
   const growBlobs = [];   // oak: canopy blobs that fill in
   let bird = null, birdT = 0; // oak: a bird drifting across
 
@@ -185,7 +186,7 @@
   if (theme === 'bayou') {
     // Native pines in the far background (what the invasives crowd out)
     const pineMat = new THREE.MeshStandardMaterial({ color: 0x183a23, roughness: 1, flatShading: true });
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 11; i++) {
       const pine = new THREE.Group();
       for (let k = 0; k < 3; k++) {
         const cone = new THREE.Mesh(new THREE.ConeGeometry(3.2 - k * 0.7, 5, 6), pineMat);
@@ -193,7 +194,14 @@
       }
       const ptr = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.6, 6, 5), pineMat);
       ptr.position.y = 3; pine.add(ptr);
-      pine.position.set(-44 + i * 11 + (Math.random() - 0.5) * 4, 0, -44 - Math.random() * 6);
+      pine.position.set(-50 + i * 10 + (Math.random() - 0.5) * 5, 0, -44 - Math.random() * 6);
+      pine.userData = {
+        willFall: Math.random() < 0.75,
+        fallThreshold: 0.12 + Math.random() * 0.78,
+        axis: Math.random() < 0.5 ? 'z' : 'x',
+        fallRot: (Math.random() < 0.5 ? -1 : 1) * (1.35 + Math.random() * 0.25)
+      };
+      pines.push(pine);
       scene.add(pine);
     }
     // Invasive Chinese tallow: pale rounded canopies that pop up over the pines on scroll
@@ -333,6 +341,14 @@
       // Bayou: invasive tallows pop up over the native pines as you scroll.
       const target = scrollP > tw.userData.threshold ? tw.userData.fullScale : 0.001;
       tw.scale.setScalar(tw.scale.x + (target - tw.scale.x) * Math.min(1, dt * 2.5));
+    }
+
+    for (const p of pines) {
+      // Bayou: most native pines topple over as they're starved out by the tallows.
+      if (!p.userData.willFall) continue;
+      const tgt = scrollP > p.userData.fallThreshold ? p.userData.fallRot : 0;
+      if (p.userData.axis === 'z') p.rotation.z += (tgt - p.rotation.z) * Math.min(1, dt * 1.8);
+      else p.rotation.x += (tgt - p.rotation.x) * Math.min(1, dt * 1.8);
     }
 
     for (const b of growBlobs) {
