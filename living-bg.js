@@ -199,16 +199,17 @@
     // Invasive Chinese tallow: pale rounded canopies that pop up over the pines on scroll
     const tBark = new THREE.MeshStandardMaterial({ color: 0x6b5a3a, roughness: 1, flatShading: true });
     const tLeaf = new THREE.MeshStandardMaterial({ color: 0x93b15e, roughness: 1, flatShading: true });
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 16; i++) {
       const g = new THREE.Group();
       const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.6, 7, 6), tBark);
       trunk.position.y = 3.5; g.add(trunk);
       [[0, 8, 0, 3.0], [1.8, 7, 0.5, 2.2], [-1.8, 7.2, -0.5, 2.0]].forEach(([x, y, z, r]) => {
         const c = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), tLeaf); c.position.set(x, y, z); g.add(c);
       });
-      g.position.set(-40 + i * 11 + (Math.random() - 0.5) * 3, 0, -36 - Math.random() * 6);
+      g.position.set(-52 + Math.random() * 104, 0, -30 - Math.random() * 18);
+      g.userData.fullScale = 0.85 + Math.random() * 0.5;
       g.scale.setScalar(0.001);
-      g.userData.threshold = i / 8;
+      g.userData.threshold = Math.random() * 0.92;   // random pop-up order across the scroll
       tallows.push(g);
       scene.add(g);
     }
@@ -330,7 +331,7 @@
 
     for (const tw of tallows) {
       // Bayou: invasive tallows pop up over the native pines as you scroll.
-      const target = scrollP > tw.userData.threshold ? 1 : 0.001;
+      const target = scrollP > tw.userData.threshold ? tw.userData.fullScale : 0.001;
       tw.scale.setScalar(tw.scale.x + (target - tw.scale.x) * Math.min(1, dt * 2.5));
     }
 

@@ -1740,3 +1740,28 @@ h2 {
     padding-right: 0 !important;
   }
 }
+
+/* ===================================================================
+   LIVING-BACKGROUND CLARITY: drop remaining card fills so the 3D
+   scenes show through. Text is light and readable on its own.
+   Form fields and selector buttons keep enough chrome to be usable.
+   =================================================================== */
+.timeline li,
+.hero-visual,
+.native-card-content,
+.grass-grid {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.grass-card {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.grass-card:hover,
+.grass-card.active {
+  background: rgba(255, 255, 255, 0.07) !important;
+}
