@@ -419,8 +419,8 @@
       bird.userData.wr.rotation.z = -0.5 - flap;
     }
 
-    // On portrait/mobile, tilt the camera up so the horizon drops and we see more sky + trees (less ground).
-    const lift = camera.aspect < 1 ? 3.5 : 0;
+    // Tilt the camera up so the horizon sits low — more sky and trees, less ground (all screens).
+    const lift = 3.5;
 
     if (C.camera === 'orbit') {
       const a = Math.sin(t * 0.06) * 0.5;
