@@ -98,11 +98,12 @@
 
       /* Signup card */
       .signup-card {
-        background: var(--card);
-        border: 1px solid var(--card-border);
+        background: rgba(10, 16, 13, 0.38);
+        border: 1px solid rgba(255, 255, 255, 0.10);
         box-shadow: var(--shadow);
         padding: clamp(1.6rem, 3vw, 2.4rem);
-        backdrop-filter: blur(14px);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
       }
       .signup-card h2 {
         font-family: var(--font-serif);
@@ -314,15 +315,15 @@
         renderer.setSize(innerWidth, innerHeight);
 
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0a1018);
-        scene.fog = new THREE.FogExp2(0x0a1018, 0.016);
+        scene.background = new THREE.Color(0x16202e);
+        scene.fog = new THREE.FogExp2(0x16202e, 0.013);
 
         const camera = new THREE.PerspectiveCamera(48, innerWidth / innerHeight, 0.1, 200);
         camera.position.set(3.2, 3.4, 16);
         camera.lookAt(2.0, 3.2, 0);
 
-        scene.add(new THREE.AmbientLight(0x2a3a52, 1.6));
-        const moon = new THREE.DirectionalLight(0xafc6e8, 1.0);
+        scene.add(new THREE.AmbientLight(0x3a4a64, 2.7));
+        const moon = new THREE.DirectionalLight(0xc2d6f2, 1.9);
         moon.position.set(-8, 12, -4);
         scene.add(moon);
 
