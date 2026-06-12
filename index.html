@@ -389,7 +389,7 @@
 
         // Mobile/portrait: center the floating land/tree cube behind the text and pull back so it fits.
         if (window.matchMedia('(max-width: 820px)').matches) {
-            scrollCameras.forEach(c => { c.pos.x = 0.4; c.pos.z = c.pos.z + 6.5; c.look.x = -0.6; });
+            scrollCameras.forEach(c => { c.pos.x = 0.4; c.pos.z = c.pos.z + 1.5; c.look.x = -0.6; });
         }
 
         let targetCam = { ...scrollCameras[0].pos };
@@ -421,6 +421,7 @@
             scene.fog = new THREE.FogExp2(0x060c09, 0.018);
 
             camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 200);
+            { const a = container.clientWidth / container.clientHeight; if (a < 1) { camera.fov = Math.min(74, 50 + (1 - a) * 40); camera.updateProjectionMatrix(); } }
             camera.position.set(targetCam.x, targetCam.y, targetCam.z);
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -856,7 +857,9 @@
 
         function onResize() {
             const container = document.getElementById('spatial-canvas-container');
-            camera.aspect = container.clientWidth / container.clientHeight;
+            const a = container.clientWidth / container.clientHeight;
+            camera.aspect = a;
+            camera.fov = a < 1 ? Math.min(74, 50 + (1 - a) * 40) : 50;
             camera.updateProjectionMatrix();
             renderer.setSize(container.clientWidth, container.clientHeight);
         }

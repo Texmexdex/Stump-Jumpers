@@ -57,6 +57,15 @@
   const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 280);
   camera.position.set(0, 3.6, 16);
   camera.lookAt(0, 1.8, -6);
+  // Portrait screens have a narrow horizontal field of view, which makes the
+  // scene look heavily zoomed. Widen the FOV as the viewport gets taller-than-wide.
+  function fitFov() {
+    const a = innerWidth / innerHeight;
+    camera.aspect = a;
+    camera.fov = a < 1 ? Math.min(80, 50 + (1 - a) * 44) : 50;
+    camera.updateProjectionMatrix();
+  }
+  fitFov();
 
   scene.add(new THREE.AmbientLight(C.ambient, C.ambIntensity));
   const sun = new THREE.DirectionalLight(C.sun, C.sunIntensity);
@@ -295,8 +304,7 @@
     gust = Math.min(1.5, gust + dy * 0.01);
   }, { passive: true });
   addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
+    fitFov();
     renderer.setSize(innerWidth, innerHeight);
   });
 
