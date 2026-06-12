@@ -419,18 +419,21 @@
       bird.userData.wr.rotation.z = -0.5 - flap;
     }
 
+    // On portrait/mobile, tilt the camera up so the horizon drops and we see more sky + trees (less ground).
+    const lift = camera.aspect < 1 ? 3.5 : 0;
+
     if (C.camera === 'orbit') {
       const a = Math.sin(t * 0.06) * 0.5;
       camera.position.set(2 + Math.sin(a) * 23, 6.8 + Math.sin(t * 0.05) * 0.6, -8 + Math.cos(a) * 23);
-      camera.lookAt(2, 5.5, -8);
+      camera.lookAt(2, 5.5 + lift, -8);
     } else if (C.camera === 'slow') {
       camera.position.x = Math.sin(t * 0.05) * 0.8;
       camera.position.y = 2.6 + Math.sin(t * 0.04) * 0.2;
-      camera.lookAt(0, 1.4, -8);
+      camera.lookAt(0, 1.4 + lift, -8);
     } else {
       camera.position.x = Math.sin(t * 0.08) * 1.2;
       camera.position.y = 3.6 + Math.sin(t * 0.06) * 0.25;
-      camera.lookAt(0, 1.8, -6);
+      camera.lookAt(0, 1.8 + lift, -6);
     }
 
     renderer.render(scene, camera);
