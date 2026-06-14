@@ -154,12 +154,20 @@ async function fetchData() {
   status.textContent = 'Loading...';
   try {
     const url = SCRIPT_URL + '?secret=' + encodeURIComponent(SECRET) + '&full=1';
-    const res = await fetch(url);
-    const data = await res.json();
-    if (data.error) { status.textContent = 'Error: ' + data.error; return; }
+    const res = await fetch(url, { redirect: 'follow' });
+    // Google Apps Script redirects; if we get HTML instead of JSON, try JSONP-style workaround
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch(e) {
+      // Likely got a redirect page; fallback to opening in new tab
+      status.textContent = 'Redirect issue. Opening direct...';
+      window.open(url, '_blank');
+      return;
+    }
+    if (data.error) { status.textContent = 'Error: ' + data.error + ' (check secret or redeploy)'; return; }
     allRows = data.rows || [];
     const emails = (data.emails || []);
-    if (emails.length === 0) { status.textContent = 'No subscribers yet.'; return; }
+    if (emails.length === 0 && allRows.length === 0) { status.textContent = 'No subscribers yet. (If your sheet has data, check that row 1 is a header and email is in column B)'; return; }
     document.getElementById('count').textContent = emails.length;
     document.getElementById('step1').classList.add('hidden');
     document.getElementById('step2').classList.add('show');
