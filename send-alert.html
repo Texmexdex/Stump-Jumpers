@@ -89,12 +89,17 @@
   </div>
 
   <div class="hidden" id="confirmSend">
-    <p style="color:#e8e2d4;font-weight:600;">This will open Gmail with all subscribers BCC'd and the alert pre-written.</p>
+    <p style="color:#e8e2d4;font-weight:600;">This will auto-send the swarm alert to all subscribers from your Gmail. No manual step.</p>
     <div class="btn-row">
-      <button class="btn btn-alert" onclick="doSend()">Confirm — Open Gmail</button>
+      <button class="btn btn-alert" id="confirmBtn" onclick="doSend()">Confirm — Send Emails Now</button>
       <button class="btn btn-cancel" onclick="cancelSend()">Go Back</button>
     </div>
     <div class="preview" id="preview"></div>
+  </div>
+
+  <div class="hidden" id="sentBox">
+    <p style="color:#84a98a;font-weight:700;font-size:1.2rem;" id="sentMsg"></p>
+    <button class="btn btn-cancel" onclick="cancel()" style="margin-top:1rem;">Done</button>
   </div>
 
   <div class="hidden" id="tableBox">
@@ -172,11 +177,24 @@ function sendAlert() {
 }
 
 function doSend() {
-  const bcc = emailList.join(',');
-  const mailto = 'mailto:?bcc=' + encodeURIComponent(bcc)
-    + '&subject=' + encodeURIComponent(SUBJECT)
-    + '&body=' + encodeURIComponent(BODY);
-  window.location.href = mailto;
+  const btn = document.getElementById('confirmBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'secret=' + encodeURIComponent(SECRET) + '&send=1'
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.result === 'sent') {
+      document.getElementById('confirmSend').classList.add('hidden');
+      document.getElementById('sentBox').classList.remove('hidden');
+      document.getElementById('sentMsg').textContent = '\u2713 Sent to ' + data.count + ' subscriber' + (data.count !== 1 ? 's' : '') + '!';
+    } else {
+      btn.textContent = 'Error: ' + (data.error || 'unknown'); btn.disabled = false;
+    }
+  })
+  .catch(err => { btn.textContent = 'Failed: ' + err.message; btn.disabled = false; });
 }
 
 function cancelSend() {
@@ -188,6 +206,7 @@ function cancel() {
   document.getElementById('step1').classList.remove('hidden');
   document.getElementById('step2').classList.remove('show');
   document.getElementById('confirmSend').classList.add('hidden');
+  document.getElementById('sentBox').classList.add('hidden');
   document.getElementById('tableBox').classList.add('hidden');
   document.getElementById('status').textContent = 'Reset. Tap again when ready.';
 }

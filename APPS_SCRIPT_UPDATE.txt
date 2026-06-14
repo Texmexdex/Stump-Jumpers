@@ -1,17 +1,54 @@
 // ============================================================
-// UPDATED Google Apps Script — paste this into your Apps Script editor
-// (Extensions > Apps Script) to replace the previous version.
-// After pasting, click Deploy > Manage deployments > edit the existing
-// deployment > set version to "New version" > Deploy.
+// Google Apps Script v3 — FULL AUTO-SEND
+// Paste this into Extensions > Apps Script (replace all existing code).
+// Then: Deploy > Manage deployments > pencil icon > Version: "New version" > Deploy.
+// It will ask for Gmail permission the first time — authorize it.
 // ============================================================
 
 const SHEET_ID = '1N6xh4aaEVkcsvcV_RU_phEgJCacm2wHZ1VIqzyCqYPk';
 const SECRET = 'DRewgreer24@$$';
 
+const ALERT_SUBJECT = 'Formosan Termite Swarm Alert \u2014 Kill Your Porch Lights Tonight';
+const ALERT_BODY =
+  'Swarm conditions are active in Southeast Texas tonight.\n\n' +
+  'Warm, humid air and dropping pressure mean Formosan subterranean termites are likely swarming at dusk. ' +
+  'They\u2019re drawn to any exterior light \u2014 porch lights, garage lights, landscape fixtures, even interior lights visible through windows.\n\n' +
+  'What to do right now:\n' +
+  '\u2022 Turn off all exterior lights by sundown.\n' +
+  '\u2022 Close blinds and curtains near lit rooms.\n' +
+  '\u2022 If you have yellow/amber "bug bulbs," switch to those for any lights you can\u2019t turn off.\n' +
+  '\u2022 Check around doors and window frames tomorrow morning for dropped wings \u2014 that\u2019s the sign they landed and are looking to start a colony.\n\n' +
+  'Why it matters:\n' +
+  'A swarm at your light means a colony is already established within ~300 feet of your home. ' +
+  'These termites attack both structures and living trees from the inside out \u2014 you often can\u2019t see the damage until it\u2019s too late.\n\n' +
+  'If you find dropped wings or suspect activity in your trees, reach out and we\u2019ll take a look.\n\n' +
+  '\u2014 Dex, South East Stump Jumpers';
+
 function doPost(e) {
-  // Receives form signups from the website
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
   const data = e.parameter;
+
+  // --- AUTO-SEND: triggered by admin page with secret + send=1 ---
+  if (data.secret === SECRET && data.send === '1') {
+    const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+    const rows = sheet.getDataRange().getValues().slice(1); // skip header
+    const emails = rows.map(r => r[1]).filter(addr => addr && addr.toString().includes('@'));
+
+    let sent = 0;
+    for (const addr of emails) {
+      try {
+        GmailApp.sendEmail(addr, ALERT_SUBJECT, ALERT_BODY);
+        sent++;
+      } catch (err) {
+        // skip invalid addresses, keep going
+      }
+    }
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'sent', count: sent })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  // --- SIGNUP: regular form submission from the website ---
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
   sheet.appendRow([
     new Date(),
     data.email || '',
@@ -33,14 +70,12 @@ function doGet(e) {
   }
   const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
   const allData = sheet.getDataRange().getValues();
-  const rows = allData.slice(1); // skip header row
+  const rows = allData.slice(1);
 
-  // Always return the email list
   const emails = rows
     .map(r => r[1])
-    .filter(e => e && e.toString().includes('@'));
+    .filter(addr => addr && addr.toString().includes('@'));
 
-  // If full=1, also return all row data for the admin table view
   const result = { emails: emails };
   if (e.parameter.full === '1') {
     result.rows = rows;
