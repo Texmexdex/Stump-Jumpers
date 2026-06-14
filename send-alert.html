@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Send Swarm Alert — Admin</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="SESJ.svg" type="image/svg+xml" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Swarm Alert" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, system-ui, sans-serif;
+    background: #0c0e0c;
+    color: #e8e2d4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  h1 { font-size: 1.5rem; font-weight: 700; color: #ffd070; }
+  p { color: #98a298; font-size: 0.95rem; max-width: 36ch; line-height: 1.5; }
+  .count { font-size: 2.8rem; font-weight: 800; color: #84a98a; }
+  .btn {
+    display: inline-block;
+    padding: 1.1rem 2.4rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-alert {
+    background: #c04040;
+    color: #fff;
+  }
+  .btn-alert:hover { background: #e04a4a; }
+  .btn-alert:active { background: #a03030; }
+  .btn-cancel {
+    background: #333;
+    color: #aaa;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.8rem;
+  }
+  .confirm {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .confirm.show { display: flex; }
+  .hidden { display: none; }
+  .status { color: #a98b5e; font-size: 0.88rem; min-height: 1.5em; }
+  .preview {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    text-align: left;
+    font-size: 0.82rem;
+    color: #c7c0ad;
+    max-width: 44ch;
+    line-height: 1.55;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <h1>🐜 Formosan Swarm Alert</h1>
+  <p>Fetch subscriber list and send the swarm warning from your Gmail.</p>
+
+  <div id="step1">
+    <p class="status" id="status">Tap the button to load subscriber emails.</p>
+    <br/>
+    <button class="btn btn-alert" id="fetchBtn" onclick="fetchEmails()">Load Subscribers</button>
+  </div>
+
+  <div class="confirm" id="step2">
+    <p><span class="count" id="count">0</span> subscribers</p>
+    <p>This will open Gmail with all subscribers BCC'd and the swarm alert pre-written. Confirm?</p>
+    <button class="btn btn-alert" onclick="sendAlert()">Open Gmail — Send Alert</button>
+    <button class="btn btn-cancel" onclick="cancel()">Cancel</button>
+  </div>
+
+  <div class="hidden" id="previewBox">
+    <div class="preview" id="preview"></div>
+  </div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwV5xYmsnPSgvw_wo3htm_oPvcCQiShw9tEWr80S8VZOuy6RBoD8fwZrXtycN6maACHfw/exec';
+const SECRET = 'DRewgreer24@$$';
+
+let emailList = [];
+
+const SUBJECT = 'Formosan Termite Swarm Alert — Kill Your Porch Lights Tonight';
+const BODY = `Swarm conditions are active in Southeast Texas tonight.
+
+Warm, humid air and dropping pressure mean Formosan subterranean termites are likely swarming at dusk. They're drawn to any exterior light — porch lights, garage lights, landscape fixtures, even interior lights visible through windows.
+
+What to do right now:
+• Turn off all exterior lights by sundown.
+• Close blinds and curtains near lit rooms.
+• If you have yellow/amber "bug bulbs," switch to those for any lights you can't turn off.
+• Check around doors and window frames tomorrow morning for dropped wings — that's the sign they landed and are looking to start a colony.
+
+Why it matters:
+A swarm at your light means a colony is already established within ~300 feet of your home. These termites attack both structures and living trees from the inside out — you often can't see the damage until it's too late.
+
+If you find dropped wings or suspect activity in your trees, reach out and we'll take a look.
+
+— Dex, South East Stump Jumpers`;
+
+async function fetchEmails() {
+  const status = document.getElementById('status');
+  status.textContent = 'Loading...';
+  try {
+    const url = SCRIPT_URL + '?secret=' + encodeURIComponent(SECRET);
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.error) { status.textContent = 'Error: ' + data.error; return; }
+    emailList = data.emails || [];
+    if (emailList.length === 0) { status.textContent = 'No subscribers yet.'; return; }
+    document.getElementById('count').textContent = emailList.length;
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.add('show');
+    document.getElementById('previewBox').classList.remove('hidden');
+    document.getElementById('preview').textContent = BODY;
+  } catch (err) {
+    status.textContent = 'Fetch failed: ' + err.message;
+  }
+}
+
+function sendAlert() {
+  // Build a mailto: link with BCC and pre-filled subject/body.
+  const bcc = emailList.join(',');
+  const mailto = 'mailto:?bcc=' + encodeURIComponent(bcc)
+    + '&subject=' + encodeURIComponent(SUBJECT)
+    + '&body=' + encodeURIComponent(BODY);
+  window.location.href = mailto;
+}
+
+function cancel() {
+  document.getElementById('step1').classList.remove('hidden');
+  document.getElementById('step2').classList.remove('show');
+  document.getElementById('previewBox').classList.add('hidden');
+  document.getElementById('status').textContent = 'Cancelled. Tap again when ready.';
+}
+</script>
+</body>
+</html>
