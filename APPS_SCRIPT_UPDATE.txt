@@ -74,15 +74,39 @@ function doGet(e) {
       JSON.stringify({ error: 'unauthorized' })
     ).setMimeType(ContentService.MimeType.JSON);
   }
-  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
-  const allData = sheet.getDataRange().getValues();
-  const rows = allData.slice(1);
 
-  const emails = rows
-    .map(r => r[1])
-    .filter(addr => addr && addr.toString().includes('@'));
+  // --- AUTO-SEND: triggered by admin page with secret + send=1 ---
+  if (e.parameter.send === '1') {
+    var emails;
+    if (e.parameter.emails && e.parameter.emails.trim()) {
+      emails = e.parameter.emails.split(',').map(function(addr) { return addr.trim(); }).filter(function(addr) { return addr.includes('@'); });
+    } else {
+      var sSheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+      var sRows = sSheet.getDataRange().getValues().slice(1);
+      emails = sRows.map(function(r) { return r[1]; }).filter(function(addr) { return addr && addr.toString().includes('@'); });
+    }
+    var sent = 0;
+    for (var i = 0; i < emails.length; i++) {
+      try {
+        GmailApp.sendEmail(emails[i], ALERT_SUBJECT, ALERT_BODY);
+        sent++;
+      } catch (err) { /* skip */ }
+    }
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: 'sent', count: sent })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
 
-  const result = { emails: emails };
+  // --- VIEW: return subscriber list ---
+  var sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  var allData = sheet.getDataRange().getValues();
+  var rows = allData.slice(1);
+
+  var emailList = rows
+    .map(function(r) { return r[1]; })
+    .filter(function(addr) { return addr && addr.toString().includes('@'); });
+
+  var result = { emails: emailList };
   if (e.parameter.full === '1') {
     result.rows = rows;
   }
