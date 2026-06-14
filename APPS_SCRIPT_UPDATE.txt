@@ -1,0 +1,52 @@
+// ============================================================
+// UPDATED Google Apps Script — paste this into your Apps Script editor
+// (Extensions > Apps Script) to replace the previous version.
+// After pasting, click Deploy > Manage deployments > edit the existing
+// deployment > set version to "New version" > Deploy.
+// ============================================================
+
+const SHEET_ID = '1N6xh4aaEVkcsvcV_RU_phEgJCacm2wHZ1VIqzyCqYPk';
+const SECRET = 'DRewgreer24@$$';
+
+function doPost(e) {
+  // Receives form signups from the website
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  const data = e.parameter;
+  sheet.appendRow([
+    new Date(),
+    data.email || '',
+    data.name || '',
+    data.area || '',
+    (data.alerts || '')
+  ]);
+  return ContentService.createTextOutput(
+    JSON.stringify({ result: 'success' })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  // Serves subscriber data to the admin page (protected by secret)
+  if (!e || !e.parameter || e.parameter.secret !== SECRET) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ error: 'unauthorized' })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  const allData = sheet.getDataRange().getValues();
+  const rows = allData.slice(1); // skip header row
+
+  // Always return the email list
+  const emails = rows
+    .map(r => r[1])
+    .filter(e => e && e.toString().includes('@'));
+
+  // If full=1, also return all row data for the admin table view
+  const result = { emails: emails };
+  if (e.parameter.full === '1') {
+    result.rows = rows;
+  }
+
+  return ContentService.createTextOutput(
+    JSON.stringify(result)
+  ).setMimeType(ContentService.MimeType.JSON);
+}
