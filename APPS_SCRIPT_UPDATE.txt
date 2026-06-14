@@ -1,11 +1,12 @@
-// ============================================================
-// Google Apps Script v3 — FULL AUTO-SEND
-// Paste this into Extensions > Apps Script (replace all existing code).
-// Then: Deploy > Manage deployments > pencil icon > Version: "New version" > Deploy.
-// It will ask for Gmail permission the first time — authorize it.
-// ============================================================
+// =====================================================================
+//  SE STUMP JUMPERS — Termite Swarm Alert backend (Google Apps Script)
+//  Paste ALL of this into the Apps Script editor.
+//  Then follow the numbered steps in the chat.
+// =====================================================================
 
-const SHEET_ID = '1N6xh4aaEVkcsvcV_RU_phEgJCacm2wHZ1VIqzyCqYPk';
+// >>> PASTE YOUR NEW SHEET ID BETWEEN THE QUOTES BELOW <<<
+const SHEET_ID = 'PASTE_NEW_SHEET_ID_HERE';
+
 const SECRET = 'DRewgreer24xSwarm';
 
 const ALERT_SUBJECT = 'Formosan Termite Swarm Alert \u2014 Kill Your Porch Lights Tonight';
@@ -24,37 +25,25 @@ const ALERT_BODY =
   'If you find dropped wings or suspect activity in your trees, reach out and we\u2019ll take a look.\n\n' +
   '\u2014 Dex, South East Stump Jumpers';
 
-function doPost(e) {
-  const data = e.parameter;
-
-  // --- AUTO-SEND: triggered by admin page with secret + send=1 ---
-  if (data.secret === SECRET && data.send === '1') {
-    // If specific emails are passed, send only to those; otherwise send to all.
-    let emails;
-    if (data.emails && data.emails.trim()) {
-      emails = data.emails.split(',').map(e => e.trim()).filter(e => e.includes('@'));
-    } else {
-      const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
-      const rows = sheet.getDataRange().getValues().slice(1);
-      emails = rows.map(r => r[1]).filter(addr => addr && addr.toString().includes('@'));
-    }
-
-    let sent = 0;
-    for (const addr of emails) {
-      try {
-        GmailApp.sendEmail(addr, ALERT_SUBJECT, ALERT_BODY);
-        sent++;
-      } catch (err) {
-        // skip invalid addresses, keep going
-      }
-    }
-    return ContentService.createTextOutput(
-      JSON.stringify({ result: 'sent', count: sent })
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
-
-  // --- SIGNUP: regular form submission from the website ---
+// Run THIS once from the editor to authorize Gmail + Sheets access.
+// (Select "setup" in the function dropdown, click Run, click Allow.)
+function setup() {
   const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  // Ensure a header row exists
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Date', 'Email', 'Name', 'Area', 'Alerts']);
+  }
+  // Send yourself a test so Gmail permission is granted
+  GmailApp.sendEmail(Session.getActiveUser().getEmail(), 'Swarm Alert setup OK', 'Backend is connected and Gmail sending works.');
+}
+
+function doPost(e) {
+  // Website signup form posts here -> append a row
+  const data = (e && e.parameter) ? e.parameter : {};
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Date', 'Email', 'Name', 'Area', 'Alerts']);
+  }
   sheet.appendRow([
     new Date(),
     data.email || '',
@@ -68,61 +57,46 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  // Serves subscriber data to the admin page (protected by secret)
-  if (!e || !e.parameter || e.parameter.secret !== SECRET) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ error: 'unauthorized' })
-    ).setMimeType(ContentService.MimeType.JSON);
+  const p = (e && e.parameter) ? e.parameter : {};
+  if (p.secret !== SECRET) {
+    return json({ error: 'unauthorized' });
   }
 
-  // --- AUTO-SEND: triggered by admin page with secret + send=1 ---
-  if (e.parameter.send === '1') {
-    var sSheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
-    var sRows = sSheet.getDataRange().getValues().slice(1); // skip header
-    var emails = [];
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+  const rows = sheet.getDataRange().getValues().slice(1); // skip header row
 
-    if (e.parameter.rows && e.parameter.rows.trim()) {
-      // Send to specific row indices (0-based, from the data rows after header)
-      var indices = e.parameter.rows.split(',').map(function(n) { return parseInt(n, 10); });
-      for (var j = 0; j < indices.length; j++) {
-        var idx = indices[j];
-        if (idx >= 0 && idx < sRows.length) {
-          var addr = sRows[idx][1];
-          if (addr && addr.toString().includes('@')) emails.push(addr.toString().trim());
+  // ----- SEND -----
+  if (p.send === '1') {
+    let emails = [];
+    if (p.rows && p.rows.toString().trim()) {
+      const idxs = p.rows.toString().split(',').map(function (n) { return parseInt(n, 10); });
+      idxs.forEach(function (idx) {
+        if (idx >= 0 && idx < rows.length) {
+          const addr = rows[idx][1];
+          if (addr && addr.toString().indexOf('@') > -1) emails.push(addr.toString().trim());
         }
-      }
+      });
     } else {
-      // Send to all
-      emails = sRows.map(function(r) { return r[1]; }).filter(function(addr) { return addr && addr.toString().includes('@'); });
+      emails = rows.map(function (r) { return r[1]; })
+                   .filter(function (a) { return a && a.toString().indexOf('@') > -1; })
+                   .map(function (a) { return a.toString().trim(); });
     }
-
-    var sent = 0;
-    for (var i = 0; i < emails.length; i++) {
-      try {
-        GmailApp.sendEmail(emails[i], ALERT_SUBJECT, ALERT_BODY);
-        sent++;
-      } catch (err) { /* skip */ }
-    }
-    return ContentService.createTextOutput(
-      JSON.stringify({ result: 'sent', count: sent })
-    ).setMimeType(ContentService.MimeType.JSON);
+    let sent = 0;
+    emails.forEach(function (addr) {
+      try { GmailApp.sendEmail(addr, ALERT_SUBJECT, ALERT_BODY); sent++; } catch (err) {}
+    });
+    return json({ result: 'sent', count: sent });
   }
 
-  // --- VIEW: return subscriber list ---
-  var sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
-  var allData = sheet.getDataRange().getValues();
-  var rows = allData.slice(1);
+  // ----- VIEW LIST -----
+  const emailList = rows.map(function (r) { return r[1]; })
+                        .filter(function (a) { return a && a.toString().indexOf('@') > -1; });
+  const result = { emails: emailList };
+  if (p.full === '1') result.rows = rows;
+  return json(result);
+}
 
-  var emailList = rows
-    .map(function(r) { return r[1]; })
-    .filter(function(addr) { return addr && addr.toString().includes('@'); });
-
-  var result = { emails: emailList };
-  if (e.parameter.full === '1') {
-    result.rows = rows;
-  }
-
-  return ContentService.createTextOutput(
-    JSON.stringify(result)
-  ).setMimeType(ContentService.MimeType.JSON);
+function json(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
