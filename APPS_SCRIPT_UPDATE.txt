@@ -29,9 +29,15 @@ function doPost(e) {
 
   // --- AUTO-SEND: triggered by admin page with secret + send=1 ---
   if (data.secret === SECRET && data.send === '1') {
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
-    const rows = sheet.getDataRange().getValues().slice(1); // skip header
-    const emails = rows.map(r => r[1]).filter(addr => addr && addr.toString().includes('@'));
+    // If specific emails are passed, send only to those; otherwise send to all.
+    let emails;
+    if (data.emails && data.emails.trim()) {
+      emails = data.emails.split(',').map(e => e.trim()).filter(e => e.includes('@'));
+    } else {
+      const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+      const rows = sheet.getDataRange().getValues().slice(1);
+      emails = rows.map(r => r[1]).filter(addr => addr && addr.toString().includes('@'));
+    }
 
     let sent = 0;
     for (const addr of emails) {

@@ -18,21 +18,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.8rem;
     text-align: center;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
-  h1 { font-size: 1.5rem; font-weight: 700; color: #ffd070; }
-  h2 { font-size: 1.1rem; font-weight: 600; color: #84a98a; margin-top: 1.5rem; }
-  p { color: #98a298; font-size: 0.95rem; max-width: 42ch; line-height: 1.5; }
-  .count { font-size: 2.8rem; font-weight: 800; color: #84a98a; }
+  h1 { font-size: 1.4rem; font-weight: 700; color: #ffd070; }
+  h2 { font-size: 1.05rem; font-weight: 600; color: #84a98a; margin: 1rem 0 0.5rem; }
+  p { color: #98a298; font-size: 0.92rem; max-width: 42ch; line-height: 1.5; }
+  .count { font-size: 2.4rem; font-weight: 800; color: #84a98a; }
+  .selected-count { font-size: 0.85rem; color: #a98b5e; }
   .btn {
     display: inline-block;
-    padding: 1.1rem 2.4rem;
-    font-size: 1.1rem;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -41,37 +42,40 @@
   .btn-alert { background: #c04040; color: #fff; }
   .btn-alert:hover { background: #e04a4a; }
   .btn-alert:active { background: #a03030; }
+  .btn-alert:disabled { background: #4a2020; color: #886; cursor: not-allowed; }
   .btn-view { background: #2a5040; color: #cde6d4; }
   .btn-view:hover { background: #366050; }
-  .btn-cancel { background: #333; color: #aaa; font-size: 0.9rem; padding: 0.8rem 1.8rem; }
-  .btn-row { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; }
+  .btn-sm { padding: 0.5rem 1rem; font-size: 0.78rem; }
+  .btn-cancel { background: #333; color: #aaa; font-size: 0.85rem; padding: 0.7rem 1.4rem; }
+  .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
   .confirm { display: none; flex-direction: column; align-items: center; gap: 1rem; }
   .confirm.show { display: flex; }
   .hidden { display: none; }
   .status { color: #a98b5e; font-size: 0.88rem; min-height: 1.5em; }
   .preview {
-    margin-top: 1rem; padding: 1rem;
+    margin-top: 0.8rem; padding: 0.8rem;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 6px; text-align: left;
-    font-size: 0.82rem; color: #c7c0ad;
-    max-width: 44ch; line-height: 1.55; white-space: pre-wrap;
+    font-size: 0.78rem; color: #c7c0ad;
+    max-width: 44ch; line-height: 1.5; white-space: pre-wrap;
   }
-  /* Subscriber table */
   .table-wrap {
-    width: 100%; max-width: 700px; overflow-x: auto;
-    margin-top: 1rem; text-align: left;
+    width: 100%; max-width: 720px; overflow-x: auto;
+    margin-top: 0.5rem; text-align: left;
   }
-  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-  th { background: #1a2a1f; color: #84a98a; padding: 0.55rem 0.7rem; text-align: left; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.7rem; }
-  td { padding: 0.5rem 0.7rem; border-top: 1px solid rgba(255,255,255,0.06); color: #c7c0ad; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  th { background: #1a2a1f; color: #84a98a; padding: 0.5rem 0.6rem; text-align: left; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.68rem; white-space: nowrap; }
+  td { padding: 0.45rem 0.6rem; border-top: 1px solid rgba(255,255,255,0.06); color: #c7c0ad; }
   tr:hover td { background: rgba(255,255,255,0.03); }
-  .chip { display: inline-block; padding: 0.15rem 0.45rem; border-radius: 3px; font-size: 0.7rem; background: rgba(132,169,138,0.15); color: #84a98a; margin: 0.1rem; }
+  tr.unchecked td { opacity: 0.4; }
+  .chip { display: inline-block; padding: 0.12rem 0.4rem; border-radius: 3px; font-size: 0.68rem; background: rgba(132,169,138,0.15); color: #84a98a; margin: 0.1rem; }
+  input[type="checkbox"] { accent-color: #84a98a; width: 1.1rem; height: 1.1rem; cursor: pointer; }
 </style>
 </head>
 <body>
-  <h1>🐜 Formosan Swarm Alert — Admin</h1>
-  <p>Load your subscriber list, view signups, or send the alert from your Gmail.</p>
+  <h1>&#x1F41C; Formosan Swarm Alert &#x2014; Admin</h1>
+  <p>Load subscribers, pick who to alert, and send with one tap.</p>
 
   <div id="step1">
     <p class="status" id="status">Tap to load subscriber data from your sheet.</p>
@@ -81,17 +85,22 @@
 
   <div class="confirm" id="step2">
     <p><span class="count" id="count">0</span> subscribers</p>
+    <p class="selected-count" id="selectedCount">All selected</p>
     <div class="btn-row">
-      <button class="btn btn-alert" onclick="sendAlert()">Send Swarm Alert</button>
-      <button class="btn btn-view" onclick="toggleTable()">View List</button>
+      <button class="btn btn-alert" id="sendBtn" onclick="sendAlert()">Send Swarm Alert</button>
       <button class="btn btn-cancel" onclick="cancel()">Reset</button>
     </div>
+    <div class="btn-row" style="margin-top:0.4rem;">
+      <button class="btn btn-view btn-sm" onclick="selectAll()">Select All</button>
+      <button class="btn btn-sm btn-cancel" onclick="unselectAll()">Unselect All</button>
+    </div>
+    <div class="table-wrap" id="tableWrap"></div>
   </div>
 
   <div class="hidden" id="confirmSend">
-    <p style="color:#e8e2d4;font-weight:600;">This will auto-send the swarm alert to all subscribers from your Gmail. No manual step.</p>
+    <p style="color:#e8e2d4;font-weight:600;" id="confirmMsg">Sending to X subscribers. Confirm?</p>
     <div class="btn-row">
-      <button class="btn btn-alert" id="confirmBtn" onclick="doSend()">Confirm — Send Emails Now</button>
+      <button class="btn btn-alert" id="confirmBtn" onclick="doSend()">Confirm &#x2014; Send Now</button>
       <button class="btn btn-cancel" onclick="cancelSend()">Go Back</button>
     </div>
     <div class="preview" id="preview"></div>
@@ -102,35 +111,43 @@
     <button class="btn btn-cancel" onclick="cancel()" style="margin-top:1rem;">Done</button>
   </div>
 
-  <div class="hidden" id="tableBox">
-    <h2>Subscriber List</h2>
-    <div class="table-wrap" id="tableWrap"></div>
-  </div>
-
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwV5xYmsnPSgvw_wo3htm_oPvcCQiShw9tEWr80S8VZOuy6RBoD8fwZrXtycN6maACHfw/exec';
 const SECRET = 'DRewgreer24@$$';
 
-let emailList = [];
 let allRows = [];
 
 const SUBJECT = 'Formosan Termite Swarm Alert \u2014 Kill Your Porch Lights Tonight';
-const BODY = `Swarm conditions are active in Southeast Texas tonight.
+const BODY = 'Swarm conditions are active in Southeast Texas tonight.\n\nWarm, humid air and dropping pressure mean Formosan subterranean termites are likely swarming at dusk. They\u2019re drawn to any exterior light \u2014 porch lights, garage lights, landscape fixtures, even interior lights visible through windows.\n\nWhat to do right now:\n\u2022 Turn off all exterior lights by sundown.\n\u2022 Close blinds and curtains near lit rooms.\n\u2022 If you have yellow/amber \u201Cbug bulbs,\u201D switch to those for any lights you can\u2019t turn off.\n\u2022 Check around doors and window frames tomorrow morning for dropped wings \u2014 that\u2019s the sign they landed and are looking to start a colony.\n\nWhy it matters:\nA swarm at your light means a colony is already established within ~300 feet of your home. These termites attack both structures and living trees from the inside out \u2014 you often can\u2019t see the damage until it\u2019s too late.\n\nIf you find dropped wings or suspect activity in your trees, reach out and we\u2019ll take a look.\n\n\u2014 Dex, South East Stump Jumpers';
 
-Warm, humid air and dropping pressure mean Formosan subterranean termites are likely swarming at dusk. They\u2019re drawn to any exterior light \u2014 porch lights, garage lights, landscape fixtures, even interior lights visible through windows.
+function getCheckedEmails() {
+  const checks = document.querySelectorAll('.sub-check');
+  const emails = [];
+  checks.forEach(cb => { if (cb.checked) emails.push(cb.value); });
+  return emails;
+}
 
-What to do right now:
-\u2022 Turn off all exterior lights by sundown.
-\u2022 Close blinds and curtains near lit rooms.
-\u2022 If you have yellow/amber "bug bulbs," switch to those for any lights you can\u2019t turn off.
-\u2022 Check around doors and window frames tomorrow morning for dropped wings \u2014 that\u2019s the sign they landed and are looking to start a colony.
+function updateSelectedCount() {
+  const emails = getCheckedEmails();
+  const total = document.querySelectorAll('.sub-check').length;
+  const el = document.getElementById('selectedCount');
+  el.textContent = emails.length + ' of ' + total + ' selected';
+  document.getElementById('sendBtn').disabled = emails.length === 0;
+  // Visual dim for unchecked rows
+  document.querySelectorAll('.sub-check').forEach(cb => {
+    cb.closest('tr').classList.toggle('unchecked', !cb.checked);
+  });
+}
 
-Why it matters:
-A swarm at your light means a colony is already established within ~300 feet of your home. These termites attack both structures and living trees from the inside out \u2014 you often can\u2019t see the damage until it\u2019s too late.
+function selectAll() {
+  document.querySelectorAll('.sub-check').forEach(cb => cb.checked = true);
+  updateSelectedCount();
+}
 
-If you find dropped wings or suspect activity in your trees, reach out and we\u2019ll take a look.
-
-\u2014 Dex, South East Stump Jumpers`;
+function unselectAll() {
+  document.querySelectorAll('.sub-check').forEach(cb => cb.checked = false);
+  updateSelectedCount();
+}
 
 async function fetchData() {
   const status = document.getElementById('status');
@@ -140,49 +157,51 @@ async function fetchData() {
     const res = await fetch(url);
     const data = await res.json();
     if (data.error) { status.textContent = 'Error: ' + data.error; return; }
-    emailList = data.emails || [];
     allRows = data.rows || [];
-    if (emailList.length === 0) { status.textContent = 'No subscribers yet.'; return; }
-    document.getElementById('count').textContent = emailList.length;
+    const emails = (data.emails || []);
+    if (emails.length === 0) { status.textContent = 'No subscribers yet.'; return; }
+    document.getElementById('count').textContent = emails.length;
     document.getElementById('step1').classList.add('hidden');
     document.getElementById('step2').classList.add('show');
     buildTable();
+    updateSelectedCount();
   } catch (err) {
     status.textContent = 'Fetch failed: ' + err.message;
   }
 }
 
 function buildTable() {
-  let html = '<table><thead><tr><th>Date</th><th>Email</th><th>Name</th><th>Area</th><th>Alerts</th></tr></thead><tbody>';
+  let html = '<table><thead><tr><th style="width:2.2rem;"><input type="checkbox" checked onchange="this.checked?selectAll():unselectAll()" title="Toggle all"></th><th>Date</th><th>Email</th><th>Name</th><th>Area</th><th>Prefs</th></tr></thead><tbody>';
   for (const r of allRows) {
+    const email = (r[1] || '').toString().trim();
+    if (!email || !email.includes('@')) continue;
     const date = r[0] ? new Date(r[0]).toLocaleDateString() : '';
-    const email = r[1] || '';
     const name = r[2] || '\u2014';
     const area = r[3] || '\u2014';
-    const alerts = (r[4] || '').split(',').map(a => a.trim()).filter(Boolean).map(a => '<span class="chip">' + a + '</span>').join(' ');
-    html += '<tr><td>' + date + '</td><td>' + email + '</td><td>' + name + '</td><td>' + area + '</td><td>' + alerts + '</td></tr>';
+    const alerts = (r[4] || '').toString().split(',').map(a => a.trim()).filter(Boolean).map(a => '<span class="chip">' + a + '</span>').join(' ') || '\u2014';
+    html += '<tr><td><input type="checkbox" class="sub-check" value="' + email + '" checked onchange="updateSelectedCount()"></td><td>' + date + '</td><td>' + email + '</td><td>' + name + '</td><td>' + area + '</td><td>' + alerts + '</td></tr>';
   }
   html += '</tbody></table>';
   document.getElementById('tableWrap').innerHTML = html;
 }
 
-function toggleTable() {
-  document.getElementById('tableBox').classList.toggle('hidden');
-}
-
 function sendAlert() {
+  const emails = getCheckedEmails();
+  if (emails.length === 0) return;
   document.getElementById('step2').classList.remove('show');
   document.getElementById('confirmSend').classList.remove('hidden');
+  document.getElementById('confirmMsg').textContent = 'Sending to ' + emails.length + ' subscriber' + (emails.length !== 1 ? 's' : '') + '. Confirm?';
   document.getElementById('preview').textContent = BODY;
 }
 
 function doSend() {
   const btn = document.getElementById('confirmBtn');
+  const emails = getCheckedEmails();
   btn.disabled = true; btn.textContent = 'Sending...';
   fetch(SCRIPT_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: 'secret=' + encodeURIComponent(SECRET) + '&send=1'
+    body: 'secret=' + encodeURIComponent(SECRET) + '&send=1&emails=' + encodeURIComponent(emails.join(','))
   })
   .then(r => r.json())
   .then(data => {
@@ -207,7 +226,6 @@ function cancel() {
   document.getElementById('step2').classList.remove('show');
   document.getElementById('confirmSend').classList.add('hidden');
   document.getElementById('sentBox').classList.add('hidden');
-  document.getElementById('tableBox').classList.add('hidden');
   document.getElementById('status').textContent = 'Reset. Tap again when ready.';
 }
 </script>
