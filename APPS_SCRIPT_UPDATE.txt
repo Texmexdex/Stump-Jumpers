@@ -6,7 +6,7 @@
 // ============================================================
 
 const SHEET_ID = '1N6xh4aaEVkcsvcV_RU_phEgJCacm2wHZ1VIqzyCqYPk';
-const SECRET = 'DRewgreer24@$$';
+const SECRET = 'DRewgreer24xSwarm';
 
 const ALERT_SUBJECT = 'Formosan Termite Swarm Alert \u2014 Kill Your Porch Lights Tonight';
 const ALERT_BODY =
