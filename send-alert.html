@@ -206,14 +206,19 @@ function doSend() {
   const btn = document.getElementById('confirmBtn');
   const emails = getCheckedEmails();
   btn.disabled = true; btn.textContent = 'Sending...';
-  // Use GET with parameters (POST body gets lost on Google Apps Script redirects)
+  // Pass row indices (1-based, after header) instead of email addresses to avoid encoding issues
+  const allChecks = document.querySelectorAll('.sub-check');
+  const indices = [];
+  allChecks.forEach((cb, i) => { if (cb.checked) indices.push(i); });
   const url = SCRIPT_URL
     + '?secret=' + encodeURIComponent(SECRET)
     + '&send=1'
-    + '&emails=' + encodeURIComponent(emails.join(','));
+    + '&rows=' + indices.join(',');
   fetch(url, { redirect: 'follow' })
-  .then(r => r.json())
-  .then(data => {
+  .then(r => r.text())
+  .then(text => {
+    let data;
+    try { data = JSON.parse(text); } catch(e) { throw new Error('Bad response: ' + text.substring(0,100)); }
     if (data.result === 'sent') {
       document.getElementById('confirmSend').classList.add('hidden');
       document.getElementById('sentBox').classList.remove('hidden');
